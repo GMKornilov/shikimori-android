@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.domain.models
+package com.gmkornilov.shikimori.domain.models.common
 
 enum class AnimeStatus {
     ANONS,

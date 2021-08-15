@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.domain.models
+package com.gmkornilov.shikimori.domain.models.common
 
 data class Video(
     val id: Long,
