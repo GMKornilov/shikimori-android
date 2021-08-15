@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Shikimori</string>
+    <string name="now_on_screens">Now on screens</string>
+    <string name="most_popular">Most popular</string>
+    <string name="most_rated">Most rated</string>
+    <string name="anime_thumbnail">Anime thumbnail</string>
+</resources>
