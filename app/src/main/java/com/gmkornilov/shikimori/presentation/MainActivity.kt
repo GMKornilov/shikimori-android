@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
-import com.github.terrakok.cicerone.BackTo
-import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Replace
-import com.github.terrakok.cicerone.Router
+import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.presentation.navigation.Screens
@@ -52,6 +49,10 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         navigatorHolder.removeNavigator()
+    }
+
+    override fun onBackPressed() {
+        navigator.applyCommands(arrayOf(Back()))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

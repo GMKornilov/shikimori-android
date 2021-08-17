@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
@@ -64,6 +65,23 @@ class MainPageFragment : Fragment() {
         observeAnnouncements()
         observeMostPopular()
         observeMostRated()
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.loadAll()
+            val observer = object : Observer<Boolean> {
+                override fun onChanged(t: Boolean) {
+                    if (t) {
+                        return
+                    }
+                    binding.swipeRefresh.isRefreshing = false
+                    viewModel.announcementsLoading.removeObserver(this)
+                    viewModel.nowOnScreensLoading.removeObserver(this)
+                    viewModel.mostPopularLoading.removeObserver(this)
+                    viewModel.mostRatedLoading.removeObserver(this)
+                }
+            }
+            viewModel.mostRatedLoading.observe(viewLifecycleOwner, observer)
+        }
 
         return binding.root
     }

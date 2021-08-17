@@ -114,6 +114,13 @@ class MainPageViewModel @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
+    fun loadAll() {
+        loadNowOnScreens()
+        loadAnnouncements()
+        loadMostPopular()
+        loadMostRated()
+    }
+
     private fun loadNowOnScreens() {
         val disposable = nowOnScreensUseCase.buildSingle(Unit)
             .subscribeOn(schedulersProvider.background())
@@ -199,10 +206,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     init {
-        loadNowOnScreens()
-        loadAnnouncements()
-        loadMostPopular()
-        loadMostRated()
+        loadAll()
     }
 
     override fun onCleared() {
