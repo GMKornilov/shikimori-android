@@ -13,7 +13,7 @@ class AnimePreviewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimePreviewViewHolder {
         val binding =
-            LayoutInflater.from(parent.context).inflate(R.layout.anime_preview_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.anime_small_preview_layout, parent, false)
         return AnimePreviewViewHolder(binding)
     }
 

@@ -79,7 +79,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/anime_preview_layout" />
+                    tools:listitem="@layout/anime_small_preview_layout" />
 
             </FrameLayout>
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/anime_preview_layout" />
+                    tools:listitem="@layout/anime_small_preview_layout" />
             </FrameLayout>
 
             <Button
@@ -222,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/anime_preview_layout" />
+                    tools:listitem="@layout/anime_small_preview_layout" />
             </FrameLayout>
 
             <Button
@@ -293,7 +293,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/anime_preview_layout" />
+                    tools:listitem="@layout/anime_small_preview_layout" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
