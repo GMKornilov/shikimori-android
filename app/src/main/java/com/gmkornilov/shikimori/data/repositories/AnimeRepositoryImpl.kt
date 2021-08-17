@@ -30,7 +30,7 @@ class AnimeRepositoryImpl @Inject constructor(
             filter.ids?.joinToString(",") { it.toString() },
             filter.excludeIds?.joinToString(",") { it.toString() },
             filter.searchString,
-        )
+        ).execute()
 
         if (response.isSuccessful) {
             val body = response.body()

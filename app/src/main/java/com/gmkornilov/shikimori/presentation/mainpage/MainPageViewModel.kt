@@ -9,6 +9,7 @@ import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Named
 

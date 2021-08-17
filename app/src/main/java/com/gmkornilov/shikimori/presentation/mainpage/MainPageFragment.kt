@@ -55,6 +55,11 @@ class MainPageFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
 
+        binding.nowOnScreensList.adapter = nowOnScreensAdapter
+        binding.anonsList.adapter = announcementsAdapter
+        binding.mostPopularList.adapter = mostPopularAdapter
+        binding.mostRatedList.adapter = mostRatedAdapter
+
         observeNowOnScreens()
         observeAnnouncements()
         observeMostPopular()
@@ -157,5 +162,11 @@ class MainPageFragment : Fragment() {
 
     private fun mapVisibility(isVisible: Boolean): Int {
         return if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        fun newInstance(): Fragment {
+            return MainPageFragment()
+        }
     }
 }

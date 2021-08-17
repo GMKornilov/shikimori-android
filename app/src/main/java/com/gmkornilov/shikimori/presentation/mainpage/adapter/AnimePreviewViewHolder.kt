@@ -24,7 +24,6 @@ class AnimePreviewViewHolder(private val binding: AnimePreviewLayoutBinding) :
 
     fun bind(animePreview: AnimePreview, animePreviewClicked: AnimePreviewClicked) {
         binding.animeName.text = animePreview.title
-        binding.studioName.text = animePreview.studio
 
         Glide.with(binding.root)
             .load(animePreview.thumbnailUrl)

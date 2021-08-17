@@ -7,5 +7,9 @@ enum class AnimeRating {
     PG_13,
     R,
     R_PLUS,
-    RX // RxJava, KEKW
+    RX; // RxJava, KEKW
+
+    override fun toString(): String {
+        return super.toString().lowercase()
+    }
 }
