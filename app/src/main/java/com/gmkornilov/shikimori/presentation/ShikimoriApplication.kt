@@ -1,6 +1,7 @@
 package com.gmkornilov.shikimori.presentation
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class ShikimoriApplication : Application() {
-}
+@HiltAndroidApp
+class ShikimoriApplication : Application()

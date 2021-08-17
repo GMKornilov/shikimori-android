@@ -5,13 +5,14 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
-import com.gmkornilov.shikimori.domain.interactors.mainpage.AnnouncementsAnimesUseCase
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 import javax.inject.Named
 
+@HiltViewModel
 class MainPageViewModel @Inject constructor(
     @Named("now on screens")
     private val nowOnScreensUseCase: SingleUseCase<Unit, List<AnimePreview>>,
@@ -155,7 +156,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     private fun loadMostPopular() {
-        val disposable = nowOnScreensUseCase.buildSingle(Unit)
+        val disposable = mostPopularUseCase.buildSingle(Unit)
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
@@ -176,7 +177,7 @@ class MainPageViewModel @Inject constructor(
     }
 
     private fun loadMostRated() {
-        val disposable = nowOnScreensUseCase.buildSingle(Unit)
+        val disposable = mostRatedUseCase.buildSingle(Unit)
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {

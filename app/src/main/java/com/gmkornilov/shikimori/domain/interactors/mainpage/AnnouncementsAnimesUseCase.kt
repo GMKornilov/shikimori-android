@@ -1,21 +1,28 @@
 package com.gmkornilov.shikimori.domain.interactors.mainpage
 
 import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
+import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
+import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
+import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 import com.gmkornilov.shikimori.domain.models.mapper.TypeDataMapper
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import io.reactivex.rxjava3.core.Single
-import kotlin.jvm.JvmSuppressWildcards
 import javax.inject.Inject
 
 class AnnouncementsAnimesUseCase @Inject constructor(
     private val animeRepository: AnimeRepository,
     private val animePreviewDataMapper: TypeDataMapper<AnimeInfo, AnimePreview>,
-) : SingleUseCase<@JvmSuppressWildcards Unit, List<AnimePreview>> {
+) : SingleUseCase<Unit, List<@JvmSuppressWildcards AnimePreview>> {
     override fun buildSingle(params: Unit): Single<List<AnimePreview>> {
         return Single.fromCallable {
-            val announcements = animeRepository.announcementsAnimes()
+            val filter = AnimeFilter.Builder()
+                .status(AnimeStatus.ANONS)
+                .order(AnimeOrder.POPULARITY)
+                .limit(10)
+                .build()
+            val announcements = animeRepository.animesByFilter(filter)
             animePreviewDataMapper.mapList(announcements)
         }
     }

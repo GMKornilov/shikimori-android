@@ -10,7 +10,9 @@ import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewClicked
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainPageFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
     private lateinit var viewModel: MainPageViewModel
