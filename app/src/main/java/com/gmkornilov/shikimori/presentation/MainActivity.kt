@@ -16,7 +16,11 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-    private val navigator = AppNavigator(this, R.id.mainContainer)
+    private val navigator = object : AppNavigator(this, R.id.mainContainer) {
+        fun hasScreens(): Boolean {
+            return fragmentManager.backStackEntryCount > 1
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,5 +39,9 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         navigatorHolder.removeNavigator()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navigator.hasScreens()
     }
 }

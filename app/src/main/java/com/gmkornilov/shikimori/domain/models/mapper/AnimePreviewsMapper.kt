@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class AnimePreviewsMapper @Inject constructor() : TypeDataMapper<AnimeInfo, AnimePreview> {
     override fun map(from: AnimeInfo): AnimePreview {
-        return AnimePreview(from.id, BuildConfig.BASE_URL + from.imageInfo.urlOriginal, from.name)
+        return AnimePreview(from.id, BuildConfig.BASE_URL + from.imageInfo.urlPreview, from.name)
     }
 }
