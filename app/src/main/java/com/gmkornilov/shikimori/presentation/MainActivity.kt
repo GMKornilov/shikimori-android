@@ -29,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             navigator.applyCommands(arrayOf(BackTo(null), Replace(Screens.MainScreen())))
         }
+
+        supportActionBar?.apply {
+            setDisplayShowHomeEnabled(true)
+            setDisplayShowTitleEnabled(false)
+            setLogo(R.drawable.ic_title)
+            setDisplayUseLogoEnabled(true)
+        }
     }
 
     override fun onStart() {
