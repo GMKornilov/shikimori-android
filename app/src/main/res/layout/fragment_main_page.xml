@@ -23,63 +23,66 @@
                 android:drawableEnd="@drawable/ic_arrow_forward"
                 android:text="@string/now_on_screens"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toTopOf="@id/nowOnScreensShimmer"
+                app:layout_constraintBottom_toTopOf="@id/nowOnScreensContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/nowOnScreensShimmer"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/nowOnScreensContent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/anonsButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nowOnScreensButton">
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/nowOnScreensShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/nowOnScreensList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/nowOnScreensList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/nowOnScreensShimmer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/nowOnScreensShimmer"
-                tools:listitem="@layout/anime_preview_layout" />
+            </FrameLayout>
 
             <Button
                 android:id="@+id/anonsButton"
@@ -93,63 +96,64 @@
                 android:drawableEnd="@drawable/ic_arrow_forward"
                 android:text="@string/announcements"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toTopOf="@id/anonsShimmer"
+                app:layout_constraintBottom_toTopOf="@id/anonsContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nowOnScreensShimmer" />
+                app:layout_constraintTop_toBottomOf="@id/nowOnScreensContent" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/anonsShimmer"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/anonsContent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/anonsButton">
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/anonsShimmer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/anonsList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/anonsShimmer"
-                app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/anonsShimmer"
-                tools:listitem="@layout/anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/anonsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/anime_preview_layout" />
+            </FrameLayout>
 
             <Button
                 android:id="@+id/mostPopularButton"
@@ -163,63 +167,64 @@
                 android:drawableEnd="@drawable/ic_arrow_forward"
                 android:text="@string/most_popular"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toTopOf="@id/mostPopularShimmer"
+                app:layout_constraintBottom_toTopOf="@id/mostPopularContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/anonsShimmer" />
+                app:layout_constraintTop_toBottomOf="@id/anonsContent" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/mostPopularShimmer"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/mostPopularContent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mostPopularButton">
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/mostPopularShimmer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostPopularList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/mostPopularShimmer"
-                app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/mostPopularShimmer"
-                tools:listitem="@layout/anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mostPopularList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/anime_preview_layout" />
+            </FrameLayout>
 
             <Button
                 android:id="@+id/mostRatedButton"
@@ -233,62 +238,64 @@
                 android:drawableEnd="@drawable/ic_arrow_forward"
                 android:text="@string/most_rated"
                 android:textAlignment="textStart"
-                app:layout_constraintBottom_toTopOf="@id/mostRatedShimmer"
+                app:layout_constraintBottom_toTopOf="@id/mostRatedContent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mostPopularShimmer" />
+                app:layout_constraintTop_toBottomOf="@id/mostPopularContent" />
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/mostRatedShimmer"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/mostRatedContent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mostRatedButton">
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/mostRatedShimmer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-                    <include layout="@layout/shimmer_anime_preview_layout" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                        <include layout="@layout/shimmer_anime_preview_layout" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mostRatedList"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@id/mostRatedShimmer"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/mostRatedShimmer"
-                tools:listitem="@layout/anime_preview_layout" />
+                        <include layout="@layout/shimmer_anime_preview_layout" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mostRatedList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/anime_preview_layout" />
+            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

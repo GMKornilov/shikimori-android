@@ -3,7 +3,7 @@ package com.gmkornilov.shikimori.presentation.mainpage.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gmkornilov.shikimori.databinding.AnimePreviewLayoutBinding
+import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 
 class AnimePreviewAdapter(
@@ -13,7 +13,7 @@ class AnimePreviewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimePreviewViewHolder {
         val binding =
-            AnimePreviewLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.anime_preview_layout, parent, false)
         return AnimePreviewViewHolder(binding)
     }
 

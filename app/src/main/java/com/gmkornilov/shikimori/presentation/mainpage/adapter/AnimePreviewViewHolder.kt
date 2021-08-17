@@ -1,14 +1,17 @@
 package com.gmkornilov.shikimori.presentation.mainpage.adapter
 
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.gmkornilov.shikimori.databinding.AnimePreviewLayoutBinding
+import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 
-class AnimePreviewViewHolder(private val binding: AnimePreviewLayoutBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+class AnimePreviewViewHolder(private val view: View) :
+    RecyclerView.ViewHolder(view) {
 
     private val shimmer = Shimmer.AlphaHighlightBuilder()
         .setDuration(DURATION)
@@ -22,16 +25,19 @@ class AnimePreviewViewHolder(private val binding: AnimePreviewLayoutBinding) :
         setShimmer(shimmer)
     }
 
-    fun bind(animePreview: AnimePreview, animePreviewClicked: AnimePreviewClicked) {
-        binding.animeName.text = animePreview.title
+    private val animeName: TextView = view.findViewById(R.id.animeName)
+    private val animePreviewImage: ImageView = view.findViewById(R.id.animePreviewImage)
 
-        Glide.with(binding.root)
+    fun bind(animePreview: AnimePreview, animePreviewClicked: AnimePreviewClicked) {
+        animeName.text = animePreview.title
+
+        Glide.with(animePreviewImage)
             .load(animePreview.thumbnailUrl)
             .placeholder(shimmerDrawable)
             .fitCenter()
-            .into(binding.animePreviewImage)
+            .into(animePreviewImage)
 
-        binding.root.setOnClickListener {
+        view.setOnClickListener {
             animePreviewClicked.onClicked(animePreview)
         }
     }
