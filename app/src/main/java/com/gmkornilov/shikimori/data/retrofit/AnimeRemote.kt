@@ -1,7 +1,7 @@
 package com.gmkornilov.shikimori.data.retrofit
 
 import com.gmkornilov.shikimori.domain.models.common.*
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

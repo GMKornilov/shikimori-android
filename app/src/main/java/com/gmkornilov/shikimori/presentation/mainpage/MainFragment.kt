@@ -8,15 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewClicked
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainPageFragment : Fragment() {
+class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
-    private lateinit var viewModel: MainPageViewModel
+    private lateinit var viewModel: MainViewModel
 
     private val nowOnScreensPreviewClicked = object : AnimePreviewClicked {
         override fun onClicked(animePreview: AnimePreview) {
@@ -54,7 +54,7 @@ class MainPageFragment : Fragment() {
     ): View {
         binding = FragmentMainPageBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(MainPageViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         binding.nowOnScreensList.adapter = nowOnScreensAdapter
         binding.anonsList.adapter = announcementsAdapter
@@ -184,7 +184,7 @@ class MainPageFragment : Fragment() {
 
     companion object {
         fun newInstance(): Fragment {
-            return MainPageFragment()
+            return MainFragment()
         }
     }
 }

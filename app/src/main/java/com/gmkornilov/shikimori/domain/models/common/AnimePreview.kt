@@ -1,8 +1,5 @@
-package com.gmkornilov.shikimori.domain.models.mainpage
+package com.gmkornilov.shikimori.domain.models.common
 
-import com.gmkornilov.shikimori.domain.models.common.AnimeKind
-import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
-import com.gmkornilov.shikimori.domain.models.common.ImageInfo
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

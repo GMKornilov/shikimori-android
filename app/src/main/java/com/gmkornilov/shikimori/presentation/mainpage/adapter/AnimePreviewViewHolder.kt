@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 
 class AnimePreviewViewHolder(private val view: View) :
     RecyclerView.ViewHolder(view) {

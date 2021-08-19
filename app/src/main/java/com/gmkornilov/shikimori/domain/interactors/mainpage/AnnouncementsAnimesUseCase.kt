@@ -4,7 +4,7 @@ import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject

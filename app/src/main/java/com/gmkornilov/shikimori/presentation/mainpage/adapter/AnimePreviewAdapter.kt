@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 
 class AnimePreviewAdapter(
     private val animePreviewClicked: AnimePreviewClicked,

@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
-class MainPageViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     @Named("now on screens")
     private val nowOnScreensUseCase: SingleUseCase<Unit, List<AnimePreview>>,
     @Named("announcements")

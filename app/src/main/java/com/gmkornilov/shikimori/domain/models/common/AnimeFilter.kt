@@ -1,6 +1,7 @@
 package com.gmkornilov.shikimori.domain.models.common
 
 import kotlinx.serialization.Serializable
+import java.io.Serializable as SerializableInterface
 
 @Serializable
 data class AnimeFilter(
@@ -21,7 +22,7 @@ data class AnimeFilter(
     val ids: List<Long>?,
     val excludeIds: List<Long>?,
     val searchString: String?,
-) {
+) : SerializableInterface {
     class Builder() {
         private var page: Int? = null
         private var limit: Int? = null

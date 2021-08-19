@@ -6,13 +6,13 @@
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
     app:cardCornerRadius="@dimen/normal_margin"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:viewBindingIgnore="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_margin="@dimen/small_margin"
-        android:layout_height="match_parent"
-        tools:viewBindingIgnore="true">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/animePreviewImage"

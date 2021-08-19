@@ -7,7 +7,7 @@ import com.gmkornilov.shikimori.domain.error.NotFoundException
 import com.gmkornilov.shikimori.domain.error.ServerException
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.ImageInfo
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import javax.inject.Inject
 

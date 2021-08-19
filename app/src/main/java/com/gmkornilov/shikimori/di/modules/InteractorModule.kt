@@ -5,7 +5,7 @@ import com.gmkornilov.shikimori.domain.interactors.mainpage.AnnouncementsAnimesU
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MostPopularAnimesUseCase
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MostRatedAnimesUseCase
 import com.gmkornilov.shikimori.domain.interactors.mainpage.NowOnScreenAnimesUseCase
-import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
