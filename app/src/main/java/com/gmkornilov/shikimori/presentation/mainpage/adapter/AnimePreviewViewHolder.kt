@@ -29,10 +29,10 @@ class AnimePreviewViewHolder(private val view: View) :
     private val animePreviewImage: ImageView = view.findViewById(R.id.animePreviewImage)
 
     fun bind(animePreview: AnimePreview, animePreviewClicked: AnimePreviewClicked) {
-        animeName.text = animePreview.title
+        animeName.text = animePreview.name
 
         Glide.with(animePreviewImage)
-            .load(animePreview.thumbnailUrl)
+            .load(animePreview.imageInfo.urlPreview)
             .placeholder(shimmerDrawable)
             .fitCenter()
             .into(animePreviewImage)

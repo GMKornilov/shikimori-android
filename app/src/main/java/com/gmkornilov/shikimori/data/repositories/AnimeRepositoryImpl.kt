@@ -1,18 +1,20 @@
 package com.gmkornilov.shikimori.data.repositories
 
+import com.gmkornilov.shikimori.BuildConfig
 import com.gmkornilov.shikimori.data.retrofit.AnimeRemote
 import com.gmkornilov.shikimori.domain.error.BadRequestException
 import com.gmkornilov.shikimori.domain.error.NotFoundException
 import com.gmkornilov.shikimori.domain.error.ServerException
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
+import com.gmkornilov.shikimori.domain.models.common.ImageInfo
+import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import javax.inject.Inject
 
 class AnimeRepositoryImpl @Inject constructor(
     private val animeRemote: AnimeRemote,
 ) : AnimeRepository {
-    override fun animesByFilter(filter: AnimeFilter): List<AnimeInfo> {
+    override fun animesByFilter(filter: AnimeFilter): List<AnimePreview> {
         val response = animeRemote.getAnimes(
             filter.page,
             filter.limit,
@@ -35,7 +37,9 @@ class AnimeRepositoryImpl @Inject constructor(
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {
-                return body
+                return body.map {
+                    mapAnimePreview(it)
+                }
             } else {
                 throw Exception()
             }
@@ -43,10 +47,32 @@ class AnimeRepositoryImpl @Inject constructor(
         throw when (response.code()) {
             UNPROCESSABLE_ENTITY -> BadRequestException()
             NOT_FOUND -> NotFoundException()
-            in SERVER_ERROR..SERVER_ERROR+100 -> ServerException()
+            in SERVER_ERROR..SERVER_ERROR + 100 -> ServerException()
             else -> Exception()
         }
 
+    }
+
+    private fun mapAnimePreview(animePreview: AnimePreview): AnimePreview {
+        return AnimePreview(
+            animePreview.id,
+            animePreview.name,
+            animePreview.russianName,
+            ImageInfo(
+                BuildConfig.BASE_URL + animePreview.imageInfo.urlOriginal,
+                BuildConfig.BASE_URL + animePreview.imageInfo.urlPreview,
+                BuildConfig.BASE_URL + animePreview.imageInfo.urlX48,
+                BuildConfig.BASE_URL + animePreview.imageInfo.urlX96,
+            ),
+            animePreview.url,
+            animePreview.kind,
+            animePreview.score,
+            animePreview.status,
+            animePreview.episodes,
+            animePreview.episodesAired,
+            animePreview.airedOn,
+            animePreview.releasedOn
+        )
     }
 
     companion object {

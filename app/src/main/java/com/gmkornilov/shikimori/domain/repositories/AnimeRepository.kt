@@ -1,8 +1,8 @@
 package com.gmkornilov.shikimori.domain.repositories
 
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
+import com.gmkornilov.shikimori.domain.models.mainpage.AnimePreview
 
 interface AnimeRepository {
-    fun animesByFilter(filter: AnimeFilter): List<AnimeInfo>
+    fun animesByFilter(filter: AnimeFilter): List<AnimePreview>
 }
