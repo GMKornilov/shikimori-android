@@ -10,7 +10,10 @@ import com.facebook.shimmer.ShimmerDrawable
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 
-class AnimePreviewViewHolder(private val view: View) :
+class AnimePreviewViewHolder(
+    private val view: View,
+    private val animePreviewClicked: AnimePreviewClicked
+) :
     RecyclerView.ViewHolder(view) {
 
     private val shimmer = Shimmer.AlphaHighlightBuilder()
@@ -28,7 +31,7 @@ class AnimePreviewViewHolder(private val view: View) :
     private val animeName: TextView = view.findViewById(R.id.animeName)
     private val animePreviewImage: ImageView = view.findViewById(R.id.animePreviewImage)
 
-    fun bind(animePreview: AnimePreview, animePreviewClicked: AnimePreviewClicked) {
+    fun bind(animePreview: AnimePreview) {
         animeName.text = animePreview.name
 
         Glide.with(animePreviewImage)

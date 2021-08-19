@@ -4,5 +4,5 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 
 interface AnimeRepository {
-    fun animesByFilter(filter: AnimeFilter): List<AnimePreview>
+    fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): List<AnimePreview>
 }

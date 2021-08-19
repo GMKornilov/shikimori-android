@@ -14,7 +14,7 @@ import javax.inject.Inject
 class AnimeRepositoryImpl @Inject constructor(
     private val animeRemote: AnimeRemote,
 ) : AnimeRepository {
-    override fun animesByFilter(filter: AnimeFilter): List<AnimePreview> {
+    override fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean): List<AnimePreview> {
         val response = animeRemote.getAnimes(
             filter.page,
             filter.limit,

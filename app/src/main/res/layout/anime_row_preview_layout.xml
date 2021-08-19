@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:id="@+id/thumbnailImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginBottom="@dimen/normal_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/steins"
+        app:layout_constraintDimensionRatio="3:4"
+        android:contentDescription="@string/anime_thumbnail" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/thumbnailImage"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        tools:text="Steins;gate 0"/>
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toEndOf="@id/thumbnailImage"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:rating="4.5"
+        android:numStars="5"/>
+
+    <TextView
+        android:id="@+id/kindText"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/thumbnailImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="TV series"/>
+
+    <TextView
+        android:id="@+id/animeStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        app:layout_constraintEnd_toStartOf="@id/releaseYearText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Released"/>
+
+    <TextView
+        android:id="@+id/releaseYearText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/normal_margin"
+        tools:text="2018"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
