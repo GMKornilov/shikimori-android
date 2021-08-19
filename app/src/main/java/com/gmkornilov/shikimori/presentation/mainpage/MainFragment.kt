@@ -87,6 +87,10 @@ class MainFragment : Fragment() {
     }
 
     private fun observeNowOnScreens() {
+        binding.nowOnScreensButton.setOnClickListener {
+            viewModel.nowOnScreensClicked()
+        }
+
         viewModel.nowOnScreensLoading.observe(viewLifecycleOwner, {
             binding.nowOnScreensShimmer.visibility = mapVisibility(it)
             if (it) {
@@ -110,6 +114,10 @@ class MainFragment : Fragment() {
     }
 
     private fun observeAnnouncements() {
+        binding.anonsButton.setOnClickListener {
+            viewModel.announcementsClicked()
+        }
+
         viewModel.announcementsLoading.observe(viewLifecycleOwner, {
             binding.anonsShimmer.visibility = mapVisibility(it)
             if (it) {
@@ -133,6 +141,10 @@ class MainFragment : Fragment() {
     }
 
     private fun observeMostPopular() {
+        binding.mostPopularButton.setOnClickListener {
+            viewModel.mostPopularClicked()
+        }
+
         viewModel.mostPopularLoading.observe(viewLifecycleOwner, {
             binding.mostPopularShimmer.visibility = mapVisibility(it)
             if (it) {
@@ -156,6 +168,10 @@ class MainFragment : Fragment() {
     }
 
     private fun observeMostRated() {
+        binding.mostRatedButton.setOnClickListener {
+            viewModel.mostRatedClicked()
+        }
+
         viewModel.mostRatedLoading.observe(viewLifecycleOwner, {
             binding.mostRatedShimmer.visibility = mapVisibility(it)
             if (it) {

@@ -53,7 +53,8 @@ class AnimeRowViewHolder(
         kindText.text = animePreview.kind.toString()
         animeStatusText.text = animePreview.status.toString()
 
-        releaseYearText.text = animePreview.airedOn.year.toString()
+        releaseYearText.text = animePreview.airedOn?.year.toString()
+            ?: releaseYearText.context.getString(R.string.unknown)
 
         view.setOnClickListener {
             animePreviewClicked.animePreviewClicked(animePreview)

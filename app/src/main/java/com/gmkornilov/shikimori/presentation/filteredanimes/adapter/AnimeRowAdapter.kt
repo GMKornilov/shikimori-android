@@ -14,7 +14,7 @@ class AnimeRowAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeRowViewHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.anime_small_preview_layout, parent, false)
+                .inflate(R.layout.anime_row_preview_layout, parent, false)
         return AnimeRowViewHolder(view, animePreviewClicked)
     }
 

@@ -6,10 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
+import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
+import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
+import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -24,6 +29,7 @@ class MainViewModel @Inject constructor(
     @Named("most rated")
     private val mostRatedUseCase: SingleUseCase<Unit, List<AnimePreview>>,
     private val schedulersProvider: SchedulersProvider,
+    private val router: Router,
 ) : ViewModel() {
     private val _nowOnScreensLoading = MutableLiveData<Boolean>()
     val nowOnScreensLoading: LiveData<Boolean> = _nowOnScreensLoading
@@ -203,6 +209,45 @@ class MainViewModel @Inject constructor(
                 }
             }
         compositeDisposable.add(disposable)
+    }
+
+    fun nowOnScreensClicked() {
+        val filter = AnimeFilter.Builder()
+            .status(AnimeStatus.ONGOING)
+            .order(AnimeOrder.POPULARITY)
+            .season(Calendar.getInstance().get(Calendar.YEAR).toString())
+            .limit(20)
+            .build()
+
+        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+    }
+
+    fun announcementsClicked() {
+        val filter = AnimeFilter.Builder()
+            .status(AnimeStatus.ANONS)
+            .order(AnimeOrder.POPULARITY)
+            .limit(20)
+            .build()
+
+        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+    }
+
+    fun mostPopularClicked() {
+        val filter = AnimeFilter.Builder()
+            .order(AnimeOrder.POPULARITY)
+            .limit(20)
+            .build()
+
+        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+    }
+
+    fun mostRatedClicked() {
+        val filter = AnimeFilter.Builder()
+            .order(AnimeOrder.RANKED)
+            .limit(20)
+            .build()
+
+        router.navigateTo(Screens.FilteredAnimesScreen(filter))
     }
 
     init {

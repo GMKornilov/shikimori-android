@@ -1,6 +1,8 @@
 package com.gmkornilov.shikimori.di.modules
 
 import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
+import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
+import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractorImpl
 import com.gmkornilov.shikimori.domain.interactors.mainpage.AnnouncementsAnimesUseCase
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MostPopularAnimesUseCase
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MostRatedAnimesUseCase
@@ -31,4 +33,6 @@ interface InteractorModule {
     @Binds
     fun bindMostRatedUseCase(mostRatedAnimesUseCase: MostRatedAnimesUseCase): SingleUseCase<Unit, List<AnimePreview>>
 
+    @Binds
+    fun bindFilteredAnimesInteractor(filteredAnimesInteractorImpl: FilteredAnimesInteractorImpl): FilteredAnimesInteractor
 }

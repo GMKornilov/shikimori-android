@@ -16,6 +16,6 @@ data class AnimePreview(
     val status: AnimeStatus,
     val episodes: Int = 0,
     @SerialName("episodes_aired") val episodesAired: Int = 0,
-    @SerialName("aired_on") val airedOn: LocalDate,
+    @SerialName("aired_on") val airedOn: LocalDate? = null,
     @SerialName("released_on") val releasedOn: LocalDate? = null,
 )
