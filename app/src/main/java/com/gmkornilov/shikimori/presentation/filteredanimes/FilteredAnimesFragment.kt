@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
-import com.gmkornilov.shikimori.presentation.filteredanimes.adapter.AnimePreviewClicked
-import com.gmkornilov.shikimori.presentation.filteredanimes.adapter.AnimeRowAdapter
+import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,15 +33,12 @@ class FilteredAnimesFragment : Fragment() {
     }
 
     private fun bindList() {
-        val adapter = AnimeRowAdapter(viewModel)
+        val adapter = AnimePreviewAdapter(viewModel)
 
         binding.previewList.adapter = adapter
 
-        val itemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        binding.previewList.addItemDecoration(itemDecoration)
-
         viewModel.previews.observe(viewLifecycleOwner, {
-            adapter.setData(it)
+            adapter.submitList(it)
         })
     }
 

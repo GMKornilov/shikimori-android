@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
-import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewAdapter
-import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewClicked
+import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -87,7 +84,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.nowOnScreens.observe(viewLifecycleOwner, {
-            nowOnScreensAdapter.setData(it)
+            nowOnScreensAdapter.submitList(it)
         })
     }
 
@@ -114,7 +111,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.announcements.observe(viewLifecycleOwner, {
-            announcementsAdapter.setData(it)
+            announcementsAdapter.submitList(it)
         })
     }
 
@@ -141,7 +138,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.mostPopular.observe(viewLifecycleOwner, {
-            mostPopularAdapter.setData(it)
+            mostPopularAdapter.submitList(it)
         })
     }
 
@@ -168,7 +165,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.mostRated.observe(viewLifecycleOwner, {
-            mostRatedAdapter.setData(it)
+            mostRatedAdapter.submitList(it)
         })
     }
 

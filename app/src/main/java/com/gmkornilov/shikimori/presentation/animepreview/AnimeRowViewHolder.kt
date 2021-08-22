@@ -1,16 +1,16 @@
-package com.gmkornilov.shikimori.presentation.filteredanimes.adapter
+package com.gmkornilov.shikimori.presentation.animepreview
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatRatingBar
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
-import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewViewHolder
 
 class AnimeRowViewHolder(
     private val view: View,
@@ -32,11 +32,7 @@ class AnimeRowViewHolder(
 
     private val titleText: TextView = view.findViewById(R.id.titleText)
 
-    private val ratingBar: AppCompatRatingBar = view.findViewById(R.id.ratingBar)
-
     private val kindText: TextView = view.findViewById(R.id.kindText)
-
-    private val animeStatusText: TextView = view.findViewById(R.id.animeStatusText)
 
     private val releaseYearText: TextView = view.findViewById(R.id.releaseYearText)
 
@@ -47,17 +43,18 @@ class AnimeRowViewHolder(
             .into(thumbnailImage)
 
         titleText.text = animePreview.name
-        ratingBar.rating = animePreview.score / 2
 
         // TODO: add enum to title resource id mapping
         kindText.text = animePreview.kind.toString()
-        animeStatusText.text = animePreview.status.toString()
 
-        releaseYearText.text = animePreview.airedOn?.year.toString()
-            ?: releaseYearText.context.getString(R.string.unknown)
+        if (animePreview.airedOn != null) {
+            releaseYearText.text = animePreview.airedOn.year.toString()
+        } else {
+            releaseYearText.visibility = View.GONE
+        }
 
         view.setOnClickListener {
-            animePreviewClicked.animePreviewClicked(animePreview)
+            animePreviewClicked.onClicked(animePreview)
         }
     }
 
@@ -67,5 +64,11 @@ class AnimeRowViewHolder(
         private const val HIGHLIGHT_ALPHA = 0.6f
         private const val DIRECTION = Shimmer.Direction.LEFT_TO_RIGHT
         private const val AUTO_START = true
+
+        fun from(parent: ViewGroup, animePreviewClicked: AnimePreviewClicked): AnimeRowViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.anime_row_preview_layout, parent, false)
+            return AnimeRowViewHolder(view, animePreviewClicked)
+        }
     }
 }

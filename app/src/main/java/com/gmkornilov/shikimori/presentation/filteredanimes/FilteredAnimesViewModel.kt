@@ -8,7 +8,7 @@ import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
-import com.gmkornilov.shikimori.presentation.filteredanimes.adapter.AnimePreviewClicked
+import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -66,7 +66,7 @@ class FilteredAnimesViewModel @Inject constructor(
         compositeDisposable.dispose()
     }
 
-    override fun animePreviewClicked(animePreview: AnimePreview) {
+    override fun onClicked(animePreview: AnimePreview) {
         router.navigateTo(Screens.AnimeScreen(animePreview.id))
     }
 }

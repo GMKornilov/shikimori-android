@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.presentation.mainpage.adapter
+package com.gmkornilov.shikimori.presentation.animepreview
 
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 
