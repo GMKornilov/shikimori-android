@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
@@ -16,36 +17,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
-    private val nowOnScreensPreviewClicked = object : AnimePreviewClicked {
-        override fun onClicked(animePreview: AnimePreview) {
-            TODO("Not yet implemented")
-        }
-    }
+    private val nowOnScreensAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
-    private val announcementsPreviewClicked = object : AnimePreviewClicked {
-        override fun onClicked(animePreview: AnimePreview) {
-            TODO("Not yet implemented")
-        }
-    }
+    private val announcementsAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
-    private val mostPopularPreviewClicked = object : AnimePreviewClicked {
-        override fun onClicked(animePreview: AnimePreview) {
-            TODO("Not yet implemented")
-        }
-    }
+    private val mostPopularAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
-    private val mostRatedPreviewClicked = object : AnimePreviewClicked {
-        override fun onClicked(animePreview: AnimePreview) {
-            TODO("Not yet implemented")
-        }
-    }
-
-    private val nowOnScreensAdapter = AnimePreviewAdapter(nowOnScreensPreviewClicked)
-    private val announcementsAdapter = AnimePreviewAdapter(announcementsPreviewClicked)
-    private val mostPopularAdapter = AnimePreviewAdapter(mostPopularPreviewClicked)
-    private val mostRatedAdapter = AnimePreviewAdapter(mostRatedPreviewClicked)
+    private val mostRatedAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,8 +33,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainPageBinding.inflate(inflater, container, false)
-
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         binding.nowOnScreensList.adapter = nowOnScreensAdapter
         binding.anonsList.adapter = announcementsAdapter

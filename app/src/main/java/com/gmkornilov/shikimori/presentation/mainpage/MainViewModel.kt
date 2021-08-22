@@ -10,6 +10,7 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
+import com.gmkornilov.shikimori.presentation.mainpage.adapter.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +31,7 @@ class MainViewModel @Inject constructor(
     private val mostRatedUseCase: SingleUseCase<Unit, List<AnimePreview>>,
     private val schedulersProvider: SchedulersProvider,
     private val router: Router,
-) : ViewModel() {
+) : ViewModel(), AnimePreviewClicked {
     private val _nowOnScreensLoading = MutableLiveData<Boolean>()
     val nowOnScreensLoading: LiveData<Boolean> = _nowOnScreensLoading
 
@@ -248,6 +249,10 @@ class MainViewModel @Inject constructor(
             .build()
 
         router.navigateTo(Screens.FilteredAnimesScreen(filter))
+    }
+
+    override fun onClicked(animePreview: AnimePreview) {
+        router.navigateTo(Screens.AnimeScreen(animePreview.id))
     }
 
     init {
