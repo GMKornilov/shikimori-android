@@ -5,7 +5,11 @@
     <string name="most_rated">Most rated</string>
     <string name="anime_thumbnail">Anime thumbnail</string>
     <string name="announcements">Announcements</string>
+
     <string name="search">Search</string>
+    <string name="home">Home</string>
+
     <string name="search_anime">Search anime</string>
     <string name="unknown">Unknown</string>
+    <string name="profile">Profile</string>
 </resources>
