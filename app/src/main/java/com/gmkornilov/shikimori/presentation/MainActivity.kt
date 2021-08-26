@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,9 +67,5 @@ class MainActivity : AppCompatActivity() {
         searchView.queryHint = getString(R.string.search_anime)
 
         return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navigator.hasScreens()
     }
 }
