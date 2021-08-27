@@ -12,4 +12,7 @@
     <string name="search_anime">Search anime</string>
     <string name="unknown">Unknown</string>
     <string name="profile">Profile</string>
+    <string name="reload">Reload</string>
+    <string name="sad_image">Sad image</string>
+    <string name="error_message">Sorry, couldn't load this</string>
 </resources>

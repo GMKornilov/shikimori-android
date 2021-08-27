@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -76,7 +77,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.nowOnScreensError.observe(viewLifecycleOwner, {
-
+            binding.nowOnScreensError.root.visibility = mapVisibility(it)
         })
 
         viewModel.nowOnScreensLoadedWithoutErrors.observe(viewLifecycleOwner, {
@@ -86,6 +87,10 @@ class MainFragment : Fragment() {
         viewModel.nowOnScreens.observe(viewLifecycleOwner, {
             nowOnScreensAdapter.submitList(it)
         })
+
+        binding.nowOnScreensError.reloadButton.setOnClickListener {
+            viewModel.loadNowOnScreens()
+        }
     }
 
     private fun observeAnnouncements() {
@@ -103,7 +108,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.announcementsError.observe(viewLifecycleOwner, {
-
+            binding.anonsError.root.visibility = mapVisibility(it)
         })
 
         viewModel.announcementsLoadedWithoutErrors.observe(viewLifecycleOwner, {
@@ -113,6 +118,10 @@ class MainFragment : Fragment() {
         viewModel.announcements.observe(viewLifecycleOwner, {
             announcementsAdapter.submitList(it)
         })
+
+        binding.anonsError.reloadButton.setOnClickListener {
+            viewModel.loadAnnouncements()
+        }
     }
 
     private fun observeMostPopular() {
@@ -130,7 +139,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.mostPopularError.observe(viewLifecycleOwner, {
-
+            binding.mostPopularError.root.visibility = mapVisibility(it)
         })
 
         viewModel.mostPopularLoadedWithoutErrors.observe(viewLifecycleOwner, {
@@ -140,6 +149,10 @@ class MainFragment : Fragment() {
         viewModel.mostPopular.observe(viewLifecycleOwner, {
             mostPopularAdapter.submitList(it)
         })
+
+        binding.mostPopularError.reloadButton.setOnClickListener {
+            viewModel.loadMostPopular()
+        }
     }
 
     private fun observeMostRated() {
@@ -157,7 +170,7 @@ class MainFragment : Fragment() {
         })
 
         viewModel.mostRatedError.observe(viewLifecycleOwner, {
-
+            binding.mostRatedError.root.visibility = mapVisibility(it)
         })
 
         viewModel.mostRatedLoadedWithoutErrors.observe(viewLifecycleOwner, {
@@ -167,10 +180,10 @@ class MainFragment : Fragment() {
         viewModel.mostRated.observe(viewLifecycleOwner, {
             mostRatedAdapter.submitList(it)
         })
-    }
 
-    private fun mapVisibility(isVisible: Boolean): Int {
-        return if (isVisible) View.VISIBLE else View.GONE
+        binding.mostRatedError.reloadButton.setOnClickListener {
+            viewModel.loadMostRated()
+        }
     }
 
     companion object {

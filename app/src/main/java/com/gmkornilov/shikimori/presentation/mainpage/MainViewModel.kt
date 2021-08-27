@@ -120,7 +120,7 @@ class MainViewModel @Inject constructor(
         loadMostRated()
     }
 
-    private fun loadNowOnScreens() {
+    fun loadNowOnScreens() {
         val disposable = mainPageInteractor.loadNowOnScreens()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
@@ -141,7 +141,7 @@ class MainViewModel @Inject constructor(
         compositeDisposable.add(disposable)
     }
 
-    private fun loadAnnouncements() {
+    fun loadAnnouncements() {
         val disposable = mainPageInteractor.loadAnnouncements()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
@@ -162,7 +162,7 @@ class MainViewModel @Inject constructor(
         compositeDisposable.add(disposable)
     }
 
-    private fun loadMostPopular() {
+    fun loadMostPopular() {
         val disposable = mainPageInteractor.loadMostPopular()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
@@ -183,7 +183,7 @@ class MainViewModel @Inject constructor(
         compositeDisposable.add(disposable)
     }
 
-    private fun loadMostRated() {
+    fun loadMostRated() {
         val disposable = mainPageInteractor.loadMostRated()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
