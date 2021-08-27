@@ -14,7 +14,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <Button
                     android:id="@+id/nowOnScreensButton"
@@ -37,6 +37,7 @@
                     android:id="@+id/nowOnScreensShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    
                     app:layout_constraintBottom_toTopOf="@id/anonsButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +79,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/anonsButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -116,6 +118,7 @@
                     android:id="@+id/anonsShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    
                     app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +160,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -195,6 +199,7 @@
                     android:id="@+id/mostPopularShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    
                     app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -236,6 +241,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -274,6 +280,7 @@
                     android:id="@+id/mostRatedShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -315,6 +322,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -364,15 +372,17 @@
                     android:id="@+id/mostPopularTopBarrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="mostPopularList,mostPopularShimmer,mostPopularError" />
+                    app:barrierDirection="top"
+                    app:constraint_referenced_ids="mostPopularList,mostPopularShimmer,mostPopularError"
+                    tools:layout_editor_absoluteY="320dp" />
 
                 <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/mostPopularBottomBarrier"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="mostPopularList,mostPopularShimmer,mostPopularError" />
+                    app:constraint_referenced_ids="mostPopularList,mostPopularShimmer,mostPopularError"
+                    tools:layout_editor_absoluteY="320dp" />
 
                 <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/mostRatedTopBarrier"
