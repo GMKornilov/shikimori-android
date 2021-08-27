@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
-import com.gmkornilov.shikimori.domain.interactors.SingleUseCase
+import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
@@ -17,18 +17,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
-import javax.inject.Named
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    @Named("now on screens")
-    private val nowOnScreensUseCase: SingleUseCase<Unit, List<AnimePreview>>,
-    @Named("announcements")
-    private val announcementsUseCase: SingleUseCase<Unit, List<AnimePreview>>,
-    @Named("most popular")
-    private val mostPopularUseCase: SingleUseCase<Unit, List<AnimePreview>>,
-    @Named("most rated")
-    private val mostRatedUseCase: SingleUseCase<Unit, List<AnimePreview>>,
+    private val mainPageInteractor: MainPageInteractor,
     private val schedulersProvider: SchedulersProvider,
     private val router: Router,
 ) : ViewModel(), AnimePreviewClicked {
@@ -129,7 +121,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadNowOnScreens() {
-        val disposable = nowOnScreensUseCase.buildSingle(Unit)
+        val disposable = mainPageInteractor.loadNowOnScreens()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
@@ -150,7 +142,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadAnnouncements() {
-        val disposable = announcementsUseCase.buildSingle(Unit)
+        val disposable = mainPageInteractor.loadAnnouncements()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
@@ -171,7 +163,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadMostPopular() {
-        val disposable = mostPopularUseCase.buildSingle(Unit)
+        val disposable = mainPageInteractor.loadMostPopular()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
@@ -192,7 +184,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun loadMostRated() {
-        val disposable = mostRatedUseCase.buildSingle(Unit)
+        val disposable = mainPageInteractor.loadMostRated()
             .subscribeOn(schedulersProvider.background())
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
