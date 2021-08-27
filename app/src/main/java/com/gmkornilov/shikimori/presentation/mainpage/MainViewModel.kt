@@ -13,12 +13,10 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
-@HiltViewModel
 class MainViewModel @Inject constructor(
     private val mainPageInteractor: MainPageInteractor,
     private val schedulersProvider: SchedulersProvider,

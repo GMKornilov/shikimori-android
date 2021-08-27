@@ -1,28 +1,26 @@
-package com.gmkornilov.shikimori.presentation.filteredanimes
+package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
+import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 
-@HiltViewModel
 class FilteredAnimesViewModel @Inject constructor(
     private val filteredAnimesInteractor: FilteredAnimesInteractor,
     private val schedulersProvider: SchedulersProvider,
-    private val router: Router,
-    savedStateHandle: SavedStateHandle,
+    @GlobalNavigation private val router: Router,
+    private val filter: AnimeFilter,
 ) : ViewModel(), AnimePreviewClicked {
-    private var filter: AnimeFilter = savedStateHandle.get<AnimeFilter>(FilteredAnimesFragment.filterKey)!!
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading

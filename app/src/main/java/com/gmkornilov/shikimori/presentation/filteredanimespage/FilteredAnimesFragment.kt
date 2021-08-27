@@ -1,22 +1,30 @@
-package com.gmkornilov.shikimori.presentation.filteredanimes
+package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
+import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
+import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
-import dagger.hilt.android.AndroidEntryPoint
+import dagger.assisted.AssistedFactory
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class FilteredAnimesFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: FilteredAnimesViewModelAssistedFactory
 
     private lateinit var binding: FragmentFilteredAnimesBinding
 
-    private lateinit var viewModel: FilteredAnimesViewModel
+    private val viewModel: FilteredAnimesViewModel by viewModels {
+        viewModelFactory.create(requireArguments().getSerializable(filterKey) as AnimeFilter)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,11 +33,19 @@ class FilteredAnimesFragment : Fragment() {
     ): View {
         binding = FragmentFilteredAnimesBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(FilteredAnimesViewModel::class.java)
+        ShikimoriApplication.instance.plusFilteredAnimesPageComponent().inject(this)
 
         bindList()
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (isRemoving) {
+            ShikimoriApplication.instance.clearFilteredAnimesPageComponent()
+        }
     }
 
     private fun bindList() {

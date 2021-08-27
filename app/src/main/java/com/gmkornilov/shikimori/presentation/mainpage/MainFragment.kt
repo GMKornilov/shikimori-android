@@ -7,15 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
+import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
+import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainPageBinding
-    private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    @ViewModelQualifier(MainViewModel::class)
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel: MainViewModel by viewModels {
+        viewModelFactory
+    }
 
     private val nowOnScreensAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
@@ -31,6 +40,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainPageBinding.inflate(inflater, container, false)
+
+        ShikimoriApplication.instance.plusMainPageComponent().inject(this)
 
         binding.nowOnScreensList.adapter = nowOnScreensAdapter
         binding.anonsList.adapter = announcementsAdapter
@@ -60,6 +71,14 @@ class MainFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (isRemoving) {
+            ShikimoriApplication.instance.clearMainPageComponent()
+        }
     }
 
     private fun observeNowOnScreens() {

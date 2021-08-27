@@ -1,25 +1,25 @@
 package com.gmkornilov.shikimori.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import com.github.terrakok.cicerone.*
+import com.github.terrakok.cicerone.Back
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.R
+import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.presentation.navigation.Screens
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
+    @GlobalNavigation
     lateinit var navigatorHolder: NavigatorHolder
 
     @Inject
+    @GlobalNavigation
     lateinit var router: Router
 
     private val navigator = object : AppNavigator(this, R.id.mainContainer) {
@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        ShikimoriApplication.instance.appComponent.inject(this)
 
         if (savedInstanceState == null) {
             router.newRootScreen(Screens.MainScreen())
