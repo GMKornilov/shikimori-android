@@ -37,7 +37,6 @@
                     android:id="@+id/nowOnScreensShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    
                     app:layout_constraintBottom_toTopOf="@id/anonsButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +78,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/anonsButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -118,7 +116,6 @@
                     android:id="@+id/anonsShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    
                     app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +157,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -199,7 +195,6 @@
                     android:id="@+id/mostPopularShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    
                     app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -241,7 +236,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -280,7 +274,6 @@
                     android:id="@+id/mostRatedShimmer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -322,7 +315,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
