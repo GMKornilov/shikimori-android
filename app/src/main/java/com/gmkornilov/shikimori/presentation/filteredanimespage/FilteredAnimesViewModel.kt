@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreview
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
-import com.gmkornilov.shikimori.presentation.animepreview.toPresentationAnimePreview
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewClicked
+import com.gmkornilov.shikimori.presentation.items.animepreview.toPresentationAnimePreview
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.arguments.toDomainAnimeFilter

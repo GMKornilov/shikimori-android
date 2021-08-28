@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.presentation.animepreview
+package com.gmkornilov.shikimori.presentation.items.animepreview
 
 import android.view.LayoutInflater
 import android.view.View

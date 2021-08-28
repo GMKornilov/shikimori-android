@@ -9,9 +9,9 @@ import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreview
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
-import com.gmkornilov.shikimori.presentation.animepreview.toPresentationAnimePreview
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewClicked
+import com.gmkornilov.shikimori.presentation.items.animepreview.toPresentationAnimePreview
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.arguments.toPresentationAnimeFilter
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider

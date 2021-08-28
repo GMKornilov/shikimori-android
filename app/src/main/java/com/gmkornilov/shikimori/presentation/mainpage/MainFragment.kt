@@ -1,22 +1,22 @@
 package com.gmkornilov.shikimori.presentation.mainpage
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import javax.inject.Inject
 
-class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainPageBinding
+class MainFragment : Fragment(R.layout.fragment_main_page) {
+    private val binding: FragmentMainPageBinding by viewBinding(FragmentMainPageBinding::bind)
 
     @Inject
     @ViewModelQualifier(MainViewModel::class)
@@ -34,12 +34,8 @@ class MainFragment : Fragment() {
 
     private val mostRatedAdapter by lazy { AnimePreviewAdapter(viewModel) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMainPageBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         ShikimoriApplication.instance.plusMainPageComponent().inject(this)
 
@@ -69,8 +65,6 @@ class MainFragment : Fragment() {
             }
             viewModel.mostRatedLoading.observe(viewLifecycleOwner, observer)
         }
-
-        return binding.root
     }
 
     override fun onDestroy() {

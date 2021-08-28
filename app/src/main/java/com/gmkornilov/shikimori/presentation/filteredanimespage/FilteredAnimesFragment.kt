@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
-import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import javax.inject.Inject
 
@@ -16,24 +17,17 @@ class FilteredAnimesFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: FilteredAnimesViewModelAssistedFactory
 
-    private lateinit var binding: FragmentFilteredAnimesBinding
+    private val binding: FragmentFilteredAnimesBinding by viewBinding(FragmentFilteredAnimesBinding::bind)
 
     private val viewModel: FilteredAnimesViewModel by viewModels {
         viewModelFactory.create(requireArguments().getParcelable(filterKey)!!)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFilteredAnimesBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         ShikimoriApplication.instance.plusFilteredAnimesPageComponent().inject(this)
-
         bindList()
-
-        return binding.root
     }
 
     override fun onDestroy() {

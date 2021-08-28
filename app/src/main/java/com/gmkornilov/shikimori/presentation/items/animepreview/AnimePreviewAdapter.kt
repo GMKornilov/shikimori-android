@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.presentation.animepreview
+package com.gmkornilov.shikimori.presentation.items.animepreview
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

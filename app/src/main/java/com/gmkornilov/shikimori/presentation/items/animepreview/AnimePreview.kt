@@ -1,6 +1,5 @@
-package com.gmkornilov.shikimori.presentation.animepreview
+package com.gmkornilov.shikimori.presentation.items.animepreview
 
-import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
