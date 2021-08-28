@@ -9,9 +9,5 @@ enum class AnimeOrder {
     AIRED_ON,
     EPISODES,
     STATUS,
-    RANDOM;
-
-    override fun toString(): String {
-        return super.toString().lowercase()
-    }
+    RANDOM,
 }

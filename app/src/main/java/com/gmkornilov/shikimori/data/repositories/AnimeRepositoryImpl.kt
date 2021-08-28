@@ -1,44 +1,52 @@
 package com.gmkornilov.shikimori.data.repositories
 
+import androidx.annotation.WorkerThread
 import com.gmkornilov.shikimori.BuildConfig
+import com.gmkornilov.shikimori.data.models.common.AnimePreview
+import com.gmkornilov.shikimori.data.models.common.ImageInfo
+import com.gmkornilov.shikimori.data.models.common.toDataAnimeFilter
+import com.gmkornilov.shikimori.data.models.common.toDomainAnimePreview
 import com.gmkornilov.shikimori.data.retrofit.AnimeRemote
 import com.gmkornilov.shikimori.domain.error.BadRequestException
 import com.gmkornilov.shikimori.domain.error.NotFoundException
 import com.gmkornilov.shikimori.domain.error.ServerException
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.ImageInfo
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
+import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
+import kotlinx.serialization.ExperimentalSerializationApi
 import javax.inject.Inject
 
 class AnimeRepositoryImpl @Inject constructor(
     private val animeRemote: AnimeRemote,
 ) : AnimeRepository {
-    override fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean): List<AnimePreview> {
+    @ExperimentalSerializationApi
+    @WorkerThread
+    override fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean): List<DomainAnimePreview> {
+        val dataFilter = filter.toDataAnimeFilter()
         val response = animeRemote.getAnimes(
-            filter.page,
-            filter.limit,
-            filter.order,
-            filter.kind,
-            filter.status,
-            filter.season,
-            filter.minimalScore,
-            filter.duration,
-            filter.rating,
-            filter.genreIds?.joinToString(",") { it.toString() },
-            filter.studioIds?.joinToString(",") { it.toString() },
-            filter.franchises?.joinToString { it },
-            filter.censored,
-            filter.ids?.joinToString(",") { it.toString() },
-            filter.excludeIds?.joinToString(",") { it.toString() },
-            filter.searchString,
+            dataFilter.page,
+            dataFilter.limit,
+            dataFilter.order,
+            dataFilter.kind,
+            dataFilter.status,
+            dataFilter.season,
+            dataFilter.minimalScore,
+            dataFilter.duration,
+            dataFilter.rating,
+            dataFilter.genreIds?.joinToString(",") { it.toString() },
+            dataFilter.studioIds?.joinToString(",") { it.toString() },
+            dataFilter.franchises?.joinToString { it },
+            dataFilter.censored,
+            dataFilter.ids?.joinToString(",") { it.toString() },
+            dataFilter.excludeIds?.joinToString(",") { it.toString() },
+            dataFilter.searchString,
         ).execute()
 
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {
                 return body.map {
-                    mapAnimePreview(it)
+                    mapAnimePreview(it).toDomainAnimePreview()
                 }
             } else {
                 throw Exception()
@@ -53,6 +61,7 @@ class AnimeRepositoryImpl @Inject constructor(
 
     }
 
+    @ExperimentalSerializationApi
     private fun mapAnimePreview(animePreview: AnimePreview): AnimePreview {
         return AnimePreview(
             animePreview.id,

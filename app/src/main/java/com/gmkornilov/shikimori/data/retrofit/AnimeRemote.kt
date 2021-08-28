@@ -1,12 +1,13 @@
 package com.gmkornilov.shikimori.data.retrofit
 
-import com.gmkornilov.shikimori.domain.models.common.*
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
+import com.gmkornilov.shikimori.data.models.common.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface AnimeRemote {
+    @ExperimentalSerializationApi
     @GET("/api/animes")
     fun getAnimes(
         @Query("page") page: Int?,

@@ -11,6 +11,8 @@ import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AnimeRowViewHolder(
     private val view: View,
@@ -23,6 +25,8 @@ class AnimeRowViewHolder(
         .setDirection(DIRECTION)
         .setAutoStart(AUTO_START)
         .build()
+
+    private val dateFormat = SimpleDateFormat("yyyy", Locale.ENGLISH)
 
     private val shimmerDrawable = ShimmerDrawable().apply {
         setShimmer(shimmer)
@@ -48,7 +52,7 @@ class AnimeRowViewHolder(
         kindText.text = animePreview.kind.toString()
 
         if (animePreview.airedOn != null) {
-            releaseYearText.text = animePreview.airedOn.year.toString()
+            releaseYearText.text = dateFormat.format(animePreview.airedOn)
         } else {
             releaseYearText.visibility = View.GONE
         }

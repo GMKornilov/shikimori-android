@@ -85,7 +85,6 @@ dependencies {
 
     // Serialization
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.2.0"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
 
     testImplementation 'junit:junit:4.+'
