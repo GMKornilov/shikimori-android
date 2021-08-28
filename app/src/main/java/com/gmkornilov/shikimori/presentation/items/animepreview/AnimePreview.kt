@@ -45,7 +45,7 @@ fun DomainAnimePreview.toPresentationAnimePreview(): AnimePreview {
     return AnimePreview(
         this.id,
         this.imageInfo.urlPreview,
-        this.name,
+        this.russianName,
         this.kind.toPresentationAnimeKind(),
         year,
     )

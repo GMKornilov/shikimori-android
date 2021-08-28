@@ -1,30 +1,30 @@
 <resources>
     <string name="app_name">Shikimori</string>
-    <string name="now_on_screens">Now on screens</string>
-    <string name="most_popular">Most popular</string>
-    <string name="most_rated">Most rated</string>
-    <string name="anime_thumbnail">Anime thumbnail</string>
-    <string name="announcements">Announcements</string>
+    <string name="now_on_screens">Сейчас на экранах</string>
+    <string name="most_popular">Самые популярные</string>
+    <string name="most_rated">С лучшим рейтингом</string>
+    <string name="anime_thumbnail">Превью аниме</string>
+    <string name="announcements">Анонсировано</string>
 
-    <string name="search">Search</string>
-    <string name="home">Home</string>
+    <string name="search">Искать</string>
+    <string name="home">Главная</string>
 
-    <string name="search_anime">Search anime</string>
-    <string name="unknown">Unknown</string>
-    <string name="profile">Profile</string>
-    <string name="reload">Reload</string>
-    <string name="sad_image">Sad image</string>
-    <string name="error_message">Sorry, couldn\'t load this</string>
+    <string name="search_anime">Искать аниме</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="profile">Профиль</string>
+    <string name="reload">Перезагрузить</string>
+    <string name="sad_image">Грустная картинка</string>
+    <string name="error_message">Произошла ошибка при загрузке</string>
 
 
-    <string name="tv">TV</string>
-    <string name="movie">Movie</string>
+    <string name="tv">TV-сериал</string>
+    <string name="movie">Фильм</string>
     <string name="ova">OVA</string>
     <string name="ona">ONA</string>
-    <string name="special">Special series</string>
-    <string name="music">Music video</string>
-    <string name="oops">Oops!</string>
-    <string name="unable_to_connect_to_shikimori">Unable to connect to Shikimori</string>
-    <string name="try_again">Try again</string>
-    <string name="catalog">Catalog</string>
+    <string name="special">Спешл</string>
+    <string name="music">Клип</string>
+    <string name="oops">Упс!</string>
+    <string name="unable_to_connect_to_shikimori">Не удалось подключиться к Shikimori</string>
+    <string name="try_again">Попробовать снова</string>
+    <string name="catalog">Каталог</string>
 </resources>

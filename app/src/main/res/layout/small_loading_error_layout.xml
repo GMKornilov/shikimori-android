@@ -3,34 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageView
         android:id="@+id/sadImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_sad"
         android:contentDescription="@string/sad_image"
-        android:layout_marginStart="@dimen/normal_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_sad"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/sadText"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/sadText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/TextAppearance.MaterialComponents.Body1"
-        android:text="@string/error_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_margin"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:text="@string/error_message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/sadImage"/>
+        app:layout_constraintEnd_toStartOf="@id/reloadButton"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/sadImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/reloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:text="@string/reload"
         style="@style/Widget.MaterialComponents.Button.TextButton"
