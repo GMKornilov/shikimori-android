@@ -7,20 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
+import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import javax.inject.Inject
 
-class FilteredAnimesFragment : Fragment() {
+class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     @Inject
     lateinit var viewModelFactory: FilteredAnimesViewModelAssistedFactory
 
     private val binding: FragmentFilteredAnimesBinding by viewBinding(FragmentFilteredAnimesBinding::bind)
 
     private val viewModel: FilteredAnimesViewModel by viewModels {
-        viewModelFactory.create(requireArguments().getParcelable(filterKey)!!)
+        val animeFilter = requireArguments().getParcelable<AnimeFilter>(filterKey)!!
+        FilteredAnimesViewModelFactory(animeFilter, viewModelFactory)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,6 +31,8 @@ class FilteredAnimesFragment : Fragment() {
 
         ShikimoriApplication.instance.plusFilteredAnimesPageComponent().inject(this)
         bindList()
+        bindLoading()
+        bindError()
     }
 
     override fun onDestroy() {
@@ -45,6 +50,26 @@ class FilteredAnimesFragment : Fragment() {
 
         viewModel.previews.observe(viewLifecycleOwner, {
             adapter.submitList(it)
+        })
+    }
+
+    private fun bindLoading() {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            binding.loadingProgress.visibility = mapVisibility(it)
+        })
+
+        viewModel.loadedWithoutErrors.observe(viewLifecycleOwner, {
+            binding.previewList.visibility = mapVisibility(it)
+        })
+    }
+
+    private fun bindError() {
+        binding.errorLayout.reloadButton.setOnClickListener {
+            viewModel.loadPreviews()
+        }
+
+        viewModel.exception.observe(viewLifecycleOwner, {
+            binding.errorLayout.root.visibility = mapVisibility(it)
         })
     }
 

@@ -85,7 +85,7 @@
 
             <include
                 android:id="@+id/nowOnScreensError"
-                layout="@layout/loading_error_layout"
+                layout="@layout/small_loading_error_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/anonsButton"
@@ -164,7 +164,7 @@
 
             <include
                 android:id="@+id/anonsError"
-                layout="@layout/loading_error_layout"
+                layout="@layout/small_loading_error_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/mostPopularButton"
@@ -243,7 +243,7 @@
 
             <include
                 android:id="@+id/mostPopularError"
-                layout="@layout/loading_error_layout"
+                layout="@layout/small_loading_error_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/mostRatedButton"
@@ -322,7 +322,7 @@
 
             <include
                 android:id="@+id/mostRatedError"
-                layout="@layout/loading_error_layout"
+                layout="@layout/small_loading_error_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

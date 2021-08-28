@@ -1,6 +1,7 @@
 package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
@@ -13,14 +14,16 @@ import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.arguments.toDomainAnimeFilter
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class FilteredAnimesViewModel @Inject constructor(
+class FilteredAnimesViewModel @AssistedInject constructor(
     private val filteredAnimesInteractor: FilteredAnimesInteractor,
     private val schedulersProvider: SchedulersProvider,
     @GlobalNavigation private val router: Router,
-    private val filter: AnimeFilter,
+    @Assisted private val filter: AnimeFilter,
 ) : ViewModel(), AnimePreviewClicked {
 
     private val _loading = MutableLiveData<Boolean>()
@@ -31,6 +34,18 @@ class FilteredAnimesViewModel @Inject constructor(
 
     private val _previews = MutableLiveData<List<AnimePreview>>()
     val previews: LiveData<List<AnimePreview>> = _previews
+
+    private val _loadedWithoutErrors = MediatorLiveData<Boolean>().apply {
+        fun update() {
+            val loadingVal = _loading.value ?: return
+            val errorVal = _exception.value ?: return
+
+            value = !(loadingVal || errorVal)
+        }
+        addSource(_loading) { update() }
+        addSource(_exception) { update() }
+    }
+    val loadedWithoutErrors: LiveData<Boolean> = _loadedWithoutErrors
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -44,6 +59,7 @@ class FilteredAnimesViewModel @Inject constructor(
             }
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
+                _exception.value = false
                 _loading.value = true
             }
             .doAfterTerminate {

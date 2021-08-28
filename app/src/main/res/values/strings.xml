@@ -23,4 +23,8 @@
     <string name="ona">ONA</string>
     <string name="special">Special series</string>
     <string name="music">Music video</string>
+    <string name="oops">Oops!</string>
+    <string name="unable_to_connect_to_shikimori">Unable to connect to Shikimori</string>
+    <string name="try_again">Try again</string>
+    <string name="catalog">Catalog</string>
 </resources>
