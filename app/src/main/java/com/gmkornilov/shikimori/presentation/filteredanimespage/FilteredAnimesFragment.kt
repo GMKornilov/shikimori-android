@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.savedstate.SavedStateRegistryOwner
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
-import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
-import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewAdapter
-import dagger.assisted.AssistedFactory
+import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import javax.inject.Inject
 
 class FilteredAnimesFragment : Fragment() {
@@ -23,7 +19,7 @@ class FilteredAnimesFragment : Fragment() {
     private lateinit var binding: FragmentFilteredAnimesBinding
 
     private val viewModel: FilteredAnimesViewModel by viewModels {
-        viewModelFactory.create(requireArguments().getSerializable(filterKey) as AnimeFilter)
+        viewModelFactory.create(requireArguments().getParcelable(filterKey)!!)
     }
 
     override fun onCreateView(
@@ -63,7 +59,7 @@ class FilteredAnimesFragment : Fragment() {
 
         fun newInstance(filter: AnimeFilter): Fragment {
             val bundle = Bundle().apply {
-                putSerializable(filterKey, filter)
+                putParcelable(filterKey, filter)
             }
             return FilteredAnimesFragment().apply {
                 arguments = bundle

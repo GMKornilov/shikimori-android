@@ -15,4 +15,12 @@
     <string name="reload">Reload</string>
     <string name="sad_image">Sad image</string>
     <string name="error_message">Sorry, couldn\'t load this</string>
+
+
+    <string name="tv">TV</string>
+    <string name="movie">Movie</string>
+    <string name="ova">OVA</string>
+    <string name="ona">ONA</string>
+    <string name="special">Special series</string>
+    <string name="music">Music video</string>
 </resources>

@@ -1,14 +1,11 @@
 package com.gmkornilov.shikimori.presentation.filteredanimespage
 
-import androidx.lifecycle.AbstractSavedStateViewModelFactory
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.savedstate.SavedStateRegistryOwner
 import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
-import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
+import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

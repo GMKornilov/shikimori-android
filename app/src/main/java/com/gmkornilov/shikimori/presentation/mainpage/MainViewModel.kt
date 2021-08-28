@@ -8,10 +8,12 @@ import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
+import com.gmkornilov.shikimori.presentation.animepreview.AnimePreview
 import com.gmkornilov.shikimori.presentation.animepreview.AnimePreviewClicked
+import com.gmkornilov.shikimori.presentation.animepreview.toPresentationAnimePreview
 import com.gmkornilov.shikimori.presentation.navigation.Screens
+import com.gmkornilov.shikimori.presentation.navigation.arguments.toPresentationAnimeFilter
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
@@ -121,6 +123,11 @@ class MainViewModel @Inject constructor(
     fun loadNowOnScreens() {
         val disposable = mainPageInteractor.loadNowOnScreens()
             .subscribeOn(schedulersProvider.background())
+            .map { list ->
+                list.map {
+                    it.toPresentationAnimePreview()
+                }
+            }
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
                 _nowOnScreensLoading.value = true
@@ -142,6 +149,11 @@ class MainViewModel @Inject constructor(
     fun loadAnnouncements() {
         val disposable = mainPageInteractor.loadAnnouncements()
             .subscribeOn(schedulersProvider.background())
+            .map { list ->
+                list.map {
+                    it.toPresentationAnimePreview()
+                }
+            }
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
                 _announcementsLoading.value = true
@@ -163,6 +175,11 @@ class MainViewModel @Inject constructor(
     fun loadMostPopular() {
         val disposable = mainPageInteractor.loadMostPopular()
             .subscribeOn(schedulersProvider.background())
+            .map { list ->
+                list.map {
+                    it.toPresentationAnimePreview()
+                }
+            }
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
                 _mostPopularLoading.value = true
@@ -184,6 +201,11 @@ class MainViewModel @Inject constructor(
     fun loadMostRated() {
         val disposable = mainPageInteractor.loadMostRated()
             .subscribeOn(schedulersProvider.background())
+            .map { list ->
+                list.map {
+                    it.toPresentationAnimePreview()
+                }
+            }
             .observeOn(schedulersProvider.main())
             .doOnSubscribe {
                 _mostRatedLoading.value = true
@@ -210,7 +232,7 @@ class MainViewModel @Inject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
     }
 
     fun announcementsClicked() {
@@ -220,7 +242,7 @@ class MainViewModel @Inject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
     }
 
     fun mostPopularClicked() {
@@ -229,7 +251,7 @@ class MainViewModel @Inject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
     }
 
     fun mostRatedClicked() {
@@ -238,7 +260,7 @@ class MainViewModel @Inject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter))
+        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
     }
 
     override fun onClicked(animePreview: AnimePreview) {

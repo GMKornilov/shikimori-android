@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,20 +41,16 @@ class AnimeRowViewHolder(
 
     fun bind(animePreview: AnimePreview) {
         Glide.with(thumbnailImage)
-            .load(animePreview.imageInfo.urlPreview)
+            .load(animePreview.thumbnailImageUrl)
             .placeholder(shimmerDrawable)
             .into(thumbnailImage)
 
-        titleText.text = animePreview.name
+        titleText.text = animePreview.titleText
 
         // TODO: add enum to title resource id mapping
-        kindText.text = animePreview.kind.toString()
+        kindText.text = view.context.getString(animePreview.kind.titleResourceId)
 
-        if (animePreview.airedOn != null) {
-            releaseYearText.text = dateFormat.format(animePreview.airedOn)
-        } else {
-            releaseYearText.visibility = View.GONE
-        }
+        releaseYearText.text = animePreview.airedOnYearString
 
         view.setOnClickListener {
             animePreviewClicked.onClicked(animePreview)
