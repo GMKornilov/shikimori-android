@@ -59,15 +59,4 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         navigator.applyCommands(arrayOf(Back()))
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_activity_menu, menu)
-
-        val menuItem = menu.findItem(R.id.search)
-        val searchView = menuItem.actionView as SearchView
-
-        searchView.queryHint = getString(R.string.search_anime)
-
-        return true
-    }
 }
