@@ -5,9 +5,10 @@ import com.gmkornilov.shikimori.presentation.animepage.AnimePageFragment
 import com.gmkornilov.shikimori.presentation.filteredanimespage.FilteredAnimesFragment
 import com.gmkornilov.shikimori.presentation.mainpage.MainFragment
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
+import com.gmkornilov.shikimori.presentation.searchpage.SearchPageFragment
 
 object Screens {
-    fun MainScreen() = FragmentScreen {
+    fun HomeScreen() = FragmentScreen {
         MainFragment.newInstance()
     }
 
@@ -17,5 +18,9 @@ object Screens {
 
     fun FilteredAnimesScreen(filter: AnimeFilter) = FragmentScreen {
         FilteredAnimesFragment.newInstance(filter)
+    }
+
+    fun Search() = FragmentScreen {
+        SearchPageFragment.newInstance()
     }
 }
