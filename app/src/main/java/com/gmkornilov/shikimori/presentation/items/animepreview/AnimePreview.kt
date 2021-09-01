@@ -61,13 +61,22 @@ enum class AnimeKind(@StringRes val titleResourceId: Int) {
     TV_13(R.string.tv),
     TV_24(R.string.tv),
     TV_48(R.string.tv),
+    UNKNOWN(R.string.unknown)
 }
 
-fun DomainAnimeKind.toPresentationAnimeKind(): AnimeKind {
-    return AnimeKind.valueOf(this.toString())
+fun DomainAnimeKind?.toPresentationAnimeKind(): AnimeKind {
+    return if (this == null) {
+        AnimeKind.UNKNOWN
+    } else {
+        AnimeKind.valueOf(this.toString())
+    }
 }
 
-fun AnimeKind.toDomainAnimeKind(): DomainAnimeKind {
-    return DomainAnimeKind.valueOf(this.toString())
+fun AnimeKind.toDomainAnimeKind(): DomainAnimeKind? {
+    return if (this == AnimeKind.UNKNOWN) {
+        null
+    } else {
+        DomainAnimeKind.valueOf(this.toString())
+    }
 }
 

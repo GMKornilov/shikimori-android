@@ -8,7 +8,7 @@ data class AnimePreview(
     val russianName: String,
     val imageInfo: ImageInfo,
     val url: String,
-    val kind: AnimeKind,
+    val kind: AnimeKind?,
     val score: Float,
     val status: AnimeStatus,
     val episodes: Int = 0,
