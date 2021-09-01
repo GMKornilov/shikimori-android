@@ -13,6 +13,7 @@ import com.gmkornilov.shikimori.databinding.ActivityMainBinding
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.Backstacks
 import com.gmkornilov.shikimori.presentation.navigation.Screens
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackPressedListener
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -87,7 +88,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        navigator.applyCommands(arrayOf(Back()))
+        var visibleFragment: Fragment? = null
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                visibleFragment = fragment
+            }
+        }
+        if (visibleFragment != null && visibleFragment is BackPressedListener) {
+            visibleFragment.onBackPressed()
+        } else {
+            router.exit()
+        }
     }
 
     private fun itemSelected(menuItem: MenuItem): Boolean {
