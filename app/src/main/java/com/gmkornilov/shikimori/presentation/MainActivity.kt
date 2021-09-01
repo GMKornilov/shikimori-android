@@ -11,6 +11,7 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.ActivityMainBinding
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
+import com.gmkornilov.shikimori.presentation.extensions.visibleFragment
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.Backstacks
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackPressedListener
@@ -88,12 +89,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        var visibleFragment: Fragment? = null
-        for (fragment in supportFragmentManager.fragments) {
-            if (fragment.isVisible) {
-                visibleFragment = fragment
-            }
-        }
+        val visibleFragment = supportFragmentManager.visibleFragment()
         if (visibleFragment != null && visibleFragment is BackPressedListener) {
             visibleFragment.onBackPressed()
         } else {
@@ -108,14 +104,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val tab = backstack.toString()
 
         val fm = supportFragmentManager
-        var currentFragment: Fragment? = null
-        val fragments = fm.fragments
-        for (f in fragments) {
-            if (f.isVisible) {
-                currentFragment = f
-                break
-            }
-        }
+        val currentFragment = fm.visibleFragment()
         val newFragment = fm.findFragmentByTag(tab)
         if (currentFragment != null && newFragment != null && currentFragment === newFragment) {
             return false
