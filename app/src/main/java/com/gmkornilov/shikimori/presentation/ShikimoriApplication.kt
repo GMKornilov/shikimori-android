@@ -7,6 +7,8 @@ import com.gmkornilov.shikimori.di.filteredanimespage.DaggerFilteredAnimesPageCo
 import com.gmkornilov.shikimori.di.filteredanimespage.FilteredAnimesPageComponent
 import com.gmkornilov.shikimori.di.mainpage.DaggerMainPageComponent
 import com.gmkornilov.shikimori.di.mainpage.MainPageComponent
+import com.gmkornilov.shikimori.di.searchpage.DaggerSearchPageComponent
+import com.gmkornilov.shikimori.di.searchpage.SearchPageComponent
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 
 class ShikimoriApplication : Application() {
@@ -16,6 +18,7 @@ class ShikimoriApplication : Application() {
 
     private var mainPageComponent: MainPageComponent? = null
     private var filteredAnimesPageComponent: FilteredAnimesPageComponent? = null
+    private var searchPageComponent: SearchPageComponent? = null
 
     fun plusMainPageComponent(): MainPageComponent {
         if (mainPageComponent == null) {
@@ -41,6 +44,19 @@ class ShikimoriApplication : Application() {
 
     fun clearFilteredAnimesPageComponent() {
         filteredAnimesPageComponent = null
+    }
+
+    fun plusSearchPageComponent(): SearchPageComponent {
+        if (searchPageComponent == null) {
+            searchPageComponent = DaggerSearchPageComponent.builder()
+                .appComponent(appComponent)
+                .build()
+        }
+        return searchPageComponent!!
+    }
+
+    fun clearSearchPageComponent() {
+        searchPageComponent = null
     }
 
     override fun onCreate() {
