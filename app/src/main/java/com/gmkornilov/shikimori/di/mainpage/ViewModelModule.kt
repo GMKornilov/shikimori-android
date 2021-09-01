@@ -1,10 +1,9 @@
 package com.gmkornilov.shikimori.di.mainpage
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.github.terrakok.cicerone.Router
-import com.gmkornilov.shikimori.di.app.GlobalNavigation
+import com.gmkornilov.shikimori.di.backstack.BackstackNavigation
 import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.presentation.mainpage.MainViewModel
@@ -20,7 +19,7 @@ object ViewModelModule {
     fun provideViewModelFactory(
         mainPageInteractor: MainPageInteractor,
         schedulersProvider: SchedulersProvider,
-        @GlobalNavigation router: Router
+        @BackstackNavigation router: Router,
     ): ViewModelProvider.Factory {
         return object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {

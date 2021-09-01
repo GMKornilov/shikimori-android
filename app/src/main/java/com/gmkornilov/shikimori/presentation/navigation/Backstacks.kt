@@ -2,16 +2,17 @@ package com.gmkornilov.shikimori.presentation.navigation
 
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.R
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackInfo
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.MainBackstackInfo
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.SearchBackstackInfo
 
 enum class Backstacks(
     @IdRes val tabItemId: Int,
-    @StringRes val tabNameRes: Int,
-    val tabScreen: FragmentScreen,
+    val backstackInfo: BackstackInfo,
 ) {
-    HOME(R.id.page_home, R.string.home, Screens.HomeScreen()),
-    SEARCH(R.id.page_search, R.string.search, Screens.Search());
+    HOME(R.id.page_home, MainBackstackInfo()),
+    SEARCH(R.id.page_search, SearchBackstackInfo());
 
 
     companion object {

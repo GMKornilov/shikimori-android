@@ -1,7 +1,5 @@
 package com.gmkornilov.shikimori.presentation
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -37,54 +35,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val screenKey: String?
         get() {
             val currentItemId = binding.bottomNavigation.selectedItemId
-            val currentKeyRes = Backstacks.findByTabItemId(currentItemId)?.tabNameRes ?: return null
-            return getString(currentKeyRes)
+            val currentKey = Backstacks.findByTabItemId(currentItemId)?.toString() ?: return null
+            return currentKey
         }
 
     private val navigator = object : AppNavigator(this, R.id.mainContainer) {
-        override fun applyCommand(command: Command) {
-            val newKey = screenKey ?: return
-
-            val newCommand = when (command) {
-                is Forward -> {
-                    val newScreen = mapScreen(command.screen, newKey) ?: return
-                    Forward(newScreen)
-                }
-                is Replace -> {
-                    val newScreen = mapScreen(command.screen, newKey) ?: return
-                    Replace(newScreen)
-                }
-                is BackTo -> {
-                    val screen = command.screen
-                    if (screen == null) {
-                        command
-                    } else {
-                        val newScreen = mapScreen(screen, newKey) ?: return
-                        BackTo(newScreen)
-                    }
-                }
-                is Back -> command
-                else -> null
-            } ?: return
-
-            super.applyCommand(newCommand)
-        }
-
-        fun mapScreen(screen: Screen, newKey: String): Screen? {
-            return when (screen) {
-                is ActivityScreen -> screen
-                is FragmentScreen -> {
-                    object : FragmentScreen {
-                        override val screenKey: String = newKey
-                        override fun createFragment(factory: FragmentFactory): Fragment {
-                            return screen.createFragment(factory)
-                        }
-                    }
-                }
-                else -> null
-            }
-        }
-
         fun hasScreens(): Boolean {
             return fragmentManager.backStackEntryCount > 1
         }
@@ -142,7 +97,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val backstack =
             Backstacks.findByTabItemId(menuItem.itemId) ?: return false
 
-        val tab = getString(backstack.tabNameRes)
+        val tab = backstack.toString()
 
         val fm = supportFragmentManager
         var currentFragment: Fragment? = null
@@ -161,7 +116,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (newFragment == null) {
             transaction.add(
                 R.id.mainContainer,
-                backstack.tabScreen.createFragment(fm.fragmentFactory),
+                Screens.Backstack(backstack.backstackInfo).createFragment(fm.fragmentFactory),
                 tab
             )
         }

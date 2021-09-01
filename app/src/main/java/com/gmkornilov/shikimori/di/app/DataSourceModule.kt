@@ -5,8 +5,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import com.gmkornilov.shikimori.BuildConfig
 import com.gmkornilov.shikimori.data.retrofit.AnimeRemote
-import com.gmkornilov.shikimori.di.filteredanimespage.FilteredAnimesPageComponent
-import com.gmkornilov.shikimori.di.mainpage.MainPageComponent
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -17,7 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
-@Module(subcomponents = [MainPageComponent::class, FilteredAnimesPageComponent::class])
+@Module
 object DataSourceModule {
     @Provides
     @AppScope
