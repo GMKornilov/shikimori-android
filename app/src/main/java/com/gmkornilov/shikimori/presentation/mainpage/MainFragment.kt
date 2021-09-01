@@ -5,25 +5,31 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
-import com.gmkornilov.shikimori.di.qualifiers.ViewModelQualifier
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main_page) {
     private val binding: FragmentMainPageBinding by viewBinding(FragmentMainPageBinding::bind)
 
     @Inject
-    @ViewModelQualifier(MainViewModel::class)
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewAssistedModelFactory: MainViewModelAssistedFactory
+
+    @Inject
+    lateinit var backstackNavigationManager: BackstackNavigationManager
+
+    private val router: Router by lazy {
+        backstackNavigationManager.getCurrentBackstackRouter()
+    }
 
     private val viewModel: MainViewModel by viewModels {
-        viewModelFactory
+        MainViewModelFactory(router, viewAssistedModelFactory)
     }
 
     private val nowOnScreensAdapter by lazy { AnimePreviewAdapter(viewModel) }
@@ -37,7 +43,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ShikimoriApplication.instance.plusMainPageComponent().inject(this)
+        ShikimoriApplication.INSTANCE.plusMainPageComponent().inject(this)
 
         binding.nowOnScreensList.adapter = nowOnScreensAdapter
         binding.anonsList.adapter = announcementsAdapter
@@ -71,7 +77,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
         super.onDestroy()
 
         if (isRemoving) {
-            ShikimoriApplication.instance.clearMainPageComponent()
+            ShikimoriApplication.INSTANCE.clearMainPageComponent()
         }
     }
 

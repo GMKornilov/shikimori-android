@@ -5,8 +5,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
-import com.gmkornilov.shikimori.di.app.GlobalNavigation
-import com.gmkornilov.shikimori.di.backstack.BackstackNavigation
 import com.gmkornilov.shikimori.domain.interactors.filteredanimes.FilteredAnimesInteractor
 import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreview
 import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewClicked
@@ -18,12 +16,11 @@ import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import javax.inject.Inject
 
 class FilteredAnimesViewModel @AssistedInject constructor(
     private val filteredAnimesInteractor: FilteredAnimesInteractor,
     private val schedulersProvider: SchedulersProvider,
-    @BackstackNavigation private val router: Router,
+    @Assisted private val router: Router,
     @Assisted private val filter: AnimeFilter,
 ) : ViewModel(), AnimePreviewClicked {
 

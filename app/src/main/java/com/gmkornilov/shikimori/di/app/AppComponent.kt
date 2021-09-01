@@ -3,13 +3,10 @@ package com.gmkornilov.shikimori.di.app
 import android.content.Context
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
-import com.gmkornilov.shikimori.di.backstack.BackstackComponent
-import com.gmkornilov.shikimori.di.backstack.BackstackNavigationModule
-import com.gmkornilov.shikimori.di.filteredanimespage.FilteredAnimesPageComponent
-import com.gmkornilov.shikimori.di.mainpage.MainPageComponent
-import com.gmkornilov.shikimori.di.mainpage.MainPageModule
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import com.gmkornilov.shikimori.presentation.MainActivity
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackFragment
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.BindsInstance
 import dagger.Component
@@ -31,7 +28,11 @@ interface AppComponent {
 
     val schedulersProvider: SchedulersProvider
 
+    val backstackNavigationManager: BackstackNavigationManager
+
     fun inject(mainActivity: MainActivity)
+
+    fun inject(backstackFragment: BackstackFragment)
 
     @Component.Builder
     interface Builder {

@@ -1,9 +1,7 @@
-package com.gmkornilov.shikimori.presentation.navigation
+package com.gmkornilov.shikimori.presentation.navigation.backstacks
 
 import androidx.annotation.IdRes
-import androidx.annotation.StringRes
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackInfo
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.MainBackstackInfo
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.SearchBackstackInfo
 

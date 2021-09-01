@@ -8,13 +8,12 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.di.backstack.BackstackNavigation
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.navigation.RouterProvider
 import javax.inject.Inject
 
 class BackstackFragment : Fragment(R.layout.backstack_layout), BackPressedListener {
-    private val rootScreenInfo: BackstackInfo by lazy {
+    private val backstackInfo: BackstackInfo by lazy {
         return@lazy requireArguments().getParcelable<BackstackInfo>(ROOT_SCREEN_KEY)!!
     }
 
@@ -23,22 +22,23 @@ class BackstackFragment : Fragment(R.layout.backstack_layout), BackPressedListen
     }
 
     @Inject
-    @BackstackNavigation
-    lateinit var ciceroneHolder: NavigatorHolder
+    lateinit var backstackNavigationManager: BackstackNavigationManager
 
-    @Inject
-    @BackstackNavigation
-    lateinit var router: Router
+    private val ciceroneHolder: NavigatorHolder by lazy {
+        backstackNavigationManager.getCurrentBackstackNavigatorHolder(backstackInfo.getBackstackName())
+    }
+
+    private val router: Router by lazy {
+        backstackNavigationManager.getCurrentBackstackRouter(backstackInfo.getBackstackName())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ShikimoriApplication.instance.backstackComponentManager.getCurrentBackstackComponent(
-            rootScreenInfo.getBackstackName()
-        ).inject(this)
+        ShikimoriApplication.INSTANCE.appComponent.inject(this)
 
         if (savedInstanceState == null) {
-            router.newRootScreen(rootScreenInfo.getRootScreen())
+            router.newRootScreen(backstackInfo.getRootScreen())
         }
     }
 
@@ -52,6 +52,22 @@ class BackstackFragment : Fragment(R.layout.backstack_layout), BackPressedListen
         ciceroneHolder.removeNavigator()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (isRemoving) {
+            backstackNavigationManager.clearCurrentBackstackComponent()
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (!hidden) {
+            backstackNavigationManager.changeBackstack(backstackInfo.getBackstackName())
+        }
+    }
+
     override fun onBackPressed(): Boolean {
         val fragment = childFragmentManager.findFragmentById(R.id.backstackContainer)
         return if (fragment != null && fragment is BackPressedListener) {
@@ -62,7 +78,8 @@ class BackstackFragment : Fragment(R.layout.backstack_layout), BackPressedListen
                 activity.router.exit()
                 true
             } else {
-                false
+                router.exit()
+                true
             }
         }
     }

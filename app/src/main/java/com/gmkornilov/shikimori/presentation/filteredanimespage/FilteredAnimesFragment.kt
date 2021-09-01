@@ -1,35 +1,42 @@
 package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import javax.inject.Inject
 
 class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     @Inject
     lateinit var viewModelFactory: FilteredAnimesViewModelAssistedFactory
 
+    @Inject
+    lateinit var backstackNavigationManager: BackstackNavigationManager
+
+    private val router: Router by lazy {
+        backstackNavigationManager.getCurrentBackstackRouter()
+    }
+
     private val binding: FragmentFilteredAnimesBinding by viewBinding(FragmentFilteredAnimesBinding::bind)
 
     private val viewModel: FilteredAnimesViewModel by viewModels {
         val animeFilter = requireArguments().getParcelable<AnimeFilter>(filterKey)!!
-        FilteredAnimesViewModelFactory(animeFilter, viewModelFactory)
+        FilteredAnimesViewModelFactory(animeFilter, router, viewModelFactory)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ShikimoriApplication.instance.plusFilteredAnimesPageComponent().inject(this)
+        ShikimoriApplication.INSTANCE.plusFilteredAnimesPageComponent().inject(this)
         bindList()
         bindLoading()
         bindError()
@@ -39,7 +46,7 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
         super.onDestroy()
 
         if (isRemoving) {
-            ShikimoriApplication.instance.clearFilteredAnimesPageComponent()
+            ShikimoriApplication.INSTANCE.clearFilteredAnimesPageComponent()
         }
     }
 

@@ -15,14 +15,16 @@ import com.gmkornilov.shikimori.presentation.items.animepreview.toPresentationAn
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.arguments.toPresentationAnimeFilter
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import java.util.*
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel @AssistedInject constructor(
     private val mainPageInteractor: MainPageInteractor,
     private val schedulersProvider: SchedulersProvider,
-    private val router: Router,
+    @Assisted private val router: Router,
 ) : ViewModel(), AnimePreviewClicked {
     private val _nowOnScreensLoading = MutableLiveData<Boolean>()
     val nowOnScreensLoading: LiveData<Boolean> = _nowOnScreensLoading

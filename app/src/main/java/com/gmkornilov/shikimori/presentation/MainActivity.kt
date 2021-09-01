@@ -5,16 +5,13 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.*
-import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.ActivityMainBinding
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
-import com.gmkornilov.shikimori.presentation.navigation.Backstacks
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.Backstacks
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import javax.inject.Inject
 
@@ -48,7 +45,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        ShikimoriApplication.instance.appComponent.inject(this)
+        ShikimoriApplication.INSTANCE.appComponent.inject(this)
 
         if (savedInstanceState == null) {
             /*
