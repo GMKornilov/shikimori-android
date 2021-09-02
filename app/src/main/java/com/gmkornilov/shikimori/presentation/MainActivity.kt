@@ -70,12 +70,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             itemSelected(it)
         }
 
-        supportActionBar?.apply {
-            setDisplayShowHomeEnabled(true)
-            setDisplayShowTitleEnabled(false)
-            setLogo(R.drawable.ic_title)
-            setDisplayUseLogoEnabled(true)
-        }
+        supportActionBar?.hide()
+//        supportActionBar?.apply {
+//            setDisplayShowHomeEnabled(true)
+//            setDisplayShowTitleEnabled(false)
+//            setLogo(R.drawable.ic_title)
+//            setDisplayUseLogoEnabled(true)
+//        }
     }
 
     override fun onStart() {

@@ -82,6 +82,8 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
 
     private fun bindSearch() {
         with (binding) {
+            searchView.isSubmitButtonEnabled = true
+
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query ?: return false
