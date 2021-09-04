@@ -39,29 +39,10 @@ class BackstackFragment : Fragment(R.layout.backstack_layout), BackPressedListen
         backstackNavigationManager.getCurrentBackstackRouter(backstackInfo.getBackstackName())
     }
 
-    private val backstackChangedListener = FragmentManager.OnBackStackChangedListener {
-        if (childFragmentManager.backStackEntryCount > 0) {
-            with (binding) {
-                toolbar.setNavigationIcon(R.drawable.ic_back_button)
-            }
-        } else {
-            with (binding) {
-                toolbar.navigationIcon = null
-            }
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         ShikimoriApplication.INSTANCE.appComponent.inject(this)
-
-        childFragmentManager.addOnBackStackChangedListener(backstackChangedListener)
-        with (binding) {
-            toolbar.setNavigationOnClickListener {
-                onBackPressed()
-            }
-        }
 
         if (savedInstanceState == null) {
             router.newRootScreen(backstackInfo.getRootScreen())
