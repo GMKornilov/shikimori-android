@@ -32,7 +32,7 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
         super.onStart()
 
         with (binding) {
-            toolbarLayout.toolbar.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
                 router.exit()
             }
         }
