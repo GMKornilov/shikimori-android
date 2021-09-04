@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|snap|enterAlways">
 
-            <include layout="@layout/back_toolbar"/>
+            <include android:id="@+id/toolbarLayout" layout="@layout/back_toolbar"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

@@ -42,6 +42,16 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
         bindError()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        with (binding) {
+            toolbarLayout.toolbar.setNavigationOnClickListener {
+                router.exit()
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 

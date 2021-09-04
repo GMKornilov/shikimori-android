@@ -1,6 +1,8 @@
 package com.gmkornilov.shikimori.presentation
 
 import android.app.Application
+import com.gmkornilov.shikimori.di.animepage.AnimePageComponent
+import com.gmkornilov.shikimori.di.animepage.DaggerAnimePageComponent
 import com.gmkornilov.shikimori.di.app.AppComponent
 import com.gmkornilov.shikimori.di.app.DaggerAppComponent
 import com.gmkornilov.shikimori.di.filteredanimespage.DaggerFilteredAnimesPageComponent
@@ -19,6 +21,9 @@ class ShikimoriApplication : Application() {
     private var mainPageComponent: MainPageComponent? = null
     private var filteredAnimesPageComponent: FilteredAnimesPageComponent? = null
     private var searchPageComponent: SearchPageComponent? = null
+    private var animesPageComponent: AnimePageComponent? = null
+
+    // TODO: generify all this [plusComponentName] and [clearComponentName] to one class
 
     fun plusMainPageComponent(): MainPageComponent {
         if (mainPageComponent == null) {
@@ -57,6 +62,19 @@ class ShikimoriApplication : Application() {
 
     fun clearSearchPageComponent() {
         searchPageComponent = null
+    }
+
+    fun plusAnimePageComponent(): AnimePageComponent {
+        if (animesPageComponent == null) {
+            animesPageComponent = DaggerAnimePageComponent.builder()
+                .appComponent(appComponent)
+                .build()
+        }
+        return animesPageComponent!!
+    }
+
+    fun clearAnimePageComponent() {
+        animesPageComponent = null
     }
 
     override fun onCreate() {
