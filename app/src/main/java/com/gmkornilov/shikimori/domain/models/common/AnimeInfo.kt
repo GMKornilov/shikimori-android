@@ -2,7 +2,9 @@ package com.gmkornilov.shikimori.domain.models.common
 
 import java.util.*
 
-
+/**
+ * Information about specific anime
+ */
 data class AnimeInfo(
     val id: Long,
     val name: String,

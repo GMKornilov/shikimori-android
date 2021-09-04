@@ -9,6 +9,9 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Serializer for date objects
+ */
 @ExperimentalSerializationApi
 @Serializer(forClass = Date::class)
 object DateSerializer : KSerializer<Date?> {

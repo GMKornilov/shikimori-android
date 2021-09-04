@@ -61,6 +61,9 @@ class AnimeRepositoryImpl @Inject constructor(
 
     }
 
+    /**
+     * Remote API returns relative path for image urls, so this method fixes it
+     */
     @ExperimentalSerializationApi
     private fun mapAnimePreview(animePreview: AnimePreview): AnimePreview {
         return AnimePreview(

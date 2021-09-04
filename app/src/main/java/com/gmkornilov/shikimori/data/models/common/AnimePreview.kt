@@ -7,6 +7,9 @@ import kotlinx.serialization.Serializable
 import java.util.*
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 
+/**
+ * Preview information about anime
+ */
 @ExperimentalSerializationApi
 @Serializable
 data class AnimePreview(
@@ -24,6 +27,10 @@ data class AnimePreview(
     @Serializable(with = DateSerializer::class) @SerialName("released_on") val releasedOn: Date? = null,
 )
 
+/**
+ * Convert data model of anime preview to domain model
+ */
+@ExperimentalSerializationApi
 fun AnimePreview.toDomainAnimePreview() : DomainAnimePreview {
     return DomainAnimePreview(
         id,

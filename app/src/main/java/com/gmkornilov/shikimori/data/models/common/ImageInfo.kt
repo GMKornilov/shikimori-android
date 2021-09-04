@@ -4,6 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.ImageInfo as DomainImageInfo
 
+/**
+* Information about image
+*/
 @Serializable
 data class ImageInfo(
     @SerialName("original") val urlOriginal: String,
@@ -12,6 +15,9 @@ data class ImageInfo(
     @SerialName("x48") val urlX48: String,
 )
 
+/**
+ * Convert data model of image information to domain model
+ */
 fun ImageInfo.toDomainImageInfo(): DomainImageInfo {
     return DomainImageInfo(urlOriginal, urlPreview, urlX96, urlX48)
 }

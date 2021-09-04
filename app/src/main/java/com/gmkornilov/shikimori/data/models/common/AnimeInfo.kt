@@ -7,6 +7,9 @@ import kotlinx.serialization.Serializable
 import java.util.*
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo as DomainAnimeInfo
 
+/**
+ * Information about specific anime
+ */
 @ExperimentalSerializationApi
 @Serializable
 data class AnimeInfo(
@@ -51,6 +54,9 @@ data class AnimeInfo(
     @SerialName("user_rate") val userRate: Float? = null,
 )
 
+/**
+ * Convert data model of information about anime to domain model
+ */
 @ExperimentalSerializationApi
 fun AnimeInfo.toDomainAnimeInfo(): DomainAnimeInfo {
     return DomainAnimeInfo(

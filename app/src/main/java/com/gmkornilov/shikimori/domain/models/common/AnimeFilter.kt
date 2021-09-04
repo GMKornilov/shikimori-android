@@ -2,6 +2,9 @@ package com.gmkornilov.shikimori.domain.models.common
 
 import java.io.Serializable
 
+/**
+ * Filter for finding animes
+ */
 data class AnimeFilter(
     val page: Int?,
     val limit: Int?,
@@ -21,7 +24,10 @@ data class AnimeFilter(
     val excludeIds: List<Long>?,
     val searchString: String?,
 ) : Serializable {
-    class Builder() {
+    /**
+     * Builder for constructing filters
+     */
+    class Builder {
         private var page: Int? = null
         private var limit: Int? = null
         private var order: AnimeOrder? = null

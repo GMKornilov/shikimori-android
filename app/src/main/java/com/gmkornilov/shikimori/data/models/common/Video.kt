@@ -3,6 +3,9 @@ package com.gmkornilov.shikimori.data.models.common
 import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.Video as DomainVideo
 
+/**
+ * Information about video
+ */
 @Serializable
 data class Video(
     val id: Long,
@@ -14,6 +17,9 @@ data class Video(
     val hosting: String,
 )
 
+/**
+ * Convert data model of video to domain model
+ */
 fun Video.toDomainVideo(): DomainVideo {
     return DomainVideo(id, url, imageUrl, playerUrl, name, kind, hosting)
 }

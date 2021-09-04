@@ -2,6 +2,9 @@ package com.gmkornilov.shikimori.domain.models.common
 
 import java.util.*
 
+/**
+ * Preview information about anime
+ */
 data class AnimePreview(
     val id: Long,
     val name: String,

@@ -2,6 +2,9 @@ package com.gmkornilov.shikimori.data.models.common
 
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter as DomainAnimeFilter
 
+/**
+ * Filter for finding animes
+ */
 data class AnimeFilter(
     val page: Int?,
     val limit: Int?,
@@ -22,6 +25,9 @@ data class AnimeFilter(
     val searchString: String?,
 )
 
+/**
+ * Convert domain model of anime filter to data model
+ */
 fun DomainAnimeFilter.toDataAnimeFilter(): AnimeFilter {
     return AnimeFilter(
         page,
