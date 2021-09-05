@@ -21,7 +21,9 @@ class MainActivityViewModel(
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
 
-                _connectionRestored.postValue(true)
+                if (_hasInternet.value != true) {
+                    _connectionRestored.postValue(true)
+                }
                 _hasInternet.postValue(true)
             }
 

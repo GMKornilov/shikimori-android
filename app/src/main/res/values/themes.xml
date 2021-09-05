@@ -15,4 +15,8 @@
         <item name="previewStartGradientColor">@color/white_transparent</item>
         <item name="previewEndGradientColor">@color/white</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.Shikimori">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
 </resources>

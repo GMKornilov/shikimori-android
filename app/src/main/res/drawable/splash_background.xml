@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="?attr/colorOnPrimary" />
+
+    <item
+        android:drawable="@drawable/ic_glyph"
+        android:gravity="center" />
+
+    <item
+        android:height="25.150422dp"
+        android:width="200dp"
+        android:bottom="50dp"
+        android:drawable="@drawable/ic_title"
+        android:gravity="center_horizontal|bottom" />
+</layer-list>

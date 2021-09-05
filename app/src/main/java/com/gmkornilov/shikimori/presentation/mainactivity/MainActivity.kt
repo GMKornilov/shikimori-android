@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val navigator = AppNavigator(this, R.id.mainContainer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Shikimori)
         super.onCreate(savedInstanceState)
 
         ShikimoriApplication.INSTANCE.appComponent.inject(this)
