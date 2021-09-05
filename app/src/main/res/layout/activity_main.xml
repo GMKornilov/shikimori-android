@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainActivity">
+    tools:context=".presentation.mainactivity.MainActivity">
 
    <androidx.fragment.app.FragmentContainerView
        android:id="@+id/mainContainer"
@@ -14,6 +14,34 @@
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
+
+   <TextView
+       android:id="@+id/notInternetText"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/no_inernet_connection"
+       android:textAlignment="center"
+       android:background="@color/red"
+       android:textColor="@color/white"
+       app:layout_constraintHorizontal_bias="0.5"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+
+   <TextView
+       android:id="@+id/internetRestoredText"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:text="@string/connection_restored"
+       tools:visibility="gone"
+       android:visibility="gone"
+       android:textAlignment="center"
+       android:background="@color/green"
+       android:textColor="@color/white"
+       app:layout_constraintHorizontal_bias="0.5"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
 
    <com.google.android.material.bottomnavigation.BottomNavigationView
        android:id="@+id/bottomNavigation"

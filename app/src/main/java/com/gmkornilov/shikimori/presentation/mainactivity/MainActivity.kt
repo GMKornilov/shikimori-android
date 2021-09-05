@@ -1,20 +1,27 @@
-package com.gmkornilov.shikimori.presentation
+package com.gmkornilov.shikimori.presentation.mainactivity
 
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.github.terrakok.cicerone.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.ActivityMainBinding
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
+import com.gmkornilov.shikimori.presentation.ShikimoriApplication
+import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.extensions.visibleFragment
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.Backstacks
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackPressedListener
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -26,30 +33,39 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     @GlobalNavigation
     lateinit var router: Router
 
-    private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
+    @Inject
+    lateinit var connectivityManager: ConnectivityManager
 
-    /**
-     * Property for getting key of current backstack
-     */
-    private val screenKey: String?
-        get() {
-            val currentItemId = binding.bottomNavigation.selectedItemId
-            val currentKey = Backstacks.findByTabItemId(currentItemId)?.toString() ?: return null
-            return currentKey
-        }
-
-    private val navigator = object : AppNavigator(this, R.id.mainContainer) {
-        fun hasScreens(): Boolean {
-            return fragmentManager.backStackEntryCount > 1
+    private val viewModel: MainActivityViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainActivityViewModel(connectivityManager) as T
+            }
         }
     }
+
+    private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::bind)
+
+    private val navigator = AppNavigator(this, R.id.mainContainer)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         ShikimoriApplication.INSTANCE.appComponent.inject(this)
 
+        viewModel.connectionRestored.observe(this, {
+            binding.internetRestoredText.visibility = View.VISIBLE
+            binding.internetRestoredText.postDelayed({
+                binding.internetRestoredText.visibility = View.GONE
+            }, 3000)
+        })
+
+        viewModel.hasInternet.observe(this, {
+            showNetworkConnectionMessage(it)
+        })
+
         if (savedInstanceState == null) {
+            viewModel.registerListener()
             /*
             setOnItemSelectedListener is not called for default menu item, so we
             get default menu item and trigger its "selection" ourselves
@@ -71,12 +87,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
 
         supportActionBar?.hide()
-//        supportActionBar?.apply {
-//            setDisplayShowHomeEnabled(true)
-//            setDisplayShowTitleEnabled(false)
-//            setLogo(R.drawable.ic_title)
-//            setDisplayUseLogoEnabled(true)
-//        }
     }
 
     override fun onStart() {
@@ -96,6 +106,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         } else {
             router.exit()
         }
+    }
+
+    private fun showNetworkConnectionMessage(isVisible: Boolean) {
+        binding.notInternetText.visibility = mapVisibility(!isVisible)
     }
 
     private fun itemSelected(menuItem: MenuItem): Boolean {

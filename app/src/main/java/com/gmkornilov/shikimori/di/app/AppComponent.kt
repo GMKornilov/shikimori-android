@@ -4,7 +4,7 @@ import android.content.Context
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
-import com.gmkornilov.shikimori.presentation.MainActivity
+import com.gmkornilov.shikimori.presentation.mainactivity.MainActivity
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackFragment
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
@@ -16,7 +16,8 @@ import dagger.Component
         DataModule::class,
         DataSourceModule::class,
         NavigationModule::class,
-        RxModule::class
+        RxModule::class,
+        NetworkModule::class
     ],
 )
 @AppScope

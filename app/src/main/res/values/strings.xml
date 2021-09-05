@@ -38,4 +38,7 @@ Sed in quam eget ipsum sagittis congue nec eget risus. Pellentesque ac purus vel
 Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec a lorem maximus, pretium ante id, condimentum sapien. Curabitur sit amet lacinia enim. Suspendisse eu libero iaculis, iaculis leo in, venenatis mauris. Sed ut congue orci, vel pulvinar dui. Vestibulum imperdiet porttitor suscipit. Curabitur cursus, nisl sit amet egestas tincidunt, leo nulla viverra justo, et porta leo nisi ut tortor. Nulla interdum at lacus nec interdum.
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis a sem felis. Vivamus quam odio, fringilla non leo consequat, posuere lobortis augue. Donec sagittis iaculis nisi sed pretium. Curabitur feugiat fringilla felis ut dignissim. Sed hendrerit imperdiet justo vestibulum eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum, arcu id dapibus pretium, odio ex porttitor nisi, vel malesuada felis odio sed erat. Curabitur elit sem, convallis sit amet venenatis id, euismod eget ipsum. In hac habitasse platea dictumst. Donec rutrum ex magna, nec sagittis ex lacinia eu. Sed ut sollicitudin massa.</string>
+    <string name="no_inernet_connection">Нет подключения к сети</string>
+    <string name="connection_restored">Подключение восстановлено</string>
+
 </resources>
