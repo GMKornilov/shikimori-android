@@ -10,17 +10,21 @@ import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
 import com.gmkornilov.shikimori.presentation.models.common.*
 
+val doubleBracketsRegex = Regex("(\\[\\[)|(]])")
+val onceBracketsRegex = Regex("\\[.+?]")
+val doubleWhitespaceRegex = Regex("\\s+")
 
 fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
     val result = mutableListOf<BaseComponent>()
 
-    if (this.description != null) {
+    val descriptionComponent = this.toDescription()
+    if (descriptionComponent != null) {
         result.add(
             SectionHeaderComponent(
                 context.getString(R.string.description)
             )
         )
-        result.add(DescriptionComponent(this.description))
+        result.add(descriptionComponent)
     }
 
     val informationKeyValues = this.toInformation(context)
@@ -33,6 +37,16 @@ fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
         result.addAll(informationKeyValues)
     }
     return result
+}
+
+fun AnimeInfo.toDescription(): DescriptionComponent? {
+    if (this.description == null) {
+        return null
+    }
+    var description = this.description.replace(doubleBracketsRegex, "")
+    description = onceBracketsRegex.replace(description, "")
+    description = doubleWhitespaceRegex.replace(description, " ")
+    return DescriptionComponent(description)
 }
 
 fun AnimeInfo.toInformation(context: Context): List<KeyValue>? {

@@ -56,7 +56,7 @@ class SingleLazyLoader<T : Any, R : Any>(
             }
             .subscribe { result, throwable ->
                 if (throwable != null) {
-                    Log.d(TAG, throwable.message ?: "No message")
+                    Log.d(TAG, "$throwable")
                     _exception.value = true
                 } else {
                     _values.value = result
