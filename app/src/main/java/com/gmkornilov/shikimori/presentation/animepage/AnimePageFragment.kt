@@ -15,6 +15,7 @@ import com.gmkornilov.shikimori.presentation.components.keyvalue.keyValueAdapter
 import com.gmkornilov.shikimori.presentation.components.sectionheader.sectionHeaderAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.loadUrl
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
@@ -61,7 +62,6 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
                 startPostponedEnterTransition()
             }
         }
-        bindStat()
         bindMainContent()
     }
 
@@ -84,33 +84,34 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
     }
 
     private fun bindMainContent() {
-        with(binding) {
+        with(binding.contentScrolling) {
             mainContent.adapter = adapter
+
+            viewModel.loadingData.loading.observe(viewLifecycleOwner, {
+                if (it) {
+                    contentShimmer.startShimmer()
+                } else {
+                    contentShimmer.stopShimmer()
+                }
+                contentShimmer.visibility = mapVisibility(it)
+            })
+
+            viewModel.loadingData.exception.observe(viewLifecycleOwner, {
+                errorLayout.root.visibility = mapVisibility(it)
+            })
+
+            viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
+                mainContent.visibility = mapVisibility(it)
+            })
+
+            viewModel.loadingData.values.observe(viewLifecycleOwner, {
+                adapter.items = it
+            })
+
+            errorLayout.reloadButton.setOnClickListener {
+                viewModel.loadingData.load()
+            }
         }
-
-        viewModel.loadingData.loading.observe(viewLifecycleOwner, {
-
-        })
-
-        viewModel.loadingData.exception.observe(viewLifecycleOwner, {
-
-        })
-
-        viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-
-        })
-
-        viewModel.loadingData.values.observe(viewLifecycleOwner, {
-            adapter.items = it
-        })
-    }
-
-    private fun bindStat() {
-//        with(binding) {
-//            contentScrolling.peopleListsList.adapter = stubAdapter
-//            contentScrolling.peopleRatesList.adapter = stubAdapter
-//        }
-//        stubAdapter.submitList(stubStats)
     }
 
     companion object {
