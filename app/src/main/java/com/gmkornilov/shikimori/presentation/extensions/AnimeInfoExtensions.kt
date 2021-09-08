@@ -12,7 +12,7 @@ import com.gmkornilov.shikimori.presentation.models.common.*
 
 val doubleBracketsRegex = Regex("(\\[\\[)|(]])")
 val onceBracketsRegex = Regex("\\[.+?]")
-val doubleWhitespaceRegex = Regex("\\s+")
+val doubleWhitespaceRegex = Regex("[\\s&&[^\\n]]+")
 
 fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
     val result = mutableListOf<BaseComponent>()
