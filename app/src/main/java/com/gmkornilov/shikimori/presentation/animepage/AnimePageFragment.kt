@@ -14,7 +14,7 @@ import com.gmkornilov.shikimori.presentation.components.description.descriptionA
 import com.gmkornilov.shikimori.presentation.components.keyvalue.keyValueAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.sectionheader.sectionHeaderAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.loadUrl
-import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject

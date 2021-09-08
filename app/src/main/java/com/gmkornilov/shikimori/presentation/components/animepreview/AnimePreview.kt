@@ -1,10 +1,11 @@
-package com.gmkornilov.shikimori.presentation.items.animepreview
+package com.gmkornilov.shikimori.presentation.components.animepreview
 
 import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.gmkornilov.shikimori.R
+import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,20 +20,13 @@ data class AnimePreview(
     val titleText: String,
     val kind: AnimeKind,
     val airedOnYearString: String?,
-) : Parcelable {
-    companion object {
-        private val DIFF = object : DiffUtil.ItemCallback<AnimePreview>() {
-            override fun areItemsTheSame(oldItem: AnimePreview, newItem: AnimePreview): Boolean {
-                return oldItem.id == newItem.id
-            }
+) : Parcelable, BaseComponent {
+    override fun id(): Any {
+        return id
+    }
 
-            override fun areContentsTheSame(oldItem: AnimePreview, newItem: AnimePreview): Boolean {
-                return oldItem == newItem
-            }
-        }
-        val config by lazy(LazyThreadSafetyMode.NONE) {
-            AsyncDifferConfig.Builder(DIFF).build()
-        }
+    override fun content(): Any {
+        return this
     }
 }
 

@@ -10,9 +10,11 @@ import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
-import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
+import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main_page) {
@@ -32,13 +34,33 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
         MainViewModelFactory(router, viewAssistedModelFactory)
     }
 
-    private val nowOnScreensAdapter by lazy { AnimePreviewAdapter(viewModel) }
+    private val nowOnScreensAdapter by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
+    }
 
-    private val announcementsAdapter by lazy { AnimePreviewAdapter(viewModel) }
+    private val announcementsAdapter by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
+    }
 
-    private val mostPopularAdapter by lazy { AnimePreviewAdapter(viewModel) }
+    private val mostPopularAdapter by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
+    }
 
-    private val mostRatedAdapter by lazy { AnimePreviewAdapter(viewModel) }
+    private val mostRatedAdapter by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,13 +85,16 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
                         return
                     }
                     binding.swipeRefresh.isRefreshing = false
-                    viewModel.announcementsLoading.removeObserver(this)
-                    viewModel.nowOnScreensLoading.removeObserver(this)
-                    viewModel.mostPopularLoading.removeObserver(this)
-                    viewModel.mostRatedLoading.removeObserver(this)
+                    viewModel.announcementsLoadingData.loading.removeObserver(this)
+                    viewModel.nowOnScreensLoadingData.loading.removeObserver(this)
+                    viewModel.mostPopularLoadingData.loading.removeObserver(this)
+                    viewModel.mostRatedLoadingData.loading.removeObserver(this)
                 }
             }
-            viewModel.mostRatedLoading.observe(viewLifecycleOwner, observer)
+            viewModel.nowOnScreensLoadingData.loading.observe(viewLifecycleOwner, observer)
+            viewModel.announcementsLoadingData.loading.observe(viewLifecycleOwner, observer)
+            viewModel.mostPopularLoadingData.loading.observe(viewLifecycleOwner, observer)
+            viewModel.mostRatedLoadingData.loading.observe(viewLifecycleOwner, observer)
         }
     }
 
@@ -86,7 +111,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.nowOnScreensClicked()
         }
 
-        viewModel.nowOnScreensLoading.observe(viewLifecycleOwner, {
+        viewModel.nowOnScreensLoadingData.loading.observe(viewLifecycleOwner, {
             binding.nowOnScreensShimmer.visibility = mapVisibility(it)
             if (it) {
                 binding.nowOnScreensShimmer.startShimmer()
@@ -95,20 +120,20 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             }
         })
 
-        viewModel.nowOnScreensError.observe(viewLifecycleOwner, {
+        viewModel.nowOnScreensLoadingData.exception.observe(viewLifecycleOwner, {
             binding.nowOnScreensError.root.visibility = mapVisibility(it)
         })
 
-        viewModel.nowOnScreensLoadedWithoutErrors.observe(viewLifecycleOwner, {
+        viewModel.nowOnScreensLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
             binding.nowOnScreensList.visibility = mapVisibility(it)
         })
 
-        viewModel.nowOnScreens.observe(viewLifecycleOwner, {
-            nowOnScreensAdapter.submitList(it)
+        viewModel.nowOnScreensLoadingData.values.observe(viewLifecycleOwner, {
+            nowOnScreensAdapter.items = it
         })
 
         binding.nowOnScreensError.reloadButton.setOnClickListener {
-            viewModel.loadNowOnScreens()
+            viewModel.nowOnScreensLoadingData.load()
         }
     }
 
@@ -117,7 +142,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.announcementsClicked()
         }
 
-        viewModel.announcementsLoading.observe(viewLifecycleOwner, {
+        viewModel.announcementsLoadingData.loading.observe(viewLifecycleOwner, {
             binding.anonsShimmer.visibility = mapVisibility(it)
             if (it) {
                 binding.anonsShimmer.startShimmer()
@@ -126,20 +151,20 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             }
         })
 
-        viewModel.announcementsError.observe(viewLifecycleOwner, {
+        viewModel.announcementsLoadingData.exception.observe(viewLifecycleOwner, {
             binding.anonsError.root.visibility = mapVisibility(it)
         })
 
-        viewModel.announcementsLoadedWithoutErrors.observe(viewLifecycleOwner, {
+        viewModel.announcementsLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
             binding.anonsList.visibility = mapVisibility(it)
         })
 
-        viewModel.announcements.observe(viewLifecycleOwner, {
-            announcementsAdapter.submitList(it)
+        viewModel.announcementsLoadingData.values.observe(viewLifecycleOwner, {
+            announcementsAdapter.items = it
         })
 
         binding.anonsError.reloadButton.setOnClickListener {
-            viewModel.loadAnnouncements()
+            viewModel.announcementsLoadingData.load()
         }
     }
 
@@ -148,7 +173,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.mostPopularClicked()
         }
 
-        viewModel.mostPopularLoading.observe(viewLifecycleOwner, {
+        viewModel.mostPopularLoadingData.loading.observe(viewLifecycleOwner, {
             binding.mostPopularShimmer.visibility = mapVisibility(it)
             if (it) {
                 binding.mostPopularShimmer.startShimmer()
@@ -157,20 +182,20 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             }
         })
 
-        viewModel.mostPopularError.observe(viewLifecycleOwner, {
+        viewModel.mostPopularLoadingData.exception.observe(viewLifecycleOwner, {
             binding.mostPopularError.root.visibility = mapVisibility(it)
         })
 
-        viewModel.mostPopularLoadedWithoutErrors.observe(viewLifecycleOwner, {
+        viewModel.mostPopularLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
             binding.mostPopularList.visibility = mapVisibility(it)
         })
 
-        viewModel.mostPopular.observe(viewLifecycleOwner, {
-            mostPopularAdapter.submitList(it)
+        viewModel.mostPopularLoadingData.values.observe(viewLifecycleOwner, {
+            mostPopularAdapter.items = it
         })
 
         binding.mostPopularError.reloadButton.setOnClickListener {
-            viewModel.loadMostPopular()
+            viewModel.mostPopularLoadingData.load()
         }
     }
 
@@ -179,7 +204,7 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.mostRatedClicked()
         }
 
-        viewModel.mostRatedLoading.observe(viewLifecycleOwner, {
+        viewModel.mostRatedLoadingData.loading.observe(viewLifecycleOwner, {
             binding.mostRatedShimmer.visibility = mapVisibility(it)
             if (it) {
                 binding.mostRatedShimmer.startShimmer()
@@ -188,20 +213,20 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             }
         })
 
-        viewModel.mostRatedError.observe(viewLifecycleOwner, {
+        viewModel.mostRatedLoadingData.exception.observe(viewLifecycleOwner, {
             binding.mostRatedError.root.visibility = mapVisibility(it)
         })
 
-        viewModel.mostRatedLoadedWithoutErrors.observe(viewLifecycleOwner, {
+        viewModel.mostRatedLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
             binding.mostRatedList.visibility = mapVisibility(it)
         })
 
-        viewModel.mostRated.observe(viewLifecycleOwner, {
-            mostRatedAdapter.submitList(it)
+        viewModel.mostRatedLoadingData.values.observe(viewLifecycleOwner, {
+            mostRatedAdapter.items = it
         })
 
         binding.mostRatedError.reloadButton.setOnClickListener {
-            viewModel.loadMostRated()
+            viewModel.mostRatedLoadingData.load()
         }
     }
 

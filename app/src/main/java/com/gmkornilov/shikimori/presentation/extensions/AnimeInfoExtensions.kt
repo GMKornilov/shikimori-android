@@ -8,7 +8,7 @@ import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.description.DescriptionComponent
 import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
-import com.gmkornilov.shikimori.presentation.items.animepreview.toPresentationAnimeKind
+import com.gmkornilov.shikimori.presentation.components.animepreview.toPresentationAnimeKind
 
 
 fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {

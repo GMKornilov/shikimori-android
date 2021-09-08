@@ -9,10 +9,12 @@ import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
+import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
 
 class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
@@ -45,7 +47,7 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     override fun onStart() {
         super.onStart()
 
-        with (binding) {
+        with(binding) {
             toolbarLayout.toolbar.setNavigationOnClickListener {
                 router.exit()
             }
@@ -61,31 +63,34 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     }
 
     private fun bindList() {
-        val adapter = AnimePreviewAdapter(viewModel)
+        val adapter = AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
 
         binding.previewList.adapter = adapter
 
-        viewModel.previews.observe(viewLifecycleOwner, {
-            adapter.submitList(it)
+        viewModel.loadingData.values.observe(viewLifecycleOwner, {
+            adapter.items = it
         })
     }
 
     private fun bindLoading() {
-        viewModel.loading.observe(viewLifecycleOwner, {
+        viewModel.loadingData.loading.observe(viewLifecycleOwner, {
             binding.loadingProgress.visibility = mapVisibility(it)
         })
 
-        viewModel.loadedWithoutErrors.observe(viewLifecycleOwner, {
+        viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
             binding.previewList.visibility = mapVisibility(it)
         })
     }
 
     private fun bindError() {
         binding.errorLayout.reloadButton.setOnClickListener {
-            viewModel.loadPreviews()
+            viewModel.loadingData.load()
         }
 
-        viewModel.exception.observe(viewLifecycleOwner, {
+        viewModel.loadingData.exception.observe(viewLifecycleOwner, {
             binding.errorLayout.root.visibility = mapVisibility(it)
         })
     }

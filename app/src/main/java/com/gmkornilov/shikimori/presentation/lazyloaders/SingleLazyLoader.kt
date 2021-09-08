@@ -1,11 +1,12 @@
 package com.gmkornilov.shikimori.presentation.lazyloaders
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class SingleLazyLoader<T : Any, R : Any>(
     private val schedulersProvider: SchedulersProvider,
@@ -33,14 +34,14 @@ class SingleLazyLoader<T : Any, R : Any>(
     private val _values: MutableLiveData<R> = MutableLiveData()
     val values: LiveData<R> = _values
 
-    private var disposable: Disposable? = null
+    private var compositeDisposable = CompositeDisposable()
 
     init {
         load()
     }
 
     fun load() {
-        disposable = loader()
+        val disposable = loader()
             .map {
                 mapper(it)
             }
@@ -55,14 +56,20 @@ class SingleLazyLoader<T : Any, R : Any>(
             }
             .subscribe { result, throwable ->
                 if (throwable != null) {
+                    Log.d(TAG, throwable.message ?: "No message")
                     _exception.value = true
                 } else {
                     _values.value = result
                 }
             }
+        compositeDisposable.add(disposable)
     }
 
     fun destroy() {
-        disposable?.dispose()
+        compositeDisposable.dispose()
+    }
+
+    companion object {
+        private const val TAG = "SingleLazyLoader"
     }
 }

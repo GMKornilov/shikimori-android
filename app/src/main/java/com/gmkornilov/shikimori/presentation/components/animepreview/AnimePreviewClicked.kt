@@ -1,4 +1,4 @@
-package com.gmkornilov.shikimori.presentation.items.animepreview
+package com.gmkornilov.shikimori.presentation.components.animepreview
 
 interface AnimePreviewClicked {
     fun onClicked(animePreview: AnimePreview)

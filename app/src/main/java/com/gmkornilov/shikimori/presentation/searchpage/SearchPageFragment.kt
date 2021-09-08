@@ -11,9 +11,11 @@ import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentSearchBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
+import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.items.animepreview.AnimePreviewAdapter
+import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
 
 class SearchPageFragment : Fragment(R.layout.fragment_search) {
@@ -21,6 +23,7 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
 
     @Inject
     lateinit var backstackNavigationManager: BackstackNavigationManager
+
     @Inject
     lateinit var searchPageViewModelAssistedFactory: SearchPageViewModelAssistedFactory
 
@@ -32,8 +35,11 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
         SearchPageViewModelFactory(router, searchPageViewModelAssistedFactory)
     }
 
-    private val animePreviewAdapter: AnimePreviewAdapter by lazy {
-        AnimePreviewAdapter(viewModel)
+    private val animePreviewAdapter: AsyncListDifferDelegationAdapter<BaseComponent> by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            animePreviewAdapterDelegate(viewModel),
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,16 +54,16 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun bindLoading() {
-        with (binding) {
-            viewModel.loading.observe(viewLifecycleOwner, {
+        with(binding) {
+            viewModel.searchLoadingData.loading.observe(viewLifecycleOwner, {
                 loadingProgress.visibility = mapVisibility(it)
             })
         }
     }
 
     private fun bindError() {
-        with (binding) {
-            viewModel.exception.observe(viewLifecycleOwner, {
+        with(binding) {
+            viewModel.searchLoadingData.exception.observe(viewLifecycleOwner, {
                 errorLayout.root.visibility = mapVisibility(it)
             })
             errorLayout.reloadButton.setOnClickListener {
@@ -67,21 +73,21 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun bindContent() {
-        with (binding) {
+        with(binding) {
             searchedPreviewList.adapter = animePreviewAdapter
 
-            viewModel.loadedWithoutErrors.observe(viewLifecycleOwner, {
+            viewModel.searchLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
                 searchedPreviewList.visibility = mapVisibility(it)
             })
 
-            viewModel.previews.observe(viewLifecycleOwner, {
-                animePreviewAdapter.submitList(it)
+            viewModel.searchLoadingData.values.observe(viewLifecycleOwner, {
+                animePreviewAdapter.items = it
             })
         }
     }
 
     private fun bindSearch() {
-        with (binding) {
+        with(binding) {
             searchView.isSubmitButtonEnabled = true
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
