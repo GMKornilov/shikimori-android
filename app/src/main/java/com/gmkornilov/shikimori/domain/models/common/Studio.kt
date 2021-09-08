@@ -8,5 +8,5 @@ data class Studio(
     val name: String,
     val filteredName: String,
     val real: Boolean,
-    val imageUrl: String,
+    val imageUrl: String?,
 )

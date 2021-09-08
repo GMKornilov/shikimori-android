@@ -13,7 +13,7 @@ data class Studio(
     val name: String,
     @SerialName("filtered_name") val filteredName: String,
     val real: Boolean,
-    @SerialName("image") val imageUrl: String,
+    @SerialName("image") val imageUrl: String?,
 )
 
 /**

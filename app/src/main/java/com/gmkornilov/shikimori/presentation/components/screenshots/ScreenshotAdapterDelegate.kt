@@ -24,6 +24,7 @@ fun screenshotAdapterDelegate() =
             Glide.with(binding.screenshotImageFirst)
                 .load(firstUrl)
                 .placeholder(shimmerDrawable)
+                .fitCenter()
                 .into(binding.screenshotImageFirst)
 
             if (secondUrl == null) {
@@ -32,23 +33,13 @@ fun screenshotAdapterDelegate() =
                 Glide.with(binding.screenshotImageSecond)
                     .load(secondUrl)
                     .placeholder(shimmerDrawable)
+                    .fitCenter()
                     .into(binding.screenshotImageSecond)
             }
 
         }
     }
 
-
-fun screenshotItemAdapterDelegate() = adapterDelegateViewBinding<Screenshot, BaseComponent, ScreenshotItemLayoutBinding>(
-    {layoutInflater, parent -> ScreenshotItemLayoutBinding.inflate(layoutInflater, parent, false) }
-) {
-    bind {
-        Glide.with(binding.screenshotImage)
-            .load(item.url)
-            .placeholder(shimmerDrawable)
-            .into(binding.screenshotImage)
-    }
-}
 
 private const val DURATION = 1000L
 private const val BASE_ALPHA = 0.7f
