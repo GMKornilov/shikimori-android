@@ -1,17 +1,14 @@
 package com.gmkornilov.shikimori.presentation.components.animepreview
 
 import android.os.Parcelable
-import androidx.annotation.StringRes
-import androidx.recyclerview.widget.AsyncDifferConfig
-import androidx.recyclerview.widget.DiffUtil
-import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
+import com.gmkornilov.shikimori.presentation.models.common.AnimeKind
+import com.gmkornilov.shikimori.presentation.models.common.toPresentationAnimeKind
 import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
-import com.gmkornilov.shikimori.domain.models.common.AnimeKind as DomainAnimeKind
 
 @Parcelize
 data class AnimePreview(
@@ -47,33 +44,3 @@ fun DomainAnimePreview.toPresentationAnimePreview(): AnimePreview {
         year,
     )
 }
-
-enum class AnimeKind(@StringRes val titleResourceId: Int) {
-    TV(R.string.tv),
-    MOVIE(R.string.movie),
-    OVA(R.string.ova),
-    ONA(R.string.ona),
-    SPECIAL(R.string.special),
-    MUSIC(R.string.music),
-    TV_13(R.string.tv),
-    TV_24(R.string.tv),
-    TV_48(R.string.tv),
-    UNKNOWN(R.string.unknown)
-}
-
-fun DomainAnimeKind?.toPresentationAnimeKind(): AnimeKind {
-    return if (this == null) {
-        AnimeKind.UNKNOWN
-    } else {
-        AnimeKind.valueOf(this.toString())
-    }
-}
-
-fun AnimeKind.toDomainAnimeKind(): DomainAnimeKind? {
-    return if (this == AnimeKind.UNKNOWN) {
-        null
-    } else {
-        DomainAnimeKind.valueOf(this.toString())
-    }
-}
-

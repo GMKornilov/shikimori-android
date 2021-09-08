@@ -2,13 +2,13 @@ package com.gmkornilov.shikimori.presentation.extensions
 
 import android.content.Context
 import com.gmkornilov.shikimori.R
-import com.gmkornilov.shikimori.data.models.common.toDataAnimeRating
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
+import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.description.DescriptionComponent
 import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
-import com.gmkornilov.shikimori.presentation.components.animepreview.toPresentationAnimeKind
+import com.gmkornilov.shikimori.presentation.models.common.*
 
 
 fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
@@ -23,77 +23,160 @@ fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
         result.add(DescriptionComponent(this.description))
     }
 
-    val informations = this.toInformation(context)
-    if (informations != null) {
+    val informationKeyValues = this.toInformation(context)
+    if (informationKeyValues != null) {
         result.add(
             SectionHeaderComponent(
                 context.getString(R.string.information)
             )
         )
-        result.addAll(informations)
+        result.addAll(informationKeyValues)
     }
     return result
 }
 
 fun AnimeInfo.toInformation(context: Context): List<KeyValue>? {
     val result = mutableListOf<KeyValue>()
-    if (this.kind != null) {
-        val value = this.kind.toPresentationAnimeKind().toString()
-        result.add(
-            KeyValue(
-                context.getString(R.string.type),
-                value,
-            )
-        )
+
+    val kindKeyValue = this.toKind(context)
+    if (kindKeyValue != null) {
+        result.add(kindKeyValue)
     }
 
-    var episodesValue = this.episodesAired.toString()
-    if (this.episodes != this.episodesAired) {
-        episodesValue += "/${this.episodes}"
+    val episodesKeyValue = this.toEpisodes(context)
+    if (episodesKeyValue != null) {
+        result.add(episodesKeyValue)
     }
-    result.add(
+
+    val durationKeyValue = this.toDuration(context)
+    if (durationKeyValue != null) {
+        result.add(durationKeyValue)
+    }
+
+    val statusKeyValue = this.toStatus(context)
+    result.add(statusKeyValue)
+
+    val ratingKeyValue = this.toRating(context)
+    if (ratingKeyValue != null) {
+        result.add(ratingKeyValue)
+    }
+
+//    val ruLicenseKeyValue = this.toRuLicense(context)
+//    if (ruLicenseKeyValue != null) {
+//        result.add(ruLicenseKeyValue)
+//    }
+
+    val japaneseKeyValue = this.toJapanese(context)
+    if (japaneseKeyValue != null) {
+        result.add(japaneseKeyValue)
+    }
+
+    val englishKeyValue = this.toEnglish(context)
+    if (englishKeyValue != null) {
+        result.add(englishKeyValue)
+    }
+
+    return if (result.isEmpty()) null else result
+}
+
+fun AnimeInfo.toKind(context: Context): KeyValue? {
+    val kind = this.kind.toPresentationAnimeKind()
+
+    if (kind == AnimeKind.UNKNOWN) {
+        return null
+    }
+
+    return KeyValue(
+        context.getString(R.string.type),
+        context.getString(kind.titleResourceId),
+    )
+}
+
+fun AnimeInfo.toEpisodes(context: Context): KeyValue? {
+    val kind = this.kind.toPresentationAnimeKind()
+    if (!kind.isTv()) {
+        return null
+    }
+    var episodesValue: String
+
+    when (this.status) {
+        AnimeStatus.ANONS -> {
+            episodesValue = ""
+        }
+        AnimeStatus.ONGOING -> {
+            episodesValue = this.episodesAired.toString()
+            if (this.episodes == 0) {
+                episodesValue += "/?"
+            } else if (this.episodes != this.episodesAired) {
+                episodesValue += "/${this.episodes}"
+            }
+        }
+        AnimeStatus.RELEASED -> {
+            episodesValue = this.episodesAired.coerceAtLeast(this.episodes).toString()
+        }
+    }
+
+    return if (episodesValue.isNotEmpty()) {
         KeyValue(
             context.getString(R.string.episodes),
             episodesValue,
         )
+    } else {
+        null
+    }
+}
+
+fun AnimeInfo.toDuration(context: Context): KeyValue? {
+    val kind = this.kind.toPresentationAnimeKind()
+    if (!kind.isTv() || this.duration == 0) {
+        return null
+    }
+    return KeyValue(
+        context.getString(R.string.episode_length),
+        this.duration.toString(),
     )
+}
 
-    if (this.duration != 0) {
-        result.add(
-            KeyValue(
-                context.getString(R.string.episode_length),
-                this.duration.toString(),
-            )
-        )
-    }
-
-    val ratingValue = this.rating.toDataAnimeRating().toString()
-    result.add(
-        KeyValue(
-            context.getString(R.string.rating),
-            ratingValue,
-        )
+fun AnimeInfo.toStatus(context: Context): KeyValue {
+    return KeyValue(
+        context.getString(R.string.status),
+        context.getString(this.status.toPresentationAnimeStatus().stringRes)
     )
+}
 
-    val japaneseValue = this.japanese.find { it != null }?.toString()
-    if (japaneseValue != null) {
-        result.add(
-            KeyValue(
-                context.getString(R.string.japanese_name),
-                japaneseValue,
-            )
-        )
+fun AnimeInfo.toRating(context: Context): KeyValue? {
+    val rating = this.rating.toPresentationAnimeRating()
+    if (rating == AnimeRating.NONE) {
+        return null
     }
+    return KeyValue(
+        context.getString(R.string.rating),
+        context.getString(rating.stringRes),
+    )
+}
 
-    val englishValue = this.english.find { it != null }?.toString()
-    if (englishValue != null) {
-        result.add(
-            KeyValue(
-                context.getString(R.string.english_name),
-                englishValue,
-            )
-        )
-    }
+//fun AnimeInfo.toRuLicense(context: Context): KeyValue? {
+//    if (this.ruLicenseName == null || this.name == this.ruLicenseName) {
+//        return null
+//    }
+//    return KeyValue(
+//        context.getString(R.string.license_name_ru),
+//        this.ruLicenseName,
+//    )
+//}
 
-    return if (result.isEmpty()) null else result
+fun AnimeInfo.toJapanese(context: Context): KeyValue? {
+    val japaneseValue = this.japanese.find { it != null }?.toString() ?: return null
+    return KeyValue(
+        context.getString(R.string.japanese_name),
+        japaneseValue,
+    )
+}
+
+fun AnimeInfo.toEnglish(context: Context): KeyValue? {
+    val englishValue = this.english.find { it != null }?.toString() ?: return null
+    return KeyValue(
+        context.getString(R.string.english_name),
+        englishValue,
+    )
 }

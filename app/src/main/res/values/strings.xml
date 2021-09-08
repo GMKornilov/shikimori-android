@@ -38,12 +38,27 @@ In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a feli
     <string name="people_lists">В списках у людей</string>
     <string name="information">Информация</string>
     <string name="description">Описание</string>
+    <string name="license_name_ru">Лицензировано в РФ под именем:  </string>
 
     <string name="type">Тип</string>
     <string name="episodes">Эпизоды</string>
+
+    <string name="status">Статус</string>
+    <string name="announced">анонс</string>
+    <string name="ongoing">онгоинг</string>
+    <string name="released">вышло</string>
+    <string name="on_formatted">на %1$s</string>
+
     <string name="episode_length">Длительность эпизода(в минутах):</string>
     <string name="rating">Рейтинг</string>
     <string name="japanese_name">По-японски</string>
     <string name="english_name">По-английски</string>
 
+    <string name="none">неизвестен</string>
+    <string name="G">G</string>
+    <string name="PG">PG</string>
+    <string name="PG_13">PG-13</string>
+    <string name="R">R</string>
+    <string name="R_PLUS">R+</string>
+    <string name="RX">RX</string>
 </resources>
