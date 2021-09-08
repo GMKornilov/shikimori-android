@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginVertical="@dimen/small_margin">
 
     <com.skydoves.progressview.ProgressView
         android:id="@+id/progressBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/labelText"
+        app:layout_constraintVertical_bias="0"
         app:progressView_borderColor="?attr/colorPrimary"
         app:progressView_borderWidth="1dp"
         app:progressView_colorBackground="@android:color/transparent"
@@ -22,4 +28,18 @@
         app:progressView_labelTypeface="bold"
         app:progressView_progress="40"
         app:progressView_radius="12dp" />
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/labelText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="textEnd"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="strin"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

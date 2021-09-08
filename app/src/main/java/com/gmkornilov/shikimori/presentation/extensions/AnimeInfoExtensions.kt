@@ -7,7 +7,10 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.description.DescriptionComponent
 import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
+import com.gmkornilov.shikimori.presentation.components.rating.Rating
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
+import com.gmkornilov.shikimori.presentation.components.stat.Stat
+import com.gmkornilov.shikimori.presentation.components.stat.toStat
 import com.gmkornilov.shikimori.presentation.models.common.*
 
 val doubleBracketsRegex = Regex("(\\[\\[)|(]])")
@@ -36,6 +39,37 @@ fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
         )
         result.addAll(informationKeyValues)
     }
+
+    val rate = this.toRate(context)
+    if (rate != null) {
+        result.add(
+            SectionHeaderComponent(
+                context.getString(R.string.rating)
+            )
+        )
+        result.add(rate)
+    }
+
+    val ratesStats = this.toRatesStat()
+    if (ratesStats != null) {
+        result.add(
+            SectionHeaderComponent(
+                context.getString(R.string.people_rate)
+            )
+        )
+        result.addAll(ratesStats)
+    }
+
+    val statusesStats = this.toStatusesStat()
+    if (statusesStats != null) {
+        result.add(
+            SectionHeaderComponent(
+                context.getString(R.string.people_lists)
+            )
+        )
+        result.addAll(statusesStats)
+    }
+
     return result
 }
 
@@ -91,6 +125,37 @@ fun AnimeInfo.toInformation(context: Context): List<KeyValue>? {
     }
 
     return if (result.isEmpty()) null else result
+}
+
+fun AnimeInfo.toRate(context: Context): Rating? {
+    if (this.score == 0.0f) {
+        return null
+    }
+    val rate = context.getString(when(this.score) {
+        in 9.0f..Float.MAX_VALUE -> R.string.perfect
+        in 8.0f..9.0f -> R.string.great
+        in 7.0f..8.0f -> R.string.good
+        in 6.0f..7.0f -> R.string.normal
+        in 5.0f..6.0f -> R.string.nor_good_nor_bad
+        else -> R.string.bad
+    })
+    return Rating(this.score, rate)
+}
+
+fun AnimeInfo.toRatesStat(): List<Stat>? {
+    if (this.ratesScoresStats.isEmpty()) {
+        return null
+    }
+    val maxValue = this.ratesScoresStats.maxOf { it.value }
+    return this.ratesScoresStats.map { it.toStat(maxValue) }
+}
+
+fun AnimeInfo.toStatusesStat(): List<Stat>? {
+    if (this.ratesStatusesStats.isEmpty()) {
+        return null
+    }
+    val maxValue = this.ratesStatusesStats.maxOf { it.value }
+    return this.ratesStatusesStats.map { it.toStat(maxValue) }
 }
 
 fun AnimeInfo.toKind(context: Context): KeyValue? {

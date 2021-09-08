@@ -15,6 +15,8 @@ import com.gmkornilov.shikimori.presentation.components.keyvalue.keyValueAdapter
 import com.gmkornilov.shikimori.presentation.components.sectionheader.sectionHeaderAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.loadUrl
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.components.rating.ratingAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.stat.statAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -48,6 +50,8 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
         sectionHeaderAdapterDelegate(),
         descriptionAdapterDelegate(),
         keyValueAdapterDelegate(),
+        statAdapterDelegate(),
+        ratingAdapterDelegate(),
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

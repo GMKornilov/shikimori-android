@@ -61,4 +61,11 @@ In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a feli
     <string name="R">R</string>
     <string name="R_PLUS">R+</string>
     <string name="RX">RX</string>
+    
+    <string name="perfect">Великолепно</string>
+    <string name="great">Отлично</string>
+    <string name="good">Хорошо</string>
+    <string name="normal">Нормально</string>
+    <string name="nor_good_nor_bad">Более-менее</string>
+    <string name="bad">Плохо</string>
 </resources>
