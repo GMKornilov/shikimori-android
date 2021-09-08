@@ -31,6 +31,8 @@ interface AppComponent {
 
     val backstackNavigationManager: BackstackNavigationManager
 
+    @get:ApplicationContext val context: Context
+
     fun inject(mainActivity: MainActivity)
 
     fun inject(backstackFragment: BackstackFragment)

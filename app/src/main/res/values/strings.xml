@@ -31,14 +31,19 @@
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac tempus est. Phasellus dignissim magna ante, consequat finibus erat tincidunt nec. Aliquam mattis dignissim convallis. Curabitur eget maximus diam, vitae posuere ex. Maecenas malesuada arcu nulla, id ultricies ante volutpat in. Proin in fermentum eros. Vestibulum bibendum mi id nisl bibendum, efficitur posuere risus sollicitudin. Fusce condimentum condimentum pellentesque. Nulla fringilla sagittis metus a bibendum. Morbi imperdiet nulla ut lectus maximus, sit amet lacinia enim elementum. Proin auctor quam felis, sit amet vestibulum est aliquam sit amet.
 
-In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a felis. Suspendisse ut scelerisque massa, in efficitur nunc. Nulla tincidunt purus ipsum, non ornare libero tincidunt et. Pellentesque fringilla purus vitae elit malesuada, eu maximus felis placerat. Donec facilisis justo eu sodales euismod. Proin auctor odio ac vulputate tincidunt. Proin vitae eros leo. Praesent quis pellentesque dui. Quisque nec velit faucibus, feugiat lorem sed, luctus ligula. Etiam facilisis ex et scelerisque rhoncus. Nulla rhoncus augue nulla, non volutpat mi feugiat ut. Mauris ac lorem non turpis sagittis aliquam sed at eros. Morbi sed facilisis justo.
-
-Sed in quam eget ipsum sagittis congue nec eget risus. Pellentesque ac purus vel nunc condimentum viverra. Vivamus a pulvinar purus, in molestie turpis. Nullam luctus luctus mi, quis vulputate ligula finibus ultricies. Phasellus volutpat vestibulum vulputate. Maecenas sed imperdiet odio. Nulla quis velit magna. In hac habitasse platea dictumst. Donec porta aliquam felis, at aliquam elit iaculis consequat. Duis sed tincidunt enim, sed porta metus. Sed metus velit, semper id interdum sit amet, mollis et libero. Nam tristique eros ac nisi malesuada vulputate. Proin sed orci vitae neque molestie aliquet commodo eu ligula. Vivamus sit amet urna magna.
-
-Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec a lorem maximus, pretium ante id, condimentum sapien. Curabitur sit amet lacinia enim. Suspendisse eu libero iaculis, iaculis leo in, venenatis mauris. Sed ut congue orci, vel pulvinar dui. Vestibulum imperdiet porttitor suscipit. Curabitur cursus, nisl sit amet egestas tincidunt, leo nulla viverra justo, et porta leo nisi ut tortor. Nulla interdum at lacus nec interdum.
-
-Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis a sem felis. Vivamus quam odio, fringilla non leo consequat, posuere lobortis augue. Donec sagittis iaculis nisi sed pretium. Curabitur feugiat fringilla felis ut dignissim. Sed hendrerit imperdiet justo vestibulum eleifend. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum, arcu id dapibus pretium, odio ex porttitor nisi, vel malesuada felis odio sed erat. Curabitur elit sem, convallis sit amet venenatis id, euismod eget ipsum. In hac habitasse platea dictumst. Donec rutrum ex magna, nec sagittis ex lacinia eu. Sed ut sollicitudin massa.</string>
+In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a felis. Suspendisse ut scelerisque massa, in efficitur nunc. Nulla tincidunt purus ipsum, non ornare libero tincidunt et. Pellentesque fringilla purus vitae elit malesuada, eu maximus felis placerat. Donec facilisis justo eu sodales euismod. Proin auctor odio ac vulputate tincidunt. Proin vitae eros leo. Praesent quis pellentesque dui. Quisque nec velit faucibus, feugiat lorem sed, luctus ligula. Etiam facilisis ex et scelerisque rhoncus. Nulla rhoncus augue nulla, non volutpat mi feugiat ut. Mauris ac lorem non turpis sagittis aliquam sed at eros. Morbi sed facilisis justo.</string>
     <string name="no_inernet_connection">Нет подключения к сети</string>
     <string name="connection_restored">Подключение восстановлено</string>
+    <string name="people_rate">Оценки людей</string>
+    <string name="people_lists">В списках у людей</string>
+    <string name="information">Информация</string>
+    <string name="description">Описание</string>
+
+    <string name="type">Тип</string>
+    <string name="episodes">Эпизоды</string>
+    <string name="episode_length">Длительность эпизода(в минутах):</string>
+    <string name="rating">Рейтинг</string>
+    <string name="japanese_name">По-японски</string>
+    <string name="english_name">По-английски</string>
 
 </resources>

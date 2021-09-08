@@ -79,7 +79,7 @@ class SearchPageViewModel @AssistedInject constructor(
     }
 
     override fun onClicked(animePreview: AnimePreview) {
-        router.navigateTo(Screens.AnimeScreen(animePreview.id))
+        router.navigateTo(Screens.AnimeScreen(animePreview))
     }
 
     companion object {

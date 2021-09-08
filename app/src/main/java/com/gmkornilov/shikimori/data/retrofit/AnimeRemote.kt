@@ -4,6 +4,7 @@ import com.gmkornilov.shikimori.data.models.common.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AnimeRemote {
@@ -28,4 +29,8 @@ interface AnimeRemote {
         @Query("exclude_ids") excludeIdsString: String?,
         @Query("search") searchString: String?
     ): Call<List<AnimePreview>>
+
+    @ExperimentalSerializationApi
+    @GET("api/animes/{id}")
+    fun getAnime(@Path("id") id: Long): Call<AnimeInfo>
 }

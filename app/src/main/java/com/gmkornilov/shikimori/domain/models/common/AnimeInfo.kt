@@ -42,7 +42,7 @@ data class AnimeInfo(
     val fandubbers: List<String>? = null,
     val genres: List<Genre>? = null,
     val studios: List<Studio>? = null,
-    val videos: List<String>? = null,
+    val videos: List<Video>? = null,
     val screenshots: List<Screenshot>? = null,
     val userRate: Float? = null,
 )

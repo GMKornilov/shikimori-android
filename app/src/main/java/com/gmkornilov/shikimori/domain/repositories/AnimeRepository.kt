@@ -2,12 +2,13 @@ package com.gmkornilov.shikimori.domain.repositories
 
 import androidx.annotation.WorkerThread
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
+import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import kotlinx.serialization.ExperimentalSerializationApi
 
 interface AnimeRepository {
     /**
-     * Gets animes by given [filter].
+     * Gets anime previews by given [filter].
      *
      * @param [filter] given filter for filtering data from data sources
      * @param [needsRefresh] set this to true, if you need to refresh data from remote server
@@ -17,4 +18,15 @@ interface AnimeRepository {
     @WorkerThread
     @ExperimentalSerializationApi
     fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): List<AnimePreview>
+
+    /**
+     * Gets information about anime bu given [id]
+     *
+     * @param [id] id of anime
+     *
+     * @return [AnimeInfo] about anime
+     */
+    @WorkerThread
+    @ExperimentalSerializationApi
+    fun animeById(id: Long): AnimeInfo
 }

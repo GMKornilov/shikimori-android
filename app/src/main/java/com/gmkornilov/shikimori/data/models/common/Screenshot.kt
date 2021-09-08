@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.data.models.common
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.Screenshot as DomainScreenshot
 
@@ -8,8 +9,8 @@ import com.gmkornilov.shikimori.domain.models.common.Screenshot as DomainScreens
  */
 @Serializable
 data class Screenshot(
-    val originalUrl: String,
-    val previewUrl: String,
+    @SerialName("original") val originalUrl: String,
+    @SerialName("preview") val previewUrl: String,
 )
 
 /**

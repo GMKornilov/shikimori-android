@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.data.models.common
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.Studio as DomainStudio
 
@@ -10,9 +11,9 @@ import com.gmkornilov.shikimori.domain.models.common.Studio as DomainStudio
 data class Studio(
     val id: Long,
     val name: String,
-    val filteredName: String,
+    @SerialName("filtered_name") val filteredName: String,
     val real: Boolean,
-    val imageUrl: String,
+    @SerialName("image") val imageUrl: String,
 )
 
 /**

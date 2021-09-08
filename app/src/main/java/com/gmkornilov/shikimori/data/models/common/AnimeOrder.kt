@@ -1,55 +1,58 @@
 package com.gmkornilov.shikimori.data.models.common
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder as DomainAnimeOrder
 
 /**
  * Order of how searched animes are given
  */
+@Serializable
 enum class AnimeOrder {
     /**
      * Ordered by id
      */
-    ID,
+    @SerialName("id") ID,
 
     /**
      * Ordered by rank
      */
-    RANKED,
+    @SerialName("ranked") RANKED,
 
     /**
      * Ordered by kind
      */
-    KIND,
+    @SerialName("kind") KIND,
 
     /**
      * Ordered by popularity
      */
-    POPULARITY,
+    @SerialName("popularity") POPULARITY,
 
     /**
      * Ordered in alphabetical order
      */
-    NAME,
+    @SerialName("name") NAME,
 
     /**
      * Ordered by released date
      */
-    AIRED_ON,
+    @SerialName("aired_on") AIRED_ON,
 
     /**
      * Ordered by amount of episodes
      */
-    EPISODES,
+    @SerialName("episodes") EPISODES,
 
     /**
      * Ordered by status
      */
-    STATUS,
+    @SerialName("status") STATUS,
 
     /**
      * Random order
      */
-    RANDOM;
+    @SerialName("random") RANDOM;
 
     override fun toString(): String {
         return super.toString().lowercase()

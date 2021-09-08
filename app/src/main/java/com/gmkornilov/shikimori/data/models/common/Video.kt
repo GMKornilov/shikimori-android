@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.data.models.common
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import com.gmkornilov.shikimori.domain.models.common.Video as DomainVideo
 
@@ -10,8 +11,8 @@ import com.gmkornilov.shikimori.domain.models.common.Video as DomainVideo
 data class Video(
     val id: Long,
     val url: String,
-    val imageUrl: String,
-    val playerUrl: String,
+    @SerialName("image_url") val imageUrl: String,
+    @SerialName("player_url") val playerUrl: String,
     val name: String,
     val kind: String,
     val hosting: String,

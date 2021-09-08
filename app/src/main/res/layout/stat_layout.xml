@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/small_margin">
+
+    <com.skydoves.progressview.ProgressView
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        app:progressView_borderColor="?attr/colorPrimary"
+        app:progressView_borderWidth="1dp"
+        app:progressView_colorBackground="@android:color/transparent"
+        app:progressView_colorProgress="?attr/colorPrimary"
+        app:progressView_highlightAlpha="0.8"
+        app:progressView_highlightWidth="1dp"
+        app:progressView_labelColorInner="?attr/colorOnPrimary"
+        app:progressView_labelColorOuter="?attr/colorPrimary"
+        app:progressView_labelSize="13sp"
+        app:progressView_labelText="test"
+        app:progressView_labelTypeface="bold"
+        app:progressView_progress="40"
+        app:progressView_radius="12dp" />
+</FrameLayout>

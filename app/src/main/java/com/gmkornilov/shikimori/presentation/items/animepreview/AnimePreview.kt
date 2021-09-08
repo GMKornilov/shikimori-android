@@ -1,22 +1,25 @@
 package com.gmkornilov.shikimori.presentation.items.animepreview
 
+import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import com.gmkornilov.shikimori.R
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 import com.gmkornilov.shikimori.domain.models.common.AnimeKind as DomainAnimeKind
 
+@Parcelize
 data class AnimePreview(
     val id: Long,
     val thumbnailImageUrl: String,
     val titleText: String,
     val kind: AnimeKind,
     val airedOnYearString: String?,
-) {
+) : Parcelable {
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<AnimePreview>() {
             override fun areItemsTheSame(oldItem: AnimePreview, newItem: AnimePreview): Boolean {
@@ -44,7 +47,7 @@ fun DomainAnimePreview.toPresentationAnimePreview(): AnimePreview {
 
     return AnimePreview(
         this.id,
-        this.imageInfo.urlPreview,
+        this.imageInfo.urlOriginal,
         this.russianName,
         this.kind.toPresentationAnimeKind(),
         year,

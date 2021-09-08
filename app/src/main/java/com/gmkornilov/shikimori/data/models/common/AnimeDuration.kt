@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.data.models.common
 
+import kotlinx.serialization.SerialName
 import com.gmkornilov.shikimori.domain.models.common.AnimeDuration as DomainAnimeDuration
 
 /**

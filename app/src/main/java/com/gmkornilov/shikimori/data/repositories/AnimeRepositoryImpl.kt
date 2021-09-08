@@ -2,15 +2,13 @@ package com.gmkornilov.shikimori.data.repositories
 
 import androidx.annotation.WorkerThread
 import com.gmkornilov.shikimori.BuildConfig
-import com.gmkornilov.shikimori.data.models.common.AnimePreview
-import com.gmkornilov.shikimori.data.models.common.ImageInfo
-import com.gmkornilov.shikimori.data.models.common.toDataAnimeFilter
-import com.gmkornilov.shikimori.data.models.common.toDomainAnimePreview
+import com.gmkornilov.shikimori.data.models.common.*
 import com.gmkornilov.shikimori.data.retrofit.AnimeRemote
 import com.gmkornilov.shikimori.domain.error.BadRequestException
 import com.gmkornilov.shikimori.domain.error.NotFoundException
 import com.gmkornilov.shikimori.domain.error.ServerException
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
+import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -58,7 +56,27 @@ class AnimeRepositoryImpl @Inject constructor(
             in SERVER_ERROR..SERVER_ERROR + 100 -> ServerException()
             else -> Exception()
         }
+    }
 
+    @ExperimentalSerializationApi
+    @WorkerThread
+    override fun animeById(id: Long): AnimeInfo {
+        val response = animeRemote.getAnime(id).execute()
+
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                return body.toDomainAnimeInfo()
+            } else {
+                throw Exception()
+            }
+        }
+        throw when (response.code()) {
+            UNPROCESSABLE_ENTITY -> BadRequestException()
+            NOT_FOUND -> NotFoundException()
+            in SERVER_ERROR..SERVER_ERROR + 100 -> ServerException()
+            else -> Exception()
+        }
     }
 
     /**

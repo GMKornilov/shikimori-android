@@ -266,7 +266,7 @@ class MainViewModel @AssistedInject constructor(
     }
 
     override fun onClicked(animePreview: AnimePreview) {
-        router.navigateTo(Screens.AnimeScreen(animePreview.id))
+        router.navigateTo(Screens.AnimeScreen(animePreview))
     }
 
     init {
