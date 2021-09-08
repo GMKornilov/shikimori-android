@@ -33,6 +33,7 @@ fun ImageView.loadUrl(url: String, onLoadingFinished: () -> Unit) {
     }
     Glide.with(this)
         .load(url)
+        .fitCenter()
         .listener(listener)
         .into(this)
 }

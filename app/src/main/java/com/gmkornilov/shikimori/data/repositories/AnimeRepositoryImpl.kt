@@ -8,7 +8,7 @@ import com.gmkornilov.shikimori.domain.error.BadRequestException
 import com.gmkornilov.shikimori.domain.error.NotFoundException
 import com.gmkornilov.shikimori.domain.error.ServerException
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
+import com.gmkornilov.shikimori.domain.models.common.AnimeInfo as DomainAnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -60,13 +60,13 @@ class AnimeRepositoryImpl @Inject constructor(
 
     @ExperimentalSerializationApi
     @WorkerThread
-    override fun animeById(id: Long): AnimeInfo {
+    override fun animeById(id: Long): DomainAnimeInfo {
         val response = animeRemote.getAnime(id).execute()
 
         if (response.isSuccessful) {
             val body = response.body()
             if (body != null) {
-                return body.toDomainAnimeInfo()
+                return mapAnimeInfo(body).toDomainAnimeInfo()
             } else {
                 throw Exception()
             }
@@ -102,6 +102,18 @@ class AnimeRepositoryImpl @Inject constructor(
             animePreview.episodesAired,
             animePreview.airedOn,
             animePreview.releasedOn
+        )
+    }
+
+    @ExperimentalSerializationApi
+    private fun mapAnimeInfo(animeInfo: AnimeInfo): AnimeInfo {
+        return animeInfo.copy(
+            screenshots = animeInfo.screenshots?.map {
+                it.copy(
+                    originalUrl = BuildConfig.BASE_URL + it.originalUrl,
+                    previewUrl = BuildConfig.BASE_URL + it.previewUrl,
+                )
+            }
         )
     }
 

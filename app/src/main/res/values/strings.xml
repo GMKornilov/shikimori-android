@@ -68,4 +68,7 @@ In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a feli
     <string name="normal">Нормально</string>
     <string name="nor_good_nor_bad">Более-менее</string>
     <string name="bad">Плохо</string>
+
+    <string name="screenshot">Скриншот</string>
+    <string name="screenshots">Скриншоты</string>
 </resources>

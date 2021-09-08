@@ -8,6 +8,8 @@ import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.description.DescriptionComponent
 import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
 import com.gmkornilov.shikimori.presentation.components.rating.Rating
+import com.gmkornilov.shikimori.presentation.components.screenshots.Screenshot
+import com.gmkornilov.shikimori.presentation.components.screenshots.Screenshots
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
 import com.gmkornilov.shikimori.presentation.components.stat.Stat
 import com.gmkornilov.shikimori.presentation.components.stat.toStat
@@ -68,6 +70,16 @@ fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
             )
         )
         result.addAll(statusesStats)
+    }
+
+    val screenshots = this.toScreenshots()
+    if (screenshots != null) {
+        result.add(
+            SectionHeaderComponent(
+                context.getString(R.string.screenshots)
+            )
+        )
+        result.add(screenshots)
     }
 
     return result
@@ -156,6 +168,14 @@ fun AnimeInfo.toStatusesStat(): List<Stat>? {
     }
     val maxValue = this.ratesStatusesStats.maxOf { it.value }
     return this.ratesStatusesStats.map { it.toStat(maxValue) }
+}
+
+fun AnimeInfo.toScreenshots(): Screenshots? {
+    if (this.screenshots.isNullOrEmpty()) {
+        return null
+    }
+    val urls = this.screenshots.map { it.originalUrl }
+    return Screenshots(urls)
 }
 
 fun AnimeInfo.toKind(context: Context): KeyValue? {

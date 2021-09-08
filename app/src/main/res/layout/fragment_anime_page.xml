@@ -21,39 +21,30 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:maxLines="3">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="1">
 
-                <FrameLayout
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintDimensionRatio="5:7"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/animeThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/anime_thumbnail"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/steins" />
 
-                    <ImageView
-                        android:id="@+id/animeThumbnail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/anime_thumbnail"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/steins" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="top"
+                    android:background="@drawable/ic_top_gradient" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_gravity="top"
-                        android:background="@drawable/ic_top_gradient" />
-
-                </FrameLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -79,8 +70,8 @@
         android:id="@+id/contentScrollingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include
             android:id="@+id/contentScrolling"
