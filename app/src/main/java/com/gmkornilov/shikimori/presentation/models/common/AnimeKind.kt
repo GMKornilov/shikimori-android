@@ -16,7 +16,7 @@ enum class AnimeKind(@StringRes val titleResourceId: Int) {
     UNKNOWN(R.string.unknown);
 
     fun isTv(): Boolean {
-        return this == TV || this == TV_13 || this == TV_24 || this == TV_48
+        return this == TV || this == TV_13 || this == TV_24 || this == TV_48 || this == OVA
     }
 }
 

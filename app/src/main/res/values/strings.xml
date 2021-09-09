@@ -42,6 +42,8 @@ In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a feli
 
     <string name="type">Тип</string>
     <string name="episodes">Эпизоды</string>
+    <string name="genres">Жанры</string>
+    <string name="licensors">Лицензировано</string>
 
     <string name="status">Статус</string>
     <string name="announced">анонс</string>

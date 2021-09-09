@@ -15,6 +15,8 @@ import com.gmkornilov.shikimori.presentation.components.keyvalue.keyValueAdapter
 import com.gmkornilov.shikimori.presentation.components.sectionheader.sectionHeaderAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.loadUrl
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.components.genres.genresAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.licensors.licensorsAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.rating.ratingAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.screenshots.screenshotAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.stat.statAdapterDelegate
@@ -57,6 +59,8 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
             ratingAdapterDelegate(),
             screenshotAdapterDelegate(),
             videoAdapterDelegate(viewModel::showVideo),
+            genresAdapterDelegate(),
+            licensorsAdapterDelegate(),
         )
     }
 

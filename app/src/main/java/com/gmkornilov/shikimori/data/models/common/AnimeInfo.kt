@@ -99,6 +99,7 @@ fun AnimeInfo.toDomainAnimeInfo(): DomainAnimeInfo {
         studios?.map { it.toDomainStudio() },
         videos?.map { it.toDomainVideo() },
         screenshots?.map { it.toDomainScreenshot() },
-        userRate
+        userRate,
+        licensors,
     )
 }

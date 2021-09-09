@@ -96,6 +96,9 @@ dependencies {
     // Delegate adapter with view binding
     implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
 
+    // Flexbox layout for flow-like recycler view behavior
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
     def lottieVersion = "4.1.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 

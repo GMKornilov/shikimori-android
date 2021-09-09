@@ -6,9 +6,12 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.description.DescriptionComponent
+import com.gmkornilov.shikimori.presentation.components.genres.Genre
+import com.gmkornilov.shikimori.presentation.components.genres.Genres
 import com.gmkornilov.shikimori.presentation.components.keyvalue.KeyValue
+import com.gmkornilov.shikimori.presentation.components.licensors.Licensor
+import com.gmkornilov.shikimori.presentation.components.licensors.Licensors
 import com.gmkornilov.shikimori.presentation.components.rating.Rating
-import com.gmkornilov.shikimori.presentation.components.screenshots.Screenshot
 import com.gmkornilov.shikimori.presentation.components.screenshots.Screenshots
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
 import com.gmkornilov.shikimori.presentation.components.stat.Stat
@@ -107,8 +110,8 @@ fun AnimeInfo.toDescription(): DescriptionComponent? {
     return DescriptionComponent(description)
 }
 
-fun AnimeInfo.toInformation(context: Context): List<KeyValue>? {
-    val result = mutableListOf<KeyValue>()
+fun AnimeInfo.toInformation(context: Context): List<BaseComponent>? {
+    val result = mutableListOf<BaseComponent>()
 
     val kindKeyValue = this.toKind(context)
     if (kindKeyValue != null) {
@@ -128,9 +131,19 @@ fun AnimeInfo.toInformation(context: Context): List<KeyValue>? {
     val statusKeyValue = this.toStatus(context)
     result.add(statusKeyValue)
 
+    val genresValue = this.toGenres(context)
+    if (genresValue != null) {
+        result.add(genresValue)
+    }
+
     val ratingKeyValue = this.toRating(context)
     if (ratingKeyValue != null) {
         result.add(ratingKeyValue)
+    }
+
+    val licensorsValue = this.toLicensors(context)
+    if (licensorsValue != null) {
+        result.add(licensorsValue)
     }
 
 //    val ruLicenseKeyValue = this.toRuLicense(context)
@@ -265,6 +278,17 @@ fun AnimeInfo.toStatus(context: Context): KeyValue {
     )
 }
 
+fun AnimeInfo.toGenres(context: Context): Genres? {
+    if (this.genres == null) {
+        return null
+    }
+    val genreList = this.genres.map { Genre(it.id, it.russian) }
+    return Genres(
+        context.getString(R.string.genres),
+        genreList
+    )
+}
+
 fun AnimeInfo.toRating(context: Context): KeyValue? {
     val rating = this.rating.toPresentationAnimeRating()
     if (rating == AnimeRating.NONE) {
@@ -273,6 +297,17 @@ fun AnimeInfo.toRating(context: Context): KeyValue? {
     return KeyValue(
         context.getString(R.string.rating),
         context.getString(rating.stringRes),
+    )
+}
+
+fun AnimeInfo.toLicensors(context: Context): Licensors? {
+    if (this.licensors.isNullOrEmpty()) {
+        return null
+    }
+    val licensorList = this.licensors.map { Licensor(it) }
+    return Licensors(
+        context.getString(R.string.licensors),
+        licensorList
     )
 }
 

@@ -45,4 +45,5 @@ data class AnimeInfo(
     val videos: List<Video>? = null,
     val screenshots: List<Screenshot>? = null,
     val userRate: Float? = null,
+    val licensors: List<String>? = null
 )
