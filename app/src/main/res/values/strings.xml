@@ -71,4 +71,6 @@ In cursus vel ipsum vel dictum. Morbi ut ex non felis eleifend euismod ac a feli
 
     <string name="screenshot">Скриншот</string>
     <string name="screenshots">Скриншоты</string>
+
+    <string name="video">Видео</string>
 </resources>

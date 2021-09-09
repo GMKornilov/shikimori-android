@@ -1,5 +1,8 @@
 package com.gmkornilov.shikimori.presentation.navigation
 
+import android.content.Intent
+import android.net.Uri
+import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.presentation.animepage.AnimePageFragment
 import com.gmkornilov.shikimori.presentation.filteredanimespage.FilteredAnimesFragment
@@ -29,5 +32,9 @@ object Screens {
 
     fun Backstack(backstackInfo: BackstackInfo) = FragmentScreen {
         BackstackFragment.newInstance(backstackInfo)
+    }
+
+    fun Video(url: String) = ActivityScreen {
+        Intent(Intent.ACTION_VIEW, Uri.parse(url))
     }
 }

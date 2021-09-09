@@ -19,7 +19,10 @@ class AnimeRepositoryImpl @Inject constructor(
 ) : AnimeRepository {
     @ExperimentalSerializationApi
     @WorkerThread
-    override fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean): List<DomainAnimePreview> {
+    override fun animesByFilter(
+        filter: AnimeFilter,
+        needsRefresh: Boolean
+    ): List<DomainAnimePreview> {
         val dataFilter = filter.toDataAnimeFilter()
         val response = animeRemote.getAnimes(
             dataFilter.page,
@@ -84,24 +87,15 @@ class AnimeRepositoryImpl @Inject constructor(
      */
     @ExperimentalSerializationApi
     private fun mapAnimePreview(animePreview: AnimePreview): AnimePreview {
-        return AnimePreview(
-            animePreview.id,
-            animePreview.name,
-            animePreview.russianName,
-            ImageInfo(
-                BuildConfig.BASE_URL + animePreview.imageInfo.urlOriginal,
-                BuildConfig.BASE_URL + animePreview.imageInfo.urlPreview,
-                BuildConfig.BASE_URL + animePreview.imageInfo.urlX48,
-                BuildConfig.BASE_URL + animePreview.imageInfo.urlX96,
-            ),
-            animePreview.url,
-            animePreview.kind,
-            animePreview.score,
-            animePreview.status,
-            animePreview.episodes,
-            animePreview.episodesAired,
-            animePreview.airedOn,
-            animePreview.releasedOn
+        return animePreview.copy(
+            // API always gives relational paths to its inner resources,
+            // so we should replace it with absolute path
+            imageInfo = animePreview.imageInfo.copy(
+                urlOriginal = BuildConfig.BASE_URL + animePreview.imageInfo.urlOriginal,
+                urlPreview = BuildConfig.BASE_URL + animePreview.imageInfo.urlPreview,
+                urlX96 = BuildConfig.BASE_URL + animePreview.imageInfo.urlX48,
+                urlX48 = BuildConfig.BASE_URL + animePreview.imageInfo.urlX96,
+            )
         )
     }
 
@@ -112,6 +106,19 @@ class AnimeRepositoryImpl @Inject constructor(
                 it.copy(
                     originalUrl = BuildConfig.BASE_URL + it.originalUrl,
                     previewUrl = BuildConfig.BASE_URL + it.previewUrl,
+                )
+            },
+            videos = animeInfo.videos?.map {
+                // API sometimes gives thumbnail urls with http instead of https as a protocol,
+                // and we should replace it because
+                // android doesn't allow cleartext traffic to random resources
+                val newUrl = if (!it.imageUrl.contains("https")) {
+                    it.imageUrl.replace("http", "https")
+                } else {
+                    it.imageUrl
+                }
+                it.copy(
+                    imageUrl = newUrl,
                 )
             }
         )

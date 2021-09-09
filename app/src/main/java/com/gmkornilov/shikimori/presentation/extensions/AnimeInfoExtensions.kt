@@ -13,6 +13,8 @@ import com.gmkornilov.shikimori.presentation.components.screenshots.Screenshots
 import com.gmkornilov.shikimori.presentation.components.sectionheader.SectionHeaderComponent
 import com.gmkornilov.shikimori.presentation.components.stat.Stat
 import com.gmkornilov.shikimori.presentation.components.stat.toStat
+import com.gmkornilov.shikimori.presentation.components.videos.Video
+import com.gmkornilov.shikimori.presentation.components.videos.Videos
 import com.gmkornilov.shikimori.presentation.models.common.*
 
 val doubleBracketsRegex = Regex("(\\[\\[)|(]])")
@@ -82,6 +84,16 @@ fun AnimeInfo.toAnimePageItems(context: Context): List<BaseComponent> {
         result.add(screenshots)
     }
 
+    val videos = this.toVideos()
+    if (videos != null) {
+        result.add(
+            SectionHeaderComponent(
+                context.getString(R.string.video)
+            )
+        )
+        result.add(videos)
+    }
+
     return result
 }
 
@@ -143,14 +155,16 @@ fun AnimeInfo.toRate(context: Context): Rating? {
     if (this.score == 0.0f) {
         return null
     }
-    val rate = context.getString(when(this.score) {
-        in 9.0f..Float.MAX_VALUE -> R.string.perfect
-        in 8.0f..9.0f -> R.string.great
-        in 7.0f..8.0f -> R.string.good
-        in 6.0f..7.0f -> R.string.normal
-        in 5.0f..6.0f -> R.string.nor_good_nor_bad
-        else -> R.string.bad
-    })
+    val rate = context.getString(
+        when (this.score) {
+            in 9.0f..Float.MAX_VALUE -> R.string.perfect
+            in 8.0f..9.0f -> R.string.great
+            in 7.0f..8.0f -> R.string.good
+            in 6.0f..7.0f -> R.string.normal
+            in 5.0f..6.0f -> R.string.nor_good_nor_bad
+            else -> R.string.bad
+        }
+    )
     return Rating(this.score, rate)
 }
 
@@ -176,6 +190,14 @@ fun AnimeInfo.toScreenshots(): Screenshots? {
     }
     val urls = this.screenshots.map { it.originalUrl }
     return Screenshots(urls)
+}
+
+fun AnimeInfo.toVideos(): Videos? {
+    if (this.videos.isNullOrEmpty()) {
+        return null
+    }
+    val videoList = this.videos.map { Video(it.imageUrl, it.url) }
+    return Videos(videoList)
 }
 
 fun AnimeInfo.toKind(context: Context): KeyValue? {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/ic_play"
+        android:gravity="center" />
+    <item
+        android:width="50dp"
+        android:drawable="@drawable/ic_left_gradient"
+        android:gravity="left"/>
+
+    <item
+        android:width="50dp"
+        android:drawable="@drawable/ic_right_gradient"
+        android:gravity="right"/>
+</layer-list>

@@ -18,6 +18,7 @@ import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePrevie
 import com.gmkornilov.shikimori.presentation.components.rating.ratingAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.screenshots.screenshotAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.stat.statAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.videos.videoAdapterDelegate
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -39,22 +40,25 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
     private val binding: FragmentAnimePageBinding by viewBinding(FragmentAnimePageBinding::bind)
 
     private val viewModel: AnimePageViewModel by viewModels {
-        AnimePageViewModelFactory(animePreview.id, animePageViewModelAssistedFactory)
+        AnimePageViewModelFactory(animePreview.id, router, animePageViewModelAssistedFactory)
     }
 
     private val animePreview: AnimePreview by lazy {
         requireArguments().getParcelable(PREVIEW)!!
     }
 
-    private val adapter = AsyncListDifferDelegationAdapter(
-        BaseComponent,
-        sectionHeaderAdapterDelegate(),
-        descriptionAdapterDelegate(),
-        keyValueAdapterDelegate(),
-        statAdapterDelegate(),
-        ratingAdapterDelegate(),
-        screenshotAdapterDelegate(),
-    )
+    private val adapter by lazy {
+        AsyncListDifferDelegationAdapter(
+            BaseComponent,
+            sectionHeaderAdapterDelegate(),
+            descriptionAdapterDelegate(),
+            keyValueAdapterDelegate(),
+            statAdapterDelegate(),
+            ratingAdapterDelegate(),
+            screenshotAdapterDelegate(),
+            videoAdapterDelegate(viewModel::showVideo),
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

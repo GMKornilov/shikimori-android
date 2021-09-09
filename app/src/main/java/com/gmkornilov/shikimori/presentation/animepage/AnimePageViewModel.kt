@@ -3,12 +3,14 @@ package com.gmkornilov.shikimori.presentation.animepage
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.di.app.ApplicationContext
 import com.gmkornilov.shikimori.domain.interactors.animepage.AnimePageInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.toAnimePageItems
 import com.gmkornilov.shikimori.presentation.lazyloaders.SingleLazyLoader
+import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -22,6 +24,7 @@ class AnimePageViewModel @AssistedInject constructor(
     // which "lives" longer than view model
     @ApplicationContext private val context: Context,
     @Assisted private val animeId: Long,
+    @Assisted private val router: Router,
 ) : ViewModel() {
     @ExperimentalSerializationApi
     val loadingData: SingleLazyLoader<AnimeInfo, List<BaseComponent>> by lazy {
@@ -31,6 +34,10 @@ class AnimePageViewModel @AssistedInject constructor(
         ) {
             it.toAnimePageItems(context)
         }
+    }
+
+    fun showVideo(url:String) {
+        router.navigateTo(Screens.Video(url))
     }
 
     override fun onCleared() {
