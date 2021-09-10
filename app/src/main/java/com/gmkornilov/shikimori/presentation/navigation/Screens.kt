@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.navigation
 
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.StringRes
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.presentation.animepage.AnimePageFragment
@@ -22,8 +23,8 @@ object Screens {
         AnimePageFragment.newInstance(animePreview)
     }
 
-    fun FilteredAnimesScreen(filter: AnimeFilter) = FragmentScreen {
-        FilteredAnimesFragment.newInstance(filter)
+    fun FilteredAnimesScreen(filter: AnimeFilter, @StringRes nameResId: Int) = FragmentScreen {
+        FilteredAnimesFragment.newInstance(filter, nameResId)
     }
 
     fun Search() = FragmentScreen {

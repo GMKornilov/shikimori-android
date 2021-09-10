@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.mainpage
 
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
+import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
@@ -82,7 +83,12 @@ class MainViewModel @AssistedInject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
+        router.navigateTo(
+            Screens.FilteredAnimesScreen(
+                filter.toPresentationAnimeFilter(),
+                R.string.now_on_screens
+            )
+        )
     }
 
     fun announcementsClicked() {
@@ -92,7 +98,12 @@ class MainViewModel @AssistedInject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
+        router.navigateTo(
+            Screens.FilteredAnimesScreen(
+                filter.toPresentationAnimeFilter(),
+                R.string.announcements
+            )
+        )
     }
 
     fun mostPopularClicked() {
@@ -101,7 +112,12 @@ class MainViewModel @AssistedInject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
+        router.navigateTo(
+            Screens.FilteredAnimesScreen(
+                filter.toPresentationAnimeFilter(),
+                R.string.most_popular
+            )
+        )
     }
 
     fun mostRatedClicked() {
@@ -110,7 +126,12 @@ class MainViewModel @AssistedInject constructor(
             .limit(20)
             .build()
 
-        router.navigateTo(Screens.FilteredAnimesScreen(filter.toPresentationAnimeFilter()))
+        router.navigateTo(
+            Screens.FilteredAnimesScreen(
+                filter.toPresentationAnimeFilter(),
+                R.string.most_rated
+            )
+        )
     }
 
     override fun onClicked(animePreview: AnimePreview) {

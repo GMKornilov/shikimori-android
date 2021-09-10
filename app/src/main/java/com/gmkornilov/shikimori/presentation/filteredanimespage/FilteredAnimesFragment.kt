@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -42,13 +43,18 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
         bindList()
         bindLoading()
         bindError()
+
+        with(binding) {
+            val title = context?.getString(requireArguments().getInt(nameResIdKey))
+            toolbar.title = title
+        }
     }
 
     override fun onStart() {
         super.onStart()
 
         with(binding) {
-            toolbarLayout.toolbar.setNavigationOnClickListener {
+            toolbar.setNavigationOnClickListener {
                 router.exit()
             }
         }
@@ -96,11 +102,13 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     }
 
     companion object {
-        const val filterKey = "FILTER"
+        private const val filterKey = "FILTER"
+        private const val nameResIdKey = "NAME"
 
-        fun newInstance(filter: AnimeFilter): Fragment {
+        fun newInstance(filter: AnimeFilter, @StringRes nameResId: Int): Fragment {
             val bundle = Bundle().apply {
                 putParcelable(filterKey, filter)
+                putInt(nameResIdKey, nameResId)
             }
             return FilteredAnimesFragment().apply {
                 arguments = bundle
