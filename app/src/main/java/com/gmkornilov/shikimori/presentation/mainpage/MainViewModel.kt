@@ -4,9 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
 import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
-import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
-import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
-import com.gmkornilov.shikimori.domain.models.common.AnimeStatus
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.components.animepreview.toPresentationAnimePreview
@@ -16,7 +13,6 @@ import com.gmkornilov.shikimori.presentation.navigation.arguments.toPresentation
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import java.util.*
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 
 class MainViewModel @AssistedInject constructor(
@@ -76,59 +72,36 @@ class MainViewModel @AssistedInject constructor(
     }
 
     fun nowOnScreensClicked() {
-        val filter = AnimeFilter.Builder()
-            .status(AnimeStatus.ONGOING)
-            .order(AnimeOrder.POPULARITY)
-            .season(Calendar.getInstance().get(Calendar.YEAR).toString())
-            .limit(20)
-            .build()
-
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                filter.toPresentationAnimeFilter(),
+                mainPageInteractor.nowOnScreensFilter.toPresentationAnimeFilter(),
                 R.string.now_on_screens
             )
         )
     }
 
     fun announcementsClicked() {
-        val filter = AnimeFilter.Builder()
-            .status(AnimeStatus.ANONS)
-            .order(AnimeOrder.POPULARITY)
-            .limit(20)
-            .build()
-
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                filter.toPresentationAnimeFilter(),
+                mainPageInteractor.announcementsFilter.toPresentationAnimeFilter(),
                 R.string.announcements
             )
         )
     }
 
     fun mostPopularClicked() {
-        val filter = AnimeFilter.Builder()
-            .order(AnimeOrder.POPULARITY)
-            .limit(20)
-            .build()
-
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                filter.toPresentationAnimeFilter(),
+                mainPageInteractor.mostPopularFilter.toPresentationAnimeFilter(),
                 R.string.most_popular
             )
         )
     }
 
     fun mostRatedClicked() {
-        val filter = AnimeFilter.Builder()
-            .order(AnimeOrder.RANKED)
-            .limit(20)
-            .build()
-
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                filter.toPresentationAnimeFilter(),
+                mainPageInteractor.mostRatedFilter.toPresentationAnimeFilter(),
                 R.string.most_rated
             )
         )
