@@ -12,7 +12,7 @@ import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
@@ -37,28 +37,28 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
     private val nowOnScreensAdapter by lazy {
         AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeHorizontalPreviewAdapterDelegate(viewModel),
         )
     }
 
     private val announcementsAdapter by lazy {
         AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeHorizontalPreviewAdapterDelegate(viewModel),
         )
     }
 
     private val mostPopularAdapter by lazy {
         AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeHorizontalPreviewAdapterDelegate(viewModel),
         )
     }
 
     private val mostRatedAdapter by lazy {
         AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeHorizontalPreviewAdapterDelegate(viewModel),
         )
     }
 

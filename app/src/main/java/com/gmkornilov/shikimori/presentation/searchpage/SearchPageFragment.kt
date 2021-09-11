@@ -13,7 +13,8 @@ import com.gmkornilov.shikimori.databinding.FragmentSearchBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.animepreview.animeVerticalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
@@ -38,7 +39,7 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
     private val animePreviewAdapter: AsyncListDifferDelegationAdapter<BaseComponent> by lazy {
         AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeVerticalPreviewAdapterDelegate(viewModel),
         )
     }
 

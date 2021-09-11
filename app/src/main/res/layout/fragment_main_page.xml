@@ -102,7 +102,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/nowOnScreensButton"
-                    tools:listitem="@layout/anime_row_preview_layout" />
+                    tools:listitem="@layout/anime_horizontal_preview_layout" />
 
                 <include
                     android:id="@+id/nowOnScreensError"
@@ -181,7 +181,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/anonsButton"
-                    tools:listitem="@layout/anime_row_preview_layout" />
+                    tools:listitem="@layout/anime_horizontal_preview_layout" />
 
                 <include
                     android:id="@+id/anonsError"
@@ -260,7 +260,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mostPopularButton"
-                    tools:listitem="@layout/anime_row_preview_layout" />
+                    tools:listitem="@layout/anime_horizontal_preview_layout" />
 
                 <include
                     android:id="@+id/mostPopularError"
@@ -339,7 +339,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mostRatedButton"
-                    tools:listitem="@layout/anime_row_preview_layout" />
+                    tools:listitem="@layout/anime_horizontal_preview_layout" />
 
                 <include
                     android:id="@+id/mostRatedError"

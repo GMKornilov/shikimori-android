@@ -3,14 +3,15 @@ package com.gmkornilov.shikimori.presentation.components.animepreview
 import com.bumptech.glide.Glide
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.gmkornilov.shikimori.databinding.AnimeRowPreviewLayoutBinding
+import com.gmkornilov.shikimori.databinding.AnimeHorizontalPreviewLayoutBinding
+import com.gmkornilov.shikimori.databinding.AnimeVerticalPreviewLayoutBinding
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
-fun animePreviewAdapterDelegate(animePreviewClicked: AnimePreviewClicked) =
-    adapterDelegateViewBinding<AnimePreview, BaseComponent, AnimeRowPreviewLayoutBinding>(
+fun animeHorizontalPreviewAdapterDelegate(animePreviewClicked: AnimePreviewClicked) =
+    adapterDelegateViewBinding<AnimePreview, BaseComponent, AnimeHorizontalPreviewLayoutBinding>(
         { layoutInflater, parent ->
-            AnimeRowPreviewLayoutBinding.inflate(
+            AnimeHorizontalPreviewLayoutBinding.inflate(
                 layoutInflater,
                 parent,
                 false
@@ -22,7 +23,37 @@ fun animePreviewAdapterDelegate(animePreviewClicked: AnimePreviewClicked) =
         }
 
         bind {
-            with(binding) {
+            with(binding.animeCardContent) {
+                Glide.with(thumbnailImage)
+                    .load(item.thumbnailImageUrl)
+                    .placeholder(shimmerDrawable)
+                    .into(thumbnailImage)
+
+                titleText.text = item.titleText
+
+                kindText.text = root.context.getString(item.kind.titleResourceId)
+
+                releaseYearText.text = item.airedOnYearString
+            }
+        }
+    }
+
+fun animeVerticalPreviewAdapterDelegate(animePreviewClicked: AnimePreviewClicked) =
+    adapterDelegateViewBinding<AnimePreview, BaseComponent, AnimeVerticalPreviewLayoutBinding>(
+        { layoutInflater, parent ->
+            AnimeVerticalPreviewLayoutBinding.inflate(
+                layoutInflater,
+                parent,
+                false
+            )
+        }
+    ) {
+        binding.root.setOnClickListener {
+            animePreviewClicked.onClicked(item)
+        }
+
+        bind {
+            with(binding.animeCardContent) {
                 Glide.with(thumbnailImage)
                     .load(item.thumbnailImageUrl)
                     .placeholder(shimmerDrawable)

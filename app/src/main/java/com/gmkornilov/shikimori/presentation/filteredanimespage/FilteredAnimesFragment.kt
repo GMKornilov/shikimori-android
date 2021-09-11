@@ -12,7 +12,8 @@ import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.components.animepreview.animePreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.components.animepreview.animeVerticalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -71,7 +72,7 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     private fun bindList() {
         val adapter = AsyncListDifferDelegationAdapter(
             BaseComponent,
-            animePreviewAdapterDelegate(viewModel),
+            animeVerticalPreviewAdapterDelegate(viewModel),
         )
 
         binding.previewList.adapter = adapter
