@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,12 +17,10 @@ import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.ActivityMainBinding
 import com.gmkornilov.shikimori.di.app.GlobalNavigation
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
-import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.extensions.visibleFragment
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.Backstacks
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackPressedListener
-import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -54,16 +53,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
         ShikimoriApplication.INSTANCE.appComponent.inject(this)
 
-        viewModel.connectionRestored.observe(this, {
+        viewModel.connectionRestored.observe(this) {
             binding.internetRestoredText.visibility = View.VISIBLE
             binding.internetRestoredText.postDelayed({
                 binding.internetRestoredText.visibility = View.GONE
             }, 3000)
-        })
+        }
 
-        viewModel.hasInternet.observe(this, {
+        viewModel.hasInternet.observe(this) {
             showNetworkConnectionMessage(it)
-        })
+        }
 
         if (savedInstanceState == null) {
             viewModel.registerListener()
@@ -110,7 +109,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun showNetworkConnectionMessage(isVisible: Boolean) {
-        binding.notInternetText.visibility = mapVisibility(!isVisible)
+        binding.notInternetText.isVisible = !isVisible
     }
 
     private fun itemSelected(menuItem: MenuItem): Boolean {

@@ -3,6 +3,7 @@ package com.gmkornilov.shikimori.presentation.filteredanimespage
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -11,8 +12,6 @@ import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
-import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.animepreview.animeVerticalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
@@ -77,19 +76,19 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
 
         binding.previewList.adapter = adapter
 
-        viewModel.loadingData.values.observe(viewLifecycleOwner, {
+        viewModel.loadingData.values.observe(viewLifecycleOwner) {
             adapter.items = it
-        })
+        }
     }
 
     private fun bindLoading() {
-        viewModel.loadingData.loading.observe(viewLifecycleOwner, {
-            binding.loadingProgress.visibility = mapVisibility(it)
-        })
+        viewModel.loadingData.loading.observe(viewLifecycleOwner) {
+            binding.loadingProgress.isVisible = it
+        }
 
-        viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-            binding.previewList.visibility = mapVisibility(it)
-        })
+        viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+            binding.previewList.isVisible = it
+        }
     }
 
     private fun bindError() {
@@ -97,9 +96,9 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
             viewModel.loadingData.load()
         }
 
-        viewModel.loadingData.exception.observe(viewLifecycleOwner, {
-            binding.errorLayout.root.visibility = mapVisibility(it)
-        })
+        viewModel.loadingData.exception.observe(viewLifecycleOwner) {
+            binding.errorLayout.root.isVisible = it
+        }
     }
 
     companion object {

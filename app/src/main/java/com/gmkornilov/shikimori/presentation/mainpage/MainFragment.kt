@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.mainpage
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -11,7 +12,6 @@ import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentMainPageBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
-import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -111,26 +111,26 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.nowOnScreensClicked()
         }
 
-        viewModel.nowOnScreensLoadingData.loading.observe(viewLifecycleOwner, {
-            binding.nowOnScreensShimmer.visibility = mapVisibility(it)
+        viewModel.nowOnScreensLoadingData.loading.observe(viewLifecycleOwner) {
+            binding.nowOnScreensShimmer.isVisible = it
             if (it) {
                 binding.nowOnScreensShimmer.startShimmer()
             } else {
                 binding.nowOnScreensShimmer.stopShimmer()
             }
-        })
+        }
 
-        viewModel.nowOnScreensLoadingData.exception.observe(viewLifecycleOwner, {
-            binding.nowOnScreensError.root.visibility = mapVisibility(it)
-        })
+        viewModel.nowOnScreensLoadingData.exception.observe(viewLifecycleOwner) {
+            binding.nowOnScreensError.root.isVisible = it
+        }
 
-        viewModel.nowOnScreensLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-            binding.nowOnScreensList.visibility = mapVisibility(it)
-        })
+        viewModel.nowOnScreensLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+            binding.nowOnScreensList.isVisible = it
+        }
 
-        viewModel.nowOnScreensLoadingData.values.observe(viewLifecycleOwner, {
+        viewModel.nowOnScreensLoadingData.values.observe(viewLifecycleOwner) {
             nowOnScreensAdapter.items = it
-        })
+        }
 
         binding.nowOnScreensError.reloadButton.setOnClickListener {
             viewModel.nowOnScreensLoadingData.load()
@@ -142,26 +142,26 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.announcementsClicked()
         }
 
-        viewModel.announcementsLoadingData.loading.observe(viewLifecycleOwner, {
-            binding.anonsShimmer.visibility = mapVisibility(it)
+        viewModel.announcementsLoadingData.loading.observe(viewLifecycleOwner) {
+            binding.anonsShimmer.isVisible = it
             if (it) {
                 binding.anonsShimmer.startShimmer()
             } else {
                 binding.anonsShimmer.stopShimmer()
             }
-        })
+        }
 
-        viewModel.announcementsLoadingData.exception.observe(viewLifecycleOwner, {
-            binding.anonsError.root.visibility = mapVisibility(it)
-        })
+        viewModel.announcementsLoadingData.exception.observe(viewLifecycleOwner) {
+            binding.anonsError.root.isVisible = it
+        }
 
-        viewModel.announcementsLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-            binding.anonsList.visibility = mapVisibility(it)
-        })
+        viewModel.announcementsLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+            binding.anonsList.isVisible = it
+        }
 
-        viewModel.announcementsLoadingData.values.observe(viewLifecycleOwner, {
+        viewModel.announcementsLoadingData.values.observe(viewLifecycleOwner) {
             announcementsAdapter.items = it
-        })
+        }
 
         binding.anonsError.reloadButton.setOnClickListener {
             viewModel.announcementsLoadingData.load()
@@ -173,26 +173,26 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.mostPopularClicked()
         }
 
-        viewModel.mostPopularLoadingData.loading.observe(viewLifecycleOwner, {
-            binding.mostPopularShimmer.visibility = mapVisibility(it)
+        viewModel.mostPopularLoadingData.loading.observe(viewLifecycleOwner) {
+            binding.mostPopularShimmer.isVisible = it
             if (it) {
                 binding.mostPopularShimmer.startShimmer()
             } else {
                 binding.mostPopularShimmer.stopShimmer()
             }
-        })
+        }
 
-        viewModel.mostPopularLoadingData.exception.observe(viewLifecycleOwner, {
-            binding.mostPopularError.root.visibility = mapVisibility(it)
-        })
+        viewModel.mostPopularLoadingData.exception.observe(viewLifecycleOwner) {
+            binding.mostPopularError.root.isVisible = it
+        }
 
-        viewModel.mostPopularLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-            binding.mostPopularList.visibility = mapVisibility(it)
-        })
+        viewModel.mostPopularLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+            binding.mostPopularList.isVisible = it
+        }
 
-        viewModel.mostPopularLoadingData.values.observe(viewLifecycleOwner, {
+        viewModel.mostPopularLoadingData.values.observe(viewLifecycleOwner) {
             mostPopularAdapter.items = it
-        })
+        }
 
         binding.mostPopularError.reloadButton.setOnClickListener {
             viewModel.mostPopularLoadingData.load()
@@ -204,26 +204,26 @@ class MainFragment : Fragment(R.layout.fragment_main_page) {
             viewModel.mostRatedClicked()
         }
 
-        viewModel.mostRatedLoadingData.loading.observe(viewLifecycleOwner, {
-            binding.mostRatedShimmer.visibility = mapVisibility(it)
+        viewModel.mostRatedLoadingData.loading.observe(viewLifecycleOwner) {
+            binding.mostRatedShimmer.isVisible = it
             if (it) {
                 binding.mostRatedShimmer.startShimmer()
             } else {
                 binding.mostRatedShimmer.stopShimmer()
             }
-        })
+        }
 
-        viewModel.mostRatedLoadingData.exception.observe(viewLifecycleOwner, {
-            binding.mostRatedError.root.visibility = mapVisibility(it)
-        })
+        viewModel.mostRatedLoadingData.exception.observe(viewLifecycleOwner) {
+            binding.mostRatedError.root.isVisible = it
+        }
 
-        viewModel.mostRatedLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-            binding.mostRatedList.visibility = mapVisibility(it)
-        })
+        viewModel.mostRatedLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+            binding.mostRatedList.isVisible = it
+        }
 
-        viewModel.mostRatedLoadingData.values.observe(viewLifecycleOwner, {
+        viewModel.mostRatedLoadingData.values.observe(viewLifecycleOwner) {
             mostRatedAdapter.items = it
-        })
+        }
 
         binding.mostRatedError.reloadButton.setOnClickListener {
             viewModel.mostRatedLoadingData.load()

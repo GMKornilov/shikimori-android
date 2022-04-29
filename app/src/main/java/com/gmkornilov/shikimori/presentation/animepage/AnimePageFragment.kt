@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.animepage
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,7 +22,6 @@ import com.gmkornilov.shikimori.presentation.components.rating.ratingAdapterDele
 import com.gmkornilov.shikimori.presentation.components.screenshots.screenshotAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.stat.statAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.videos.videoAdapterDelegate
-import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import javax.inject.Inject
@@ -101,26 +101,26 @@ class AnimePageFragment : Fragment(R.layout.fragment_anime_page) {
         with(binding.contentScrolling) {
             mainContent.adapter = adapter
 
-            viewModel.loadingData.loading.observe(viewLifecycleOwner, {
+            viewModel.loadingData.loading.observe(viewLifecycleOwner) {
                 if (it) {
                     contentShimmer.startShimmer()
                 } else {
                     contentShimmer.stopShimmer()
                 }
-                contentShimmer.visibility = mapVisibility(it)
-            })
+                contentShimmer.isVisible = it
+            }
 
-            viewModel.loadingData.exception.observe(viewLifecycleOwner, {
-                errorLayout.root.visibility = mapVisibility(it)
-            })
+            viewModel.loadingData.exception.observe(viewLifecycleOwner) {
+                errorLayout.root.isVisible = it
+            }
 
-            viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-                mainContent.visibility = mapVisibility(it)
-            })
+            viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+                mainContent.isVisible = it
+            }
 
-            viewModel.loadingData.values.observe(viewLifecycleOwner, {
+            viewModel.loadingData.values.observe(viewLifecycleOwner) {
                 adapter.items = it
-            })
+            }
 
             errorLayout.reloadButton.setOnClickListener {
                 viewModel.loadingData.load()

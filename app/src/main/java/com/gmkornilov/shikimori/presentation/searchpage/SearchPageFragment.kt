@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -12,8 +13,6 @@ import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.databinding.FragmentSearchBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
-import com.gmkornilov.shikimori.presentation.extensions.mapVisibility
-import com.gmkornilov.shikimori.presentation.components.animepreview.animeHorizontalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.components.animepreview.animeVerticalPreviewAdapterDelegate
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -56,17 +55,17 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
 
     private fun bindLoading() {
         with(binding) {
-            viewModel.searchLoadingData.loading.observe(viewLifecycleOwner, {
-                loadingProgress.visibility = mapVisibility(it)
-            })
+            viewModel.searchLoadingData.loading.observe(viewLifecycleOwner) {
+                loadingProgress.isVisible = it
+            }
         }
     }
 
     private fun bindError() {
         with(binding) {
-            viewModel.searchLoadingData.exception.observe(viewLifecycleOwner, {
-                errorLayout.root.visibility = mapVisibility(it)
-            })
+            viewModel.searchLoadingData.exception.observe(viewLifecycleOwner) {
+                errorLayout.root.isVisible = it
+            }
             errorLayout.reloadButton.setOnClickListener {
 
             }
@@ -77,13 +76,13 @@ class SearchPageFragment : Fragment(R.layout.fragment_search) {
         with(binding) {
             searchedPreviewList.adapter = animePreviewAdapter
 
-            viewModel.searchLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner, {
-                searchedPreviewList.visibility = mapVisibility(it)
-            })
+            viewModel.searchLoadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+                searchedPreviewList.isVisible = it
+            }
 
-            viewModel.searchLoadingData.values.observe(viewLifecycleOwner, {
+            viewModel.searchLoadingData.values.observe(viewLifecycleOwner) {
                 animePreviewAdapter.items = it
-            })
+            }
         }
     }
 
