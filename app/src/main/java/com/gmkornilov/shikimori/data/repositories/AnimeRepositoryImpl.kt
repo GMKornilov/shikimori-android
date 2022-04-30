@@ -2,6 +2,9 @@ package com.gmkornilov.shikimori.data.repositories
 
 import androidx.annotation.WorkerThread
 import com.gmkornilov.shikimori.BuildConfig
+import com.gmkornilov.shikimori.data.http.RequestResult
+import com.gmkornilov.shikimori.data.http.mapSuccessful
+import com.gmkornilov.shikimori.data.http.responseToRequestResult
 import com.gmkornilov.shikimori.data.models.common.*
 import com.gmkornilov.shikimori.data.retrofit.AnimeRemote
 import com.gmkornilov.shikimori.domain.error.BadRequestException
@@ -11,6 +14,7 @@ import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo as DomainAnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
 import com.gmkornilov.shikimori.domain.repositories.AnimeRepository
+import io.reactivex.rxjava3.core.Single
 import kotlinx.serialization.ExperimentalSerializationApi
 import javax.inject.Inject
 
@@ -22,9 +26,9 @@ class AnimeRepositoryImpl @Inject constructor(
     override fun animesByFilter(
         filter: AnimeFilter,
         needsRefresh: Boolean
-    ): List<DomainAnimePreview> {
+    ): Single<RequestResult<List<DomainAnimePreview>>> {
         val dataFilter = filter.toDataAnimeFilter()
-        val response = animeRemote.getAnimes(
+        return animeRemote.getAnimes(
             dataFilter.page,
             dataFilter.limit,
             dataFilter.order,
@@ -41,45 +45,17 @@ class AnimeRepositoryImpl @Inject constructor(
             dataFilter.ids?.joinToString(",") { it.toString() },
             dataFilter.excludeIds?.joinToString(",") { it.toString() },
             dataFilter.searchString,
-        ).execute()
-
-        if (response.isSuccessful) {
-            val body = response.body()
-            if (body != null) {
-                return body.map {
-                    mapAnimePreview(it).toDomainAnimePreview()
-                }
-            } else {
-                throw Exception()
-            }
-        }
-        throw when (response.code()) {
-            UNPROCESSABLE_ENTITY -> BadRequestException()
-            NOT_FOUND -> NotFoundException()
-            in SERVER_ERROR..SERVER_ERROR + 100 -> ServerException()
-            else -> Exception()
-        }
+        )
+            .responseToRequestResult()
+            .mapSuccessful { list -> list.map{ mapAnimePreview(it).toDomainAnimePreview() } }
     }
 
     @ExperimentalSerializationApi
     @WorkerThread
-    override fun animeById(id: Long): DomainAnimeInfo {
-        val response = animeRemote.getAnime(id).execute()
-
-        if (response.isSuccessful) {
-            val body = response.body()
-            if (body != null) {
-                return mapAnimeInfo(body).toDomainAnimeInfo()
-            } else {
-                throw Exception()
-            }
-        }
-        throw when (response.code()) {
-            UNPROCESSABLE_ENTITY -> BadRequestException()
-            NOT_FOUND -> NotFoundException()
-            in SERVER_ERROR..SERVER_ERROR + 100 -> ServerException()
-            else -> Exception()
-        }
+    override fun animeById(id: Long): Single<RequestResult<DomainAnimeInfo>> {
+        return animeRemote.getAnime(id)
+            .responseToRequestResult()
+            .mapSuccessful { mapAnimeInfo(it).toDomainAnimeInfo() }
     }
 
     /**

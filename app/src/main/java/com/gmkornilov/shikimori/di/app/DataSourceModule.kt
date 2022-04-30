@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 
 @Module
 object DataSourceModule {
@@ -114,6 +115,7 @@ object DataSourceModule {
             .client(okHttpClient)
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(Json.asConverterFactory(contentType))
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
     }
 

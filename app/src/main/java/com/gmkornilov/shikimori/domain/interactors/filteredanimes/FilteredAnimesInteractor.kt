@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.domain.interactors.filteredanimes
 
+import com.gmkornilov.shikimori.data.http.RequestResult
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import io.reactivex.rxjava3.core.Single
@@ -16,5 +17,5 @@ interface FilteredAnimesInteractor {
      *
      * @return [Single] emitting list of anime previews which matches [filter]
      */
-    fun loadAnimesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): Single<List<AnimePreview>>
+    fun loadAnimesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): Single<RequestResult<List<AnimePreview>>>
 }

@@ -80,7 +80,9 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
 
     // Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    def retrofitVersion = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
 
     // Cicerone
     implementation "com.github.terrakok:cicerone:7.1"

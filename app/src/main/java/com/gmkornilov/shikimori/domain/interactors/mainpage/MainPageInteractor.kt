@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.domain.interactors.mainpage
 
+import com.gmkornilov.shikimori.data.http.RequestResult
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
 import io.reactivex.rxjava3.core.Single
@@ -34,26 +35,26 @@ interface MainPageInteractor {
      *
      * @return [Single] emitting list of most popular ongoing anime previews
      */
-    fun loadNowOnScreens(): Single<List<AnimePreview>>
+    fun loadNowOnScreens(): Single<RequestResult<List<AnimePreview>>>
 
     /**
      * Loads most popular anime announcements
      *
      * @return [Single] emitting list of most popular anime announcements anime previews
      */
-    fun loadAnnouncements(): Single<List<AnimePreview>>
+    fun loadAnnouncements(): Single<RequestResult<List<AnimePreview>>>
 
     /**
      * Loads most popular animes
      *
      * @return [Single] emitting list of most popular anime previews
      */
-    fun loadMostPopular(): Single<List<AnimePreview>>
+    fun loadMostPopular(): Single<RequestResult<List<AnimePreview>>>
 
     /**
      * Loads most rated animes
      *
      * @return [Single] emitting list of most rated anime previews
      */
-    fun loadMostRated(): Single<List<AnimePreview>>
+    fun loadMostRated(): Single<RequestResult<List<AnimePreview>>>
 }

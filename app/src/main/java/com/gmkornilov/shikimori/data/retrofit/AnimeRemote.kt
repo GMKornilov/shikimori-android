@@ -1,8 +1,9 @@
 package com.gmkornilov.shikimori.data.retrofit
 
 import com.gmkornilov.shikimori.data.models.common.*
+import io.reactivex.rxjava3.core.Single
 import kotlinx.serialization.ExperimentalSerializationApi
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -28,9 +29,9 @@ interface AnimeRemote {
         @Query("ids") idsString: String?,
         @Query("exclude_ids") excludeIdsString: String?,
         @Query("search") searchString: String?
-    ): Call<List<AnimePreview>>
+    ): Single<Response<List<AnimePreview>>>
 
     @ExperimentalSerializationApi
     @GET("api/animes/{id}")
-    fun getAnime(@Path("id") id: Long): Call<AnimeInfo>
+    fun getAnime(@Path("id") id: Long): Single<Response<AnimeInfo>>
 }

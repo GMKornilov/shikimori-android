@@ -1,9 +1,11 @@
 package com.gmkornilov.shikimori.domain.repositories
 
 import androidx.annotation.WorkerThread
+import com.gmkornilov.shikimori.data.http.RequestResult
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeInfo
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
+import io.reactivex.rxjava3.core.Single
 import kotlinx.serialization.ExperimentalSerializationApi
 
 interface AnimeRepository {
@@ -17,7 +19,7 @@ interface AnimeRepository {
      */
     @WorkerThread
     @ExperimentalSerializationApi
-    fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): List<AnimePreview>
+    fun animesByFilter(filter: AnimeFilter, needsRefresh: Boolean = false): Single<RequestResult<List<AnimePreview>>>
 
     /**
      * Gets information about anime bu given [id]
@@ -28,5 +30,5 @@ interface AnimeRepository {
      */
     @WorkerThread
     @ExperimentalSerializationApi
-    fun animeById(id: Long): AnimeInfo
+    fun animeById(id: Long): Single<RequestResult<AnimeInfo>>
 }

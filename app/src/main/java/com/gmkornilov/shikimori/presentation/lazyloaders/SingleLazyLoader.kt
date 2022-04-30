@@ -4,13 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.gmkornilov.shikimori.data.http.RequestResult
+import com.gmkornilov.shikimori.data.http.mapSuccessful
 import com.gmkornilov.shikimori.presentation.system.rx.SchedulersProvider
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class SingleLazyLoader<T : Any, R : Any>(
     private val schedulersProvider: SchedulersProvider,
-    private val loader: () -> Single<T>,
+    private val loader: () -> Single<RequestResult<T>>,
     private val mapper: (T) -> R,
 ) {
     private val _loading = MutableLiveData(false)
@@ -42,7 +44,7 @@ class SingleLazyLoader<T : Any, R : Any>(
 
     fun load() {
         val disposable = loader()
-            .map {
+            .mapSuccessful {
                 mapper(it)
             }
             .subscribeOn(schedulersProvider.background())
@@ -54,12 +56,10 @@ class SingleLazyLoader<T : Any, R : Any>(
             .doAfterTerminate {
                 _loading.value = false
             }
-            .subscribe { result, throwable ->
-                if (throwable != null) {
-                    Log.d(TAG, "$throwable")
-                    _exception.value = true
-                } else {
-                    _values.value = result
+            .subscribe { result ->
+                when (result) {
+                    is RequestResult.Success -> _values.value = result.data
+                    else -> _exception.value = true
                 }
             }
         compositeDisposable.add(disposable)

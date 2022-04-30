@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.searchpage
 
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
+import com.gmkornilov.shikimori.data.http.RequestResult
 import com.gmkornilov.shikimori.domain.interactors.searchpage.SearchPageInteractor
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview as DomainAnimePreview
@@ -29,7 +30,7 @@ class SearchPageViewModel @AssistedInject constructor(
                 if (currentQuery != null) {
                     searchPageInteractor.loadAnimesByQuery(currentQuery, SEARCH_LIMIT)
                 } else {
-                    Single.just(emptyList())
+                    Single.just(RequestResult.Success(emptyList()))
                 }
             }
         ) { list ->

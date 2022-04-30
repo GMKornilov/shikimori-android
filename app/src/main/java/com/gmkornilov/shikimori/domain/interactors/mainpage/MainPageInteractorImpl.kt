@@ -1,5 +1,6 @@
 package com.gmkornilov.shikimori.domain.interactors.mainpage
 
+import com.gmkornilov.shikimori.data.http.RequestResult
 import com.gmkornilov.shikimori.domain.models.common.AnimeFilter
 import com.gmkornilov.shikimori.domain.models.common.AnimeOrder
 import com.gmkornilov.shikimori.domain.models.common.AnimePreview
@@ -35,27 +36,19 @@ class MainPageInteractorImpl @Inject constructor(
         .limit(10)
         .build()
 
-    override fun loadNowOnScreens(): Single<List<AnimePreview>> {
-        return Single.fromCallable {
-            animeRepository.animesByFilter(nowOnScreensFilter)
-        }
+    override fun loadNowOnScreens(): Single<RequestResult<List<AnimePreview>>> {
+        return animeRepository.animesByFilter(nowOnScreensFilter)
     }
 
-    override fun loadAnnouncements(): Single<List<AnimePreview>> {
-        return Single.fromCallable {
-            animeRepository.animesByFilter(announcementsFilter)
-        }
+    override fun loadAnnouncements(): Single<RequestResult<List<AnimePreview>>> {
+        return animeRepository.animesByFilter(announcementsFilter)
     }
 
-    override fun loadMostPopular(): Single<List<AnimePreview>> {
-        return Single.fromCallable {
-            animeRepository.animesByFilter(mostPopularFilter)
-        }
+    override fun loadMostPopular(): Single<RequestResult<List<AnimePreview>>> {
+        return animeRepository.animesByFilter(mostPopularFilter)
     }
 
-    override fun loadMostRated(): Single<List<AnimePreview>> {
-        return Single.fromCallable {
-            animeRepository.animesByFilter(mostRatedFilter)
-        }
+    override fun loadMostRated(): Single<RequestResult<List<AnimePreview>>> {
+        return animeRepository.animesByFilter(mostRatedFilter)
     }
 }
