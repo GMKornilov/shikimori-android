@@ -12,7 +12,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class FilteredAnimesViewModelFactory (
-    private val animeFilter: AnimeFilter,
+    private val animeFilter: AnimeFilter?,
     private val router: Router,
     private val filteredAnimesViewModelAssistedFactory: FilteredAnimesViewModelAssistedFactory,
 ) : ViewModelProvider.Factory {
@@ -23,5 +23,5 @@ class FilteredAnimesViewModelFactory (
 
 @AssistedFactory
 interface FilteredAnimesViewModelAssistedFactory {
-    fun create(router: Router, filter: AnimeFilter): FilteredAnimesViewModel
+    fun create(router: Router, filter: AnimeFilter?): FilteredAnimesViewModel
 }

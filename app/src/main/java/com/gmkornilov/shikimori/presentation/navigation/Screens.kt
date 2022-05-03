@@ -2,12 +2,12 @@ package com.gmkornilov.shikimori.presentation.navigation
 
 import android.content.Intent
 import android.net.Uri
-import androidx.annotation.StringRes
 import com.github.terrakok.cicerone.androidx.ActivityScreen
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.gmkornilov.shikimori.presentation.animepage.AnimePageFragment
 import com.gmkornilov.shikimori.presentation.filteredanimespage.FilteredAnimesFragment
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
+import com.gmkornilov.shikimori.presentation.filteredanimespage.FilteredAnimesTitleType
 import com.gmkornilov.shikimori.presentation.mainpage.MainFragment
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackFragment
@@ -23,8 +23,12 @@ object Screens {
         AnimePageFragment.newInstance(animePreview)
     }
 
-    fun FilteredAnimesScreen(filter: AnimeFilter, @StringRes nameResId: Int) = FragmentScreen {
-        FilteredAnimesFragment.newInstance(filter, nameResId)
+    fun FilteredAnimesScreen(
+        titleType: FilteredAnimesTitleType,
+        filter: AnimeFilter? = null,
+        backAvailable: Boolean = true,
+    ) = FragmentScreen {
+        FilteredAnimesFragment.newInstance(filter, titleType, backAvailable)
     }
 
     fun Search() = FragmentScreen {

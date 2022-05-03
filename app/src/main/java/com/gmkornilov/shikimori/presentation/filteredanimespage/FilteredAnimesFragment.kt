@@ -2,7 +2,6 @@ package com.gmkornilov.shikimori.presentation.filteredanimespage
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +12,7 @@ import com.gmkornilov.shikimori.databinding.FragmentFilteredAnimesBinding
 import com.gmkornilov.shikimori.presentation.ShikimoriApplication
 import com.gmkornilov.shikimori.presentation.components.BaseComponent
 import com.gmkornilov.shikimori.presentation.components.animepreview.animeVerticalPreviewAdapterDelegate
+import com.gmkornilov.shikimori.presentation.extensions.getAppCompatDrawable
 import com.gmkornilov.shikimori.presentation.navigation.arguments.AnimeFilter
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.BackstackNavigationManager
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
@@ -32,7 +32,7 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
     private val binding: FragmentFilteredAnimesBinding by viewBinding(FragmentFilteredAnimesBinding::bind)
 
     private val viewModel: FilteredAnimesViewModel by viewModels {
-        val animeFilter = requireArguments().getParcelable<AnimeFilter>(filterKey)!!
+        val animeFilter = requireArguments().getParcelable<AnimeFilter>(filterKey)
         FilteredAnimesViewModelFactory(animeFilter, router, viewModelFactory)
     }
 
@@ -45,8 +45,16 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
         bindError()
 
         with(binding) {
-            val title = context?.getString(requireArguments().getInt(nameResIdKey))
+            val titleType = requireArguments().getSerializable(titleType) as FilteredAnimesTitleType
+            val title = context?.getString(titleType.titleRes)
             toolbar.title = title
+
+            val backAvailable = requireArguments().getBoolean(backAvailableKey)
+            if (backAvailable) {
+                toolbar.navigationIcon = context?.getAppCompatDrawable(R.drawable.ic_back_button)
+            } else {
+                toolbar.navigationIcon = null
+            }
         }
     }
 
@@ -76,39 +84,41 @@ class FilteredAnimesFragment : Fragment(R.layout.fragment_filtered_animes) {
 
         binding.previewList.adapter = adapter
 
-        viewModel.loadingData.values.observe(viewLifecycleOwner) {
+        viewModel.values.observe(viewLifecycleOwner) {
             adapter.items = it
         }
     }
 
     private fun bindLoading() {
-        viewModel.loadingData.loading.observe(viewLifecycleOwner) {
+        viewModel.loading.observe(viewLifecycleOwner) {
             binding.loadingProgress.isVisible = it
         }
 
-        viewModel.loadingData.loadedWithoutErrors.observe(viewLifecycleOwner) {
+        viewModel.loadedWithoutErrors.observe(viewLifecycleOwner) {
             binding.previewList.isVisible = it
         }
     }
 
     private fun bindError() {
         binding.errorLayout.reloadButton.setOnClickListener {
-            viewModel.loadingData.load()
+            viewModel.load()
         }
 
-        viewModel.loadingData.exception.observe(viewLifecycleOwner) {
+        viewModel.exception.observe(viewLifecycleOwner) {
             binding.errorLayout.root.isVisible = it
         }
     }
 
     companion object {
         private const val filterKey = "FILTER"
-        private const val nameResIdKey = "NAME"
+        private const val titleType = "TITLE_TYPE"
+        private const val backAvailableKey = "BACK_AVAILABLE"
 
-        fun newInstance(filter: AnimeFilter, @StringRes nameResId: Int): Fragment {
+        fun newInstance(filter: AnimeFilter?, filteredAnimesTitleType: FilteredAnimesTitleType, backAvailable: Boolean): Fragment {
             val bundle = Bundle().apply {
                 putParcelable(filterKey, filter)
-                putInt(nameResIdKey, nameResId)
+                putSerializable(titleType, filteredAnimesTitleType)
+                putBoolean(backAvailableKey, backAvailable)
             }
             return FilteredAnimesFragment().apply {
                 arguments = bundle

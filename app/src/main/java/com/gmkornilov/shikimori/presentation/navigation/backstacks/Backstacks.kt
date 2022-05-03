@@ -2,6 +2,7 @@ package com.gmkornilov.shikimori.presentation.navigation.backstacks
 
 import androidx.annotation.IdRes
 import com.gmkornilov.shikimori.R
+import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.CatalogBackstackInfo
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.MainBackstackInfo
 import com.gmkornilov.shikimori.presentation.navigation.backstacks.appbackstacks.SearchBackstackInfo
 
@@ -10,7 +11,8 @@ enum class Backstacks(
     val backstackInfo: BackstackInfo,
 ) {
     HOME(R.id.page_home, MainBackstackInfo()),
-    SEARCH(R.id.page_search, SearchBackstackInfo());
+    SEARCH(R.id.page_search, SearchBackstackInfo()),
+    CATALOG(R.id.page_catalog, CatalogBackstackInfo());
 
 
     companion object {

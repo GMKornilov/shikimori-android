@@ -2,11 +2,11 @@ package com.gmkornilov.shikimori.presentation.mainpage
 
 import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
-import com.gmkornilov.shikimori.R
 import com.gmkornilov.shikimori.domain.interactors.mainpage.MainPageInteractor
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreview
 import com.gmkornilov.shikimori.presentation.components.animepreview.AnimePreviewClicked
 import com.gmkornilov.shikimori.presentation.components.animepreview.toPresentationAnimePreview
+import com.gmkornilov.shikimori.presentation.filteredanimespage.FilteredAnimesTitleType
 import com.gmkornilov.shikimori.presentation.lazyloaders.SingleLazyLoader
 import com.gmkornilov.shikimori.presentation.navigation.Screens
 import com.gmkornilov.shikimori.presentation.navigation.arguments.toPresentationAnimeFilter
@@ -74,8 +74,8 @@ class MainViewModel @AssistedInject constructor(
     fun nowOnScreensClicked() {
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                mainPageInteractor.nowOnScreensFilter.toPresentationAnimeFilter(),
-                R.string.now_on_screens
+                FilteredAnimesTitleType.NOW_ON_SCREENS,
+                mainPageInteractor.nowOnScreensFilter.toPresentationAnimeFilter()
             )
         )
     }
@@ -83,8 +83,8 @@ class MainViewModel @AssistedInject constructor(
     fun announcementsClicked() {
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                mainPageInteractor.announcementsFilter.toPresentationAnimeFilter(),
-                R.string.announcements
+                FilteredAnimesTitleType.ANNOUNCED,
+                mainPageInteractor.announcementsFilter.toPresentationAnimeFilter()
             )
         )
     }
@@ -92,8 +92,8 @@ class MainViewModel @AssistedInject constructor(
     fun mostPopularClicked() {
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                mainPageInteractor.mostPopularFilter.toPresentationAnimeFilter(),
-                R.string.most_popular
+                FilteredAnimesTitleType.MOST_POPULAR,
+                mainPageInteractor.mostPopularFilter.toPresentationAnimeFilter()
             )
         )
     }
@@ -101,8 +101,8 @@ class MainViewModel @AssistedInject constructor(
     fun mostRatedClicked() {
         router.navigateTo(
             Screens.FilteredAnimesScreen(
-                mainPageInteractor.mostRatedFilter.toPresentationAnimeFilter(),
-                R.string.most_rated
+                FilteredAnimesTitleType.MOST_RATED,
+                mainPageInteractor.mostRatedFilter.toPresentationAnimeFilter()
             )
         )
     }

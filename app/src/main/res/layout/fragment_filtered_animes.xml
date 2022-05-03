@@ -15,7 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|snap|enterAlways"
-            app:navigationIcon="@drawable/ic_back_button" />
+            tools:title="@string/most_rated"
+            tools:navigationIcon="@drawable/ic_back_button" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
